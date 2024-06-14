@@ -1,10 +1,22 @@
+import React, { useState, useEffect } from "react";
+import { fetchProducts } from "./services/api";
 
+const app = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      const products = await fetchProducts();
+      setProducts(products);
+    };
+    getProducts();
+  }, []);
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+  <div className="App">
+    {/* {products} */}
+  </div>
+  );
+};
 
-    </div>
-
-);
-}
+export default app;
