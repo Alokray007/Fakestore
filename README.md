@@ -12,5 +12,4 @@ npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 ```
 ## Fetch product data from the provided API endpoint.
-
-
+List of - https://fakestoreapi.com/.
