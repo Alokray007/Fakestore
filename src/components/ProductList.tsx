@@ -34,7 +34,7 @@ const ProductList = () => {
           <img src={product.image} alt={product.title} className="w-full h-64 object-cover" />
           <h2 className="text-lg font-bold">{product.title}</h2>
           <div className="flex justify-between">
-            <p>${product.price}</p>
+            <p>Price: ${product.price}</p>
             <div className="flex gap-2">
               <div className="flex">
                 <span>{product.rating.rate}</span>
