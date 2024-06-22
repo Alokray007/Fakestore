@@ -11,7 +11,12 @@ Then install Tailwind
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 ```
-Add other Tailwind configuration
+- Add other Tailwind configuration
+
+-Project Initialization
+```
+npm run dev
+```
 
 ## Fetch product data from the provided API endpoint.
 Use fetch to get products details from API - https://fakestoreapi.com/products

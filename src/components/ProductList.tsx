@@ -1,37 +1,30 @@
-import { useState, useEffect } from "react";
-import { fetchProducts } from "../services/api";
+import React from 'react';
 import StarSvg from '../assets/svg/star-7207.svg';
+import CustomSpinner from './Extra/Spinner';
 
-interface Products {
+interface Product {
   id: number;
   title: string;
   price: number;
-  category: string;
-  description: string;
   image: string;
   rating: {
     rate: number;
     count: number;
-  }
+  };
 }
 
+// Define the props interface for the ProductList component
+interface ProductListProps {
+  products: Product[];
+}
 
-const ProductList = () => {
-  const [products, setProducts] = useState<Products[]>([]);
-
-  useEffect(() => {
-    const getProducts = async () => {
-      const products = await fetchProducts();
-      setProducts(products);
-    };
-    getProducts();
-  }, []);
-
+const ProductList: React.FC<ProductListProps> = ({products}) => {
+  if (!products.length) return <CustomSpinner/>;
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 m-10">
       {products.map(product => (
         <div key={product.id} className="border p-4">
-          <img src={product.image} alt={product.title} className="w-full h-64 object-cover" />
+          <img src={product.image} alt={product.title} className="w-full h-64 object-contain" />
           <h2 className="text-lg font-bold">{product.title}</h2>
           <div className="flex justify-between">
             <p>Price: ${product.price}</p>
