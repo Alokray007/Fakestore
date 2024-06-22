@@ -1,5 +1,5 @@
 import React from 'react';
-import StarSvg from '../assets/svg/star-7207.svg';
+import StarSvg from '/svg/star-7207.svg';
 import CustomSpinner from './Extra/Spinner';
 
 interface Product {
