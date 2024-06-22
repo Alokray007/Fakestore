@@ -11,5 +11,18 @@ Then install Tailwind
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 ```
+- Add other Tailwind configuration
+
+-Project Initialization
+```
+npm run dev
+```
+
 ## Fetch product data from the provided API endpoint.
-List of - https://fakestoreapi.com/.
+Use fetch to get products details from API - https://fakestoreapi.com/products
+
+## Grid to display products
+By using Tailwind CSS Grid to display products destails on home page.
+
+## Product filtering by category
+
