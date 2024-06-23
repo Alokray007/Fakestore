@@ -19,8 +19,8 @@ npm run dev
 ```
 
 ## More Packages
-Used React Lazy Load Image Component for better performance and optimization.
-Used axios for faster data fetching because it escapes an extra step of json parsing.
+- Used React Lazy Load Image Component for better performance and optimization.
+- Used axios for faster data fetching because it escapes an extra step of json parsing.
 
 ## Fetch product data from the provided API endpoint.
 Used axios package to get products details from API - "https://fakestoreapi.com/products"
