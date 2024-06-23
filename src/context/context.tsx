@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 // Context Creation
 
-const AppContext = React.createContext();
+const AppContext = React.createContext("");
 
 // Provider Function
 
@@ -22,8 +22,8 @@ export { AppContext, AppProvider, useGlobalContext };
 
 // To use the global context
 
-    // import { useGlobalContext } from "../../context";
+//     import { useGlobalContext } from "../../context";
 
-    // const data = useGlobalContext()  // use global context
+//     const data = useGlobalContext()  // use global context
 
-    // <span>{data}</span>
+//     <span>{data}</span>

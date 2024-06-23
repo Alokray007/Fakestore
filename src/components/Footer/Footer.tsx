@@ -1,4 +1,4 @@
-import Logo from "../../../public/images/favicon.png";
+import Logo from "../../assets/images/favicon.png";
 
 function Footer() {
   const date: Date = new Date();
@@ -18,9 +18,9 @@ function Footer() {
           <a className=" hover:text-facebook cursor-pointer">
             <svg
               fill="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               className="w-6 h-6"
               viewBox="0 0 24 24"
             >
@@ -30,9 +30,9 @@ function Footer() {
           <a className="ml-3 hover:text-twitter cursor-pointer">
             <svg
               fill="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               className="w-6 h-6"
               viewBox="0 0 24 24"
             >
@@ -43,9 +43,9 @@ function Footer() {
             <svg
               fill="none"
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               className="w-6 h-6"
               viewBox="0 0 24 24"
             >
@@ -57,9 +57,9 @@ function Footer() {
             <svg
               fill="currentColor"
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="0"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="0"
               className="w-6 h-6"
               viewBox="0 0 24 24"
             >

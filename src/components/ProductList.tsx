@@ -1,30 +1,21 @@
 import React from 'react';
-import StarSvg from '/svg/star-7207.svg';
-import CustomSpinner from './Extra/Spinner';
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-  rating: {
-    rate: number;
-    count: number;
-  };
-}
+import StarSvg from '../assets/svg/star-7207.svg'
+import CustomSpinner from './UI/Spinner';
+import  {LazyLoadImage}  from "react-lazy-load-image-component";
+import Pdct from '../types/Products';
 
 // Define the props interface for the ProductList component
 interface ProductListProps {
-  products: Product[];
+  products: Pdct[];
 }
 
 const ProductList: React.FC<ProductListProps> = ({products}) => {
   if (!products.length) return <CustomSpinner/>;
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 m-10">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 m-10 ">
       {products.map(product => (
         <div key={product.id} className="border p-4">
-          <img src={product.image} alt={product.title} className="w-full h-64 object-contain" />
+          <LazyLoadImage src={product.image} alt={product.title} className="w-full h-64 object-contain" />
           <h2 className="text-lg font-bold">{product.title}</h2>
           <div className="flex justify-between">
             <p>Price: ${product.price}</p>

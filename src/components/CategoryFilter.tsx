@@ -1,33 +1,43 @@
 import React, { useState, useEffect } from 'react';
+import axios from '../services/axios';
 
 interface CategoryFilterProps {
-    onCategoryChange: (category: string) => void;
+  onCategoryChange: (category: string) => void;
 }
 
 const CategoryFilter: React.FC<CategoryFilterProps> = ({ onCategoryChange }) => {
   const [categories, setCategories] = useState([]);
+  const [isError, setISError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await fetch('https://fakestoreapi.com/products/categories');
-      const categories = await response.json();
-      setCategories(categories);
+      try {
+        const res = await axios.get('/products/categories');
+        setCategories(res.data);
+      } catch (error) {
+        if (error instanceof Error) {
+          setISError(error.message);
+        } else {
+          setISError('An unexpected error occurred');
+        }
+      }
     };
     fetchCategories();
   }, []);
 
+  if(isError) {return <h1 className='text-center text-2xl font-semibold text-red-700'>{isError}</h1>}
   return (
-    <div className='text-end mr-10'>
+    <>
+      <div className='text-end mr-10'>
         <select className="border-2 border-black hover:border-red-600 hover:cursor-pointer" onChange={e => onCategoryChange(e.target.value)}>
-            <option value="">All</option>
-            {categories.map(category => (
-                <option key={category} value={category}>{category}</option>
-            ))}
+          <option value="">All</option>
+          {categories.map(category => (
+            <option key={category} value={category}>{category}</option>
+          ))}
         </select>
-    </div>
+      </div>
+    </>
   );
-
-
 };
 
 export default CategoryFilter;
