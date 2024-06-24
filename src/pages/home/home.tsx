@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import axios from "../../services/axios";
-import ProductList from '../../components/ProductList';
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 import CategoryFilter from '../../components/CategoryFilter';
+import Hero from '../../components/hero/Hero';
+import ProductList from '../../components/ProductList';
+import ContactUs from '../../components/contact/ContactUs';
+import axios from "../../services/axios";
 import Pdct from '../../types/Products';
 
-const App = () => {
+const Home = () => {
   const [products, setProducts] = useState<Pdct[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Pdct[]>([]);
   const [isError, setISError] = useState<string | null>(null);
@@ -38,15 +38,15 @@ const App = () => {
 
   return (
   <div className="App">
-    <Header />
     <CategoryFilter onCategoryChange={handleCategoryChange}/>
-    {/* <h1 className='text-center text-3xl m-2 p-4 font-semibold text-yellow-400'>PRODUCTS</h1> */}
+    <Hero />
+    <h1 className='text-center text-3xl m-2 p-4 font-semibold text-yellow-400'>PRODUCTS</h1>
     {isError && <h1 className='text-center text-2xl font-semibold text-red-700'>{isError}</h1>}
     <ProductList products={filteredProducts}/>
-    <Footer />
+    <ContactUs />
   </div>
   );
 
 };
 
-export default App;
+export default Home;

@@ -1,5 +1,25 @@
 import Logo from "../../assets/images/favicon.png";
 import styles from "./Header.module.css";
+import {Link} from 'react-router-dom';
+
+const navigations = [
+  {
+    name: 'Home',
+    path : '/'
+  },
+  {
+    name: 'Category',
+    path : '/'
+  },
+  {
+    name: 'Collections',
+    path : '/'
+  },
+  {
+    name: 'Contact US',
+    path : '/'
+  }
+]
 
 const Header: React.FC = () => {
   return (
@@ -7,39 +27,18 @@ const Header: React.FC = () => {
       <section className="relative mx-auto">
         <nav className="flex justify-between bg-gray-900 text-white w-screen">
           <div className="px-5 xl:px-12 py-6 flex w-full items-center">
-            <a className="flex text-3xl font-bold font-heading" href="#">
+            <Link to={`/`} className="flex text-3xl font-bold font-heading">
               <img src={Logo} alt="Logo" className="w-8 h-8" />
               <span className="ml-3 text-xl">FakeStore</span>
-            </a>
+            </Link>
             <ul className="hidden md:flex justify-center px-4 mx-auto font-heading space-x-12 cursor-pointer ">
-              <li>
-                <a
-                  className={`hover:text-white ${styles.header1} ${styles.header2} ${styles.header3} ${styles.header4}`}
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  className={`hover:text-white ${styles.header1} ${styles.header2} ${styles.header3} ${styles.header4}`}
-                >
-                  Catagory
-                </a>
-              </li>
-              <li>
-                <a
-                  className={`hover:text-white ${styles.header1} ${styles.header2} ${styles.header3} ${styles.header4}`}
-                >
-                  Collections
-                </a>
-              </li>
-              <li>
-                <a
-                  className={`hover:text-white ${styles.header1} ${styles.header2} ${styles.header3} ${styles.header4}`}
-                >
-                  Contact US
-                </a>
-              </li>
+              {navigations.map(navigation => (
+                <li key={navigation.name}>
+                  <Link to={navigation.path} className={`hover:text-white ${styles.header1} ${styles.header2} ${styles.header3} ${styles.header4}`}>
+                    {navigation.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
             <div className="hidden xl:flex items-center space-x-5">
               <a className="hover:text-gray-200" href="#">

@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import axios from "../../services/axios";
 import Pdct from "../../types/Products";
+import CustomSpinner from "../../components/UI/Spinner";
+import {Link} from 'react-router-dom'
 
-const ProductDetails = () => {
+const ProductDetails: React.FC = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState<Pdct>(null);
+  const [product, setProduct] = useState<Pdct>();
   const [isError, setISError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -25,25 +27,26 @@ const ProductDetails = () => {
     fetchProductDetails()
   }, [id]);
 
-  if (!product) return <div>Loading...</div>;
+  if (!product) return <CustomSpinner/>;
 
   if(isError) {return <h1 className='text-center text-2xl font-semibold text-red-700'>{isError}</h1>}
+
   return (
-    <section key={product.id} className="text-gray-600 body-font overflow-hidden">
+    <Link to={`/products/${id}`} key={product.id} className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
-          {/* <LazyLoadImage
+          <LazyLoadImage
             alt={product.title}
-            className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
+            className="lg:w-1/2 w-full lg:h-auto max-h-[500px] h-64 object-contain object-center rounded"
             src={product.image}
-          /> */}
-          <div className="h-48 md:h-56 lg:h-[24rem] w-full bg-red-500 border-2 border-white flex items-center justify-center text-white text-base mb-3 md:mb-5 overflow-hidden relative">
+          />
+          {/* <div className="h-48 md:h-56 lg:h-[24rem] w-full bg-red-500 border-2 border-white flex items-center justify-center text-white text-base mb-3 md:mb-5 overflow-hidden relative">
             <LazyLoadImage src={product.image} alt={product.title} className="object-cover w-full h-full scale-100 group-hover:scale-110 transition-all duration-400"/>
             <div className="absolute z-10 border-4 border-primary w-[95%] h-[95%] invisible group-hover:visible opacity-0 group-hover:opacity-100 group-hover:scale-90 transition-all duration-500"></div>
-          </div>
+          </div> */}
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-            <h2 className="text-sm title-font text-gray-500 tracking-widest">
-              BRAND NAME
+            <h2 className="text-sm title-font text-gray-500 tracking-widest uppercase">
+            {product.category}
             </h2>
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
             {product.title}
@@ -106,9 +109,10 @@ const ProductDetails = () => {
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                 </svg>
                 <span className="text-gray-600 ml-3">{product.rating.rate}</span>
+                <span className="text-gray-600 ml-3">({product.rating.count} reviews)</span>
               </span>
               <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
-                <a className="text-gray-500">
+                <a className="text-gray-500 hover:text-facebook cursor-pointer">
                   <svg
                     fill="currentColor"
                     stroke-linecap="round"
@@ -120,7 +124,7 @@ const ProductDetails = () => {
                     <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
                   </svg>
                 </a>
-                <a className="text-gray-500">
+                <a className="text-gray-500 hover:text-twitter cursor-pointer">
                   <svg
                     fill="currentColor"
                     stroke-linecap="round"
@@ -132,7 +136,7 @@ const ProductDetails = () => {
                     <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
                   </svg>
                 </a>
-                <a className="text-gray-500">
+                <a className="text-gray-500 hover:text-instagram cursor-pointer">
                   <svg
                     fill="currentColor"
                     stroke-linecap="round"
@@ -149,16 +153,18 @@ const ProductDetails = () => {
             <p className="leading-relaxed">
             {product.description}
             </p>
-            <div className="flex">
+            <div className="flex justify-between mt-4 pt-4 border-t-2">
               <span className="title-font font-medium text-2xl text-gray-900">
                 ${product.price}
               </span>
-              <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                Buy Now
-              </button>
-              <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                Add to Cart
-              </button>
+              <div className="flex gap-4">
+                <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                  Buy Now
+                </button>
+                <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                  Add to Cart
+                </button>
+              </div>
               <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                 <svg
                   fill="currentColor"
@@ -175,7 +181,7 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
-    </section>
+    </Link>
   );
 };
 
