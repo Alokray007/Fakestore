@@ -1,15 +1,15 @@
-nav a {
+.header1 {
   transition: 0.1s;
 }
 
-nav a:hover {
+.header2:hover {
   opacity: 0.9;
   transition: opacity 0.3s ease;
   font-weight: 600;
   color: white;
 }
 
-nav a::after {
+.header3::after {
   content: "";
   width: 0;
   height: 2px;
@@ -18,6 +18,6 @@ nav a::after {
   transition: 0.2s linear;
 }
 
-nav a:hover::after {
+.header4:hover::after {
   width: 100%;
 }

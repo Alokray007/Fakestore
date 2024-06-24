@@ -21,7 +21,6 @@ const ProductList: React.FC<ProductListProps> = ({products}) => {
       left: 0,
       behavior:'smooth',
     });
-
   };
 
   const currentItems = products.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -49,14 +48,14 @@ const ProductList: React.FC<ProductListProps> = ({products}) => {
     </div>
     <div className='my-4 text-center'>
       {Array.from({ length: totalPages }, (_, index) => (
-          <button key={index} onClick={() => handleChangePage(index + 1)} className="px-3 py2 border mx-2 bg-green-400 focus:bg-slate-600">
+          <button key={index} onClick={() => handleChangePage(index + 1)} className="px-3 py-1 border mx-2 focus:bg-green-400">
             {index + 1}
           </button>
       ))}
     </div>
     </div>
-
   );
 };
+
 
 export default ProductList;

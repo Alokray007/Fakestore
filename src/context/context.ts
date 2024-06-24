@@ -1,22 +1,26 @@
-import React, { useContext } from "react";
+// import React, { useContext } from "react";
 
 // Context Creation
 
-const AppContext = React.createContext("");
+// const AppContext = React.createContext("");
 
 // Provider Function
 
-const AppProvider = ({ children }) => {
-  return <AppContext.Provider value="">{children}</AppContext.Provider>;
-};
+// const AppProvider = ({ children }) => {
+//   return (
+//     <AppContext.Provider value={"Alok"}>
+//       {children}
+//     </AppContext.Provider>
+//   );
+// };
 
 // Custome hook creation
 
-const useGlobalContext = () => {
-  return useContext(AppContext);
-};
+// const useGlobalContext = () => {
+//   return useContext(AppContext);
+// };
 
-export { AppContext, AppProvider, useGlobalContext };
+// export { AppContext, AppProvider, useGlobalContext };
 
 
 
