@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import axios from "../../services/axios";
-import Pdct from "../../types/Products";
+import {Pdct} from "../../types/Products";
 import CustomSpinner from "../../components/UI/Spinner";
 import {Link} from 'react-router-dom'
+import {BtnShop} from "../../components/UI/Buttons";
+import RatingStars from "../../components/UI/RatingStar";
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams();
@@ -53,51 +55,8 @@ const ProductDetails: React.FC = () => {
             </h1>
             <div className="flex mb-4">
               <span className="flex items-center">
-                <svg
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  className="w-4 h-4 text-indigo-500"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                </svg>
-                <svg
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  className="w-4 h-4 text-indigo-500"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                </svg>
-                <svg
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  className="w-4 h-4 text-indigo-500"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                </svg>
-                <svg
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  className="w-4 h-4 text-indigo-500"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                </svg>
-                <svg
+                {/* {if (product.rating.rate >= 0) {
+                  <svg
                   fill="none"
                   stroke="currentColor"
                   stroke-linecap="round"
@@ -108,6 +67,10 @@ const ProductDetails: React.FC = () => {
                 >
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                 </svg>
+                }
+                }
+ */}
+                <RatingStars rating={product.rating.rate} />
                 <span className="text-gray-600 ml-3">{product.rating.rate}</span>
                 <span className="text-gray-600 ml-3">({product.rating.count} reviews)</span>
               </span>
@@ -158,12 +121,8 @@ const ProductDetails: React.FC = () => {
                 ${product.price}
               </span>
               <div className="flex gap-4">
-                <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                  Buy Now
-                </button>
-                <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                  Add to Cart
-                </button>
+                <BtnShop data={`Buy Now`}/>
+                <BtnShop data={`Add to Cart`} />
               </div>
               <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                 <svg

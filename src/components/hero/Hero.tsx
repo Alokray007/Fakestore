@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "../../services/axios";
-import Pdct from '../../types/Products';
+import {Pdct} from '../../types/Products';
+import {BtnHero} from '../UI/Buttons';
 
 const Hero: React.FC = () => {
   const [products, setProducts] = React.useState<Pdct[]>([]);
@@ -53,9 +54,7 @@ const Hero: React.FC = () => {
                     Get it Fast
                   </h5>
                   <div className="mt-2 h-[24px] sm:h-[50px] md:h-[80px]"></div>
-                  <button className="mt-2 bg-[#4C56D7] px-10 py-2 text-white sm:px-14">
-                    Add To Cart
-                  </button>
+                  <BtnHero data={`Add To Cart`} />
                 </div>
               </div>
             </div>

@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import StarSvg from "../assets/svg/star-7207.svg";
 import CustomSpinner from "./UI/Spinner";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import Pdct from "../types/Products";
+import { ProductListProps } from "../types/Products";
 import { Link } from "react-router-dom";
 
-// Define the props interface for the ProductList component
-interface ProductListProps {
-  products: Pdct[];
-}
 
 const ProductList: React.FC<ProductListProps> = ({ products = [] }) => {
   const [currentPage, setCurrentPage] = useState(1);
