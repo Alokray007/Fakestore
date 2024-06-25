@@ -7,6 +7,7 @@ import CustomSpinner from "../../components/UI/Spinner";
 import {Link} from 'react-router-dom'
 import {BtnShop} from "../../components/UI/Buttons";
 import RatingStars from "../../components/UI/RatingStar";
+import SocialSvg from "../../components/UI/SocialSvg";
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams();
@@ -39,13 +40,9 @@ const ProductDetails: React.FC = () => {
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <LazyLoadImage
             alt={product.title}
-            className="lg:w-1/2 w-full lg:h-auto max-h-[500px] h-64 object-contain object-center rounded"
+            className="lg:w-1/2 w-full lg:h-auto max-h-[500px] h-64 object-contain transition-transform duration-500 ease-in-out transform group-hover:scale-110"
             src={product.image}
           />
-          {/* <div className="h-48 md:h-56 lg:h-[24rem] w-full bg-red-500 border-2 border-white flex items-center justify-center text-white text-base mb-3 md:mb-5 overflow-hidden relative">
-            <LazyLoadImage src={product.image} alt={product.title} className="object-cover w-full h-full scale-100 group-hover:scale-110 transition-all duration-400"/>
-            <div className="absolute z-10 border-4 border-primary w-[95%] h-[95%] invisible group-hover:visible opacity-0 group-hover:opacity-100 group-hover:scale-90 transition-all duration-500"></div>
-          </div> */}
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <h2 className="text-sm title-font text-gray-500 tracking-widest uppercase">
             {product.category}
@@ -55,62 +52,12 @@ const ProductDetails: React.FC = () => {
             </h1>
             <div className="flex mb-4">
               <span className="flex items-center">
-                {/* {if (product.rating.rate >= 0) {
-                  <svg
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  className="w-4 h-4 text-indigo-500"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                </svg>
-                }
-                }
- */}
                 <RatingStars rating={product.rating.rate} />
                 <span className="text-gray-600 ml-3">{product.rating.rate}</span>
                 <span className="text-gray-600 ml-3">({product.rating.count} reviews)</span>
               </span>
               <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
-                <a className="text-gray-500 hover:text-facebook cursor-pointer">
-                  <svg
-                    fill="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-                  </svg>
-                </a>
-                <a className="text-gray-500 hover:text-twitter cursor-pointer">
-                  <svg
-                    fill="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
-                  </svg>
-                </a>
-                <a className="text-gray-500 hover:text-instagram cursor-pointer">
-                  <svg
-                    fill="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-                  </svg>
-                </a>
+                <SocialSvg />
               </span>
             </div>
             <p className="leading-relaxed">
@@ -127,9 +74,9 @@ const ProductDetails: React.FC = () => {
               <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                 <svg
                   fill="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   className="w-5 h-5"
                   viewBox="0 0 24 24"
                 >

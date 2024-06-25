@@ -9,7 +9,7 @@ const RatingStars:React.FC<RatingStarsProps> = ({ rating }) => {
       {stars.map((_, index) => (
         <svg
           key={index}
-          fill={index < rating ? "currentColor" : "none"}
+          fill={index < Math.round(rating) ? "currentColor" : "none"}
           stroke="currentColor"
           strokeLinecap="round"
           strokeLinejoin="round"

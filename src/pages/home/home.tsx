@@ -4,7 +4,7 @@ import Hero from '../../components/hero/Hero';
 import ProductList from '../../components/ProductList';
 import ContactUs from '../../components/contact/ContactUs';
 import axios from "../../services/axios";
-import Pdct from '../../types/Products';
+import {Pdct} from '../../types/Products';
 
 const Home = () => {
   const [products, setProducts] = useState<Pdct[]>([]);
