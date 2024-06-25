@@ -17,7 +17,7 @@ const navigations = [
   },
   {
     name: 'Contact US',
-    path : '/'
+    path : '/contactus'
   }
 ]
 

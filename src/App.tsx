@@ -3,6 +3,7 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import ProductDetails from './pages/productDetails/ProductDetails';
 import {Routes, Route } from 'react-router-dom'
+import ContactUs  from './pages/contact/ContactUs';
 
 const App = () => {
 
@@ -12,6 +13,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/products/:id" element={<ProductDetails />} />
+      <Route path="/contactus" element={<ContactUs />} />
     </Routes>
     <Footer />
   </div>

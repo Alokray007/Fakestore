@@ -17,4 +17,34 @@ const BtnHero: React.FC<BtnShopProps> = ({ data }) => {
   );
 };
 
-export { BtnShop, BtnHero };
+const BtnShopLeft: React.FC<BtnShopProps> = ({ data }) => {
+  return (
+    <a
+      className="group relative inline-block overflow-hidden border border-indigo-600 px-8 py-3 focus:outline-none focus:ring"
+      href="#"
+    >
+      <span className="absolute inset-y-0 left-0 w-[2px] bg-indigo-600 transition-all group-hover:w-full group-active:bg-indigo-500"></span>
+
+      <span className="relative text-sm font-medium text-indigo-600 transition-colors group-hover:text-white">
+        {data}
+      </span>
+    </a>
+  );
+};
+
+const BtnShopRight: React.FC<BtnShopProps> = ({ data }) => {
+  return (
+    <a
+      className="group relative inline-block overflow-hidden border border-indigo-600 px-8 py-3 focus:outline-none focus:ring"
+      href="#"
+    >
+      <span className="absolute inset-y-0 right-0 w-[2px] bg-indigo-600 transition-all group-hover:w-full group-active:bg-indigo-500"></span>
+
+      <span className="relative text-sm font-medium text-indigo-600 transition-colors group-hover:text-white">
+        {data}
+      </span>
+    </a>
+  );
+};
+
+export { BtnShop, BtnHero, BtnShopLeft, BtnShopRight };

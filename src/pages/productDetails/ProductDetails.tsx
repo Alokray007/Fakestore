@@ -68,8 +68,8 @@ const ProductDetails: React.FC = () => {
                 ${product.price}
               </span>
               <div className="flex gap-4">
-                <BtnShop data={`Buy Now`}/>
-                <BtnShop data={`Add to Cart`} />
+                <BtnShop data={"Buy Now"}/>
+                <BtnShop data={"Add to Cart"} />
               </div>
               <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                 <svg

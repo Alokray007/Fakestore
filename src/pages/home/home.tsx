@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import CategoryFilter from '../../components/CategoryFilter';
-import Hero from '../../components/hero/Hero';
+import HeroHome from '../../components/hero/HeroHome';
 import ProductList from '../../components/ProductList';
 import axios from "../../services/axios";
 import {Pdct} from '../../types/Products';
@@ -38,8 +38,8 @@ const Home = () => {
 
   return (
   <div className="App">
+    <HeroHome />
     <CategoryFilter onCategoryChange={handleCategoryChange}/>
-    <Hero />
     <h1 className='text-center text-3xl m-2 p-4 font-semibold text-yellow-400'>PRODUCTS</h1>
     {isError && <h1 className='text-center text-2xl font-semibold text-red-700'>{isError}</h1>}
     <ProductList products={filteredProducts}/>

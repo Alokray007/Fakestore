@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "../../services/axios";
 import { Pdct } from '../../types/Products';
-import { BtnShop } from '../UI/Buttons';
+import { BtnShopLeft, BtnShopRight} from '../UI/Buttons';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import CustomSpinner from "../../components/UI/Spinner";
 
@@ -20,7 +20,7 @@ const Hero: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get('/products');
+        const res = await axios.get('/products?limit=15');
         const products = res.data;
         setProducts(products);
         productsRef.current = products; // Update the ref
@@ -37,7 +37,7 @@ const Hero: React.FC = () => {
 
     const intervalId = setInterval(() => {
       setProduct(getRandomProduct(productsRef.current));
-    }, 30000); // Refresh every 30 Seconds
+    }, 10000); // Refresh every 10 Seconds
 
     return () => clearInterval(intervalId);
   }, []);
@@ -57,8 +57,8 @@ const Hero: React.FC = () => {
           </h1>
           <p className="mb-8 text-xl leading-relaxed">{product.title}</p>
           <div className="flex justify-center gap-4">
-            <BtnShop data="Add To Cart" />
-            <BtnShop data="Buy Now" />
+            <BtnShopLeft data="Buy Now" />
+            <BtnShopRight data="Add To Cart" />
           </div>
         </div>
         <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
