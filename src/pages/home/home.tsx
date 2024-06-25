@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import CategoryFilter from '../../components/CategoryFilter';
 import Hero from '../../components/hero/Hero';
 import ProductList from '../../components/ProductList';
-import ContactUs from '../../components/contact/ContactUs';
 import axios from "../../services/axios";
 import {Pdct} from '../../types/Products';
+import Testimonial from '../../components/testimonial/Testimonial';
 
 const Home = () => {
   const [products, setProducts] = useState<Pdct[]>([]);
@@ -30,7 +30,7 @@ const Home = () => {
 
   const handleCategoryChange = (category:string) => {
     if (category === '') {
-      setFilteredProducts(products);
+      setFilteredProducts(products);-0
     } else {
       setFilteredProducts(products.filter(product => product.category === category));
     }
@@ -43,7 +43,7 @@ const Home = () => {
     <h1 className='text-center text-3xl m-2 p-4 font-semibold text-yellow-400'>PRODUCTS</h1>
     {isError && <h1 className='text-center text-2xl font-semibold text-red-700'>{isError}</h1>}
     <ProductList products={filteredProducts}/>
-    <ContactUs />
+    <Testimonial />
   </div>
   );
 

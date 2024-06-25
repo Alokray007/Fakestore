@@ -11,7 +11,7 @@ const BtnShop: React.FC<BtnShopProps> = ({ data }) => {
 
 const BtnHero: React.FC<BtnShopProps> = ({ data }) => {
   return (
-    <button className="mt-2 bg-[#4C56D7] px-10 py-2 text-white sm:px-14">
+    <button className="mt-2 bg-[#4C56D7] px-10 py-2 text-white sm:px-14 hover:bg-green-600">
       {data}
     </button>
   );

@@ -1,17 +1,30 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "../../services/axios";
-import {Pdct} from '../../types/Products';
-import {BtnHero} from '../UI/Buttons';
+import { Pdct } from '../../types/Products';
+import { BtnShop } from '../UI/Buttons';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import CustomSpinner from "../../components/UI/Spinner";
 
 const Hero: React.FC = () => {
-  const [products, setProducts] = React.useState<Pdct[]>([]);
+  const [products, setProducts] = useState<Pdct[]>([]);
+  const [product, setProduct] = useState<Pdct | null>(null);
   const [isError, setISError] = useState<string | null>(null);
+  const productsRef = useRef<Pdct[]>([]);
+
+  const getRandomProduct = (products: Pdct[]) => {
+    if (products.length === 0) return null;
+    const randomIndex = Math.floor(Math.random() * products.length);
+    return products[randomIndex];
+  };
 
   useEffect(() => {
-    const getProducts = async () => {
+    const fetchProducts = async () => {
       try {
-        const res = await axios.get("/products");
-        setProducts(res.data);
+        const res = await axios.get('/products');
+        const products = res.data;
+        setProducts(products);
+        productsRef.current = products; // Update the ref
+        setProduct(getRandomProduct(products)); // Set the initial product immediately
       } catch (error) {
         if (error instanceof Error) {
           setISError(error.message);
@@ -20,84 +33,36 @@ const Hero: React.FC = () => {
         }
       }
     };
-    getProducts()
+    fetchProducts();
+
+    const intervalId = setInterval(() => {
+      setProduct(getRandomProduct(productsRef.current));
+    }, 30000); // Refresh every 30 Seconds
+
+    return () => clearInterval(intervalId);
   }, []);
 
+  if (!product) return <CustomSpinner />;
+
+  if (isError) {
+    return <h1 className='text-center text-2xl font-semibold text-red-700'>{isError}</h1>;
+  }
 
   return (
-    <section className="Hero relative h-screen w-screen bg-[#4C56D7] bg-opacity-5 overflow-hidden">
-      <div className="flex h-[10%] justify-end bg-white pr-2">
-        <label className="my-auto text-2xl sm:text-4xl">
-          SHOP THE LATEST DROP
-        </label>
-      </div>
-
-      <div className="h-[90%]">
-        <div className="ContentArea relative h-full">
-          <div className="h-full">
-          {isError && <h1 className='text-center text-2xl font-semibold text-red-700'>{isError}</h1>}
-          {products.map(product => (
-            <div key={product.id} className="flex h-full w-full items-end justify-end">
-              <img
-                src={product.image}
-                className="absolute top-0 h-[90%] w-screen object-cover object-top sm:h-full sm:w-screen-1/2"
-              />
-            </div>
-             ))};
-            <div className="absolute bottom-0 flex">
-              <div>
-                <div className="ProductInfo w-[200px] rounded bg-white p-4 sm:ml-10 sm:w-[280px] sm:bg-opacity-10 md:w-[520px]">
-                  <h4 className="text-xl sm:text-3xl md:text-6xl">
-                    New Arrival
-                  </h4>
-                  <h5 className="mt-2 text-base sm:text-xl md:text-2xl">
-                    Get it Fast
-                  </h5>
-                  <div className="mt-2 h-[24px] sm:h-[50px] md:h-[80px]"></div>
-                  <BtnHero data={`Add To Cart`} />
-                </div>
-              </div>
-            </div>
+    <section className="text-gray-600 body-font m-8">
+      <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+        <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+          <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-red-500">
+            Before they sold out
+          </h1>
+          <p className="mb-8 text-xl leading-relaxed">{product.title}</p>
+          <div className="flex justify-center gap-4">
+            <BtnShop data="Add To Cart" />
+            <BtnShop data="Buy Now" />
           </div>
-
-          <div className="absolute bottom-4 right-0 z-10 flex sm:bottom-0 sm:right-4">
-            <div className="mr-1 flex h-[50px] w-[50px] items-center justify-center border bg-white sm:m-2 sm:h-[80px] sm:w-[80px]">
-              <a href="">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="h-6 w-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 19.5L8.25 12l7.5-7.5"
-                  />
-                </svg>
-              </a>
-            </div>
-            <div className="mr-1 flex h-[50px] w-[50px] items-center justify-center border bg-white sm:m-2 sm:h-[80px] sm:w-[80px]">
-              <a href="">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="h-6 w-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                  />
-                </svg>
-              </a>
-            </div>
-          </div>
+        </div>
+        <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+          <LazyLoadImage className="object-contain object-center rounded h-96" alt={product.title} src={product.image} />
         </div>
       </div>
     </section>

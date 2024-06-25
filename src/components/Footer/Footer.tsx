@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
         <h2 className="title-font font-medium text-white tracking-widest text-sm mb-3">PAGES</h2>
         <nav className="list-none mb-10 cursor-pointer">
           <li>
-            <a className="text-gray-400 hover:text-white">Home</a>
+            <a className="text-gray-400 hover:text-white" href="/">Home</a>
           </li>
           <li>
             <a className="text-gray-400 hover:text-white">Catagory</a>
