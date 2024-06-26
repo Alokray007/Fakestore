@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import CategoryFilter from '../../components/CategoryFilter';
-import HeroHome from '../../components/hero/HeroHome';
+// import HeroHome from '../../components/hero/HeroHome';
 import ProductList from '../../components/ProductList';
 import axios from "../../services/axios";
 import {Pdct} from '../../types/Products';
 import Testimonial from '../../components/testimonial/Testimonial';
+import Categories from '../../components/categories/Categories'
+import Hero from '../../components/hero/Hero';
 
 const Home = () => {
   const [products, setProducts] = useState<Pdct[]>([]);
@@ -30,7 +32,7 @@ const Home = () => {
 
   const handleCategoryChange = (category:string) => {
     if (category === '') {
-      setFilteredProducts(products);-0
+      setFilteredProducts(products);
     } else {
       setFilteredProducts(products.filter(product => product.category === category));
     }
@@ -38,10 +40,11 @@ const Home = () => {
 
   return (
   <div className="App">
-    <HeroHome />
+    <Hero />
     <CategoryFilter onCategoryChange={handleCategoryChange}/>
     <h1 className='text-center text-3xl m-2 p-4 font-semibold text-yellow-400'>PRODUCTS</h1>
     {isError && <h1 className='text-center text-2xl font-semibold text-red-700'>{isError}</h1>}
+    <Categories />
     <ProductList products={filteredProducts}/>
     <Testimonial />
   </div>

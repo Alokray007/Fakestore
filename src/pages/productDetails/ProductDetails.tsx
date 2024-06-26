@@ -4,7 +4,6 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import axios from "../../services/axios";
 import {Pdct} from "../../types/Products";
 import CustomSpinner from "../../components/UI/Spinner";
-import {Link} from 'react-router-dom'
 import {BtnShop} from "../../components/UI/Buttons";
 import RatingStars from "../../components/UI/RatingStar";
 import SocialSvg from "../../components/UI/SocialSvg";
@@ -35,15 +34,15 @@ const ProductDetails: React.FC = () => {
   if(isError) {return <h1 className='text-center text-2xl font-semibold text-red-700'>{isError}</h1>}
 
   return (
-    <Link to={`/products/${id}`} key={product.id} className="text-gray-600 body-font overflow-hidden">
-      <div className="container px-5 py-24 mx-auto">
-        <div className="lg:w-4/5 mx-auto flex flex-wrap">
+    <div key={product.id} className="text-gray-600 body-font overflow-hidden">
+      <div className="container px-5 py-36 mx-auto">
+        <div className="lg:w-4/5 mx-auto flex flex-wrap group relative overflow-hidden">
           <LazyLoadImage
             alt={product.title}
-            className="lg:w-1/2 w-full lg:h-auto max-h-[500px] h-64 object-contain transition-transform duration-500 ease-in-out transform group-hover:scale-110"
+            className="lg:w-1/2 w-full lg:h-auto max-h-[500px] h-64 object-contain transition duration-500 group-hover:scale-105 sm:h-72"
             src={product.image}
           />
-          <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+          <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0 items-center">
             <h2 className="text-sm title-font text-gray-500 tracking-widest uppercase">
             {product.category}
             </h2>
@@ -87,7 +86,7 @@ const ProductDetails: React.FC = () => {
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
