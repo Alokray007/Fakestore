@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../services/axios';
+import {CategoriesFilterProps} from '../types/Products'
 
-interface CategoryFilterProps {
-  onCategoryChange: (category: string) => void;
-}
 
-const CategoryFilter: React.FC<CategoryFilterProps> = ({ onCategoryChange }) => {
+const CategoryFilter: React.FC<CategoriesFilterProps> = ({ onCategoryChange }) => {
   const [categories, setCategories] = useState([]);
   const [isError, setISError] = useState<string | null>(null);
 

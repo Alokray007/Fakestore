@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "../../services/axios";
 import { Pdct } from "../../types/Products";
 import Product from "../../components/product/Product";
-import StarSvg from "../../assets/svg/star-7207.svg"
-
+import StarSvg from "../../assets/svg/star-7207.svg";
+import Category from "../../components/categories/Categories";
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Pdct[]>([]);
@@ -27,15 +27,32 @@ const Products: React.FC = () => {
     getAllProducts();
   }, []);
 
+  const handleCategoryClick = (category: string) => {
+    if (category === "" || category === "All") {
+      setFilteredProducts(products);
+    } else {
+      setFilteredProducts(
+        products.filter((product) => product.category === category)
+      );
+    }
+  };
+
+  if (isError) {
+    return (
+      <h1 className="text-center text-2xl font-semibold text-red-700">{isError}</h1>
+    );
+  }
+
   return (
     <section>
-      <div className="mx-auto mt-12 max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+      <div className="mx-auto mt-12 max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 ">
         <header>
-          <h2 className="text-xl font-bold text-gray-900 sm:text-3xl">
-            Product Collection
-          </h2>
-          <p className="mt-4 max-w-md text-gray-500">
-          Discover the Best in Electronics, Fashion, and Jewelry – Elevate Your Lifestyle Today!
+          <h1 className="text-center bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl">
+            Discover Our Exclusive
+            <span className="sm:block">Collection</span>
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl sm:text-xl/relaxed text-center">
+            Explore Top-Quality Products Curated Just for You
           </p>
         </header>
 
@@ -80,11 +97,7 @@ const Products: React.FC = () => {
                 Category
               </h2>
               <ul className="mt-1 rounded border-gray-300 text-sm">
-                <li>All</li>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
+                <Category onCategoryClick={handleCategoryClick} />
               </ul>
             </div>
             <div>
@@ -329,7 +342,8 @@ const Products: React.FC = () => {
 
                           <span className="text-sm font-medium text-gray-700 flex items-center ">
                             {" "}
-                            4 <img src={StarSvg} className="h-3" alt="star" />  & above{" "}
+                            4 <img src={StarSvg} className="h-3" alt="star" /> &
+                            above{" "}
                           </span>
                         </label>
                       </li>
@@ -347,7 +361,8 @@ const Products: React.FC = () => {
 
                           <span className="text-sm font-medium text-gray-700 flex items-center">
                             {" "}
-                            3 <img src={StarSvg } className="h-3" alt="star" /> & above{" "}
+                            3 <img src={StarSvg} className="h-3" alt="star" /> &
+                            above{" "}
                           </span>
                         </label>
                       </li>
@@ -365,7 +380,12 @@ const Products: React.FC = () => {
 
                           <span className="text-sm font-medium text-gray-700 flex items-center">
                             {" "}
-                            2 <img src={StarSvg} className="h-3" alt="star" /> <span className="font-regular"> & above</span> {" "}
+                            2 <img
+                              src={StarSvg}
+                              className="h-3"
+                              alt="star"
+                            />{" "}
+                            <span className="font-regular"> & above</span>{" "}
                           </span>
                         </label>
                       </li>
@@ -383,7 +403,8 @@ const Products: React.FC = () => {
 
                           <span className="text-sm font-medium text-gray-700 flex items-center">
                             {" "}
-                            1 <img src={StarSvg} className="h-3" alt="star" />  & above{" "}
+                            1 <img src={StarSvg} className="h-3" alt="star" /> &
+                            above{" "}
                           </span>
                         </label>
                       </li>
@@ -395,7 +416,14 @@ const Products: React.FC = () => {
           </div>
 
           <div className="lg:col-span-3 flex-grow">
-            <Product products={products}/>
+            <p className=" text-right mb-2">
+              Get Yourself the Best from Our Top{" "}
+              <span className="font-bold">
+                {filteredProducts.length} Products
+              </span>
+              .
+            </p>
+            <Product products={filteredProducts} />
           </div>
         </div>
       </div>

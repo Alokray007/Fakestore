@@ -44,7 +44,6 @@ const Home = () => {
     <CategoryFilter onCategoryChange={handleCategoryChange}/>
     <h1 className='text-center text-3xl m-2 p-4 font-semibold text-yellow-400'>PRODUCTS</h1>
     {isError && <h1 className='text-center text-2xl font-semibold text-red-700'>{isError}</h1>}
-    <Categories />
     <ProductList products={filteredProducts}/>
     <Testimonial />
   </div>

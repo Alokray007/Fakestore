@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
             <a className="text-gray-400 hover:text-white" href="/">Home</a>
           </li>
           <li>
-            <a className="text-gray-400 hover:text-white">Products</a>
+            <a className="text-gray-400 hover:text-white" href="/products">Products</a>
           </li>
           <li>
             <a className="text-gray-400 hover:text-white">Collections</a>
@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
         <h2 className="title-font font-medium text-white tracking-widest text-sm mb-3">CATEGORIES</h2>
         <nav className="list-none mb-10 cursor-pointer">
           <li>
-            <a className="text-gray-400 hover:text-white">Electronics</a>
+            <a className="text-gray-400 hover:text-white" href="/products/">Electronics</a>
           </li>
           <li>
             <a className="text-gray-400 hover:text-white">Jewelery</a>

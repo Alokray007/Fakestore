@@ -20,4 +20,13 @@ interface RatingStarsProps {
   rating: number;
 }
 
-export type { Pdct, ProductListProps, RatingStarsProps };
+interface CategoryFilterProps {
+  onCategoryClick: (category: string) => void;
+}
+
+interface CategoriesFilterProps {
+  onCategoryChange: (category: string) => void;
+}
+
+
+export type { Pdct, ProductListProps, RatingStarsProps, CategoryFilterProps, CategoriesFilterProps };
