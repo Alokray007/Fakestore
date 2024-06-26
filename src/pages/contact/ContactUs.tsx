@@ -1,4 +1,3 @@
-
 import Faq from '../../components/faq\'s/Faq'
 import Contact from '../../components/contact/Contact'
 import { Link } from 'react-router-dom'

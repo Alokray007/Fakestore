@@ -9,17 +9,17 @@ const Faq = () => {
   };
 
   return (
-    <div className="space-y-4 m-20">
+    <div className="space-y-4 mx-20 mt-40">
       <h1 className="text-4xl font-bold mb-8">Frequently Asked Questions</h1>
       {QA.map((faq, index) => (
         <details
           key={index}
-          className="group border-s-4 border-green-500 bg-gray-50 p-6 [&_summary::-webkit-details-marker]:hidden"
+          className="group border-s-4 border-green-500 bg-gray-50 p-6 [&_summary::-webkit-details-marker]:hidden "
           open={openFaq === index}
           onClick={() => toggleFaq(index)}
         >
-          <summary className="flex cursor-pointer items-center justify-between gap-1.5">
-            <h2 className="text-lg font-medium text-gray-900">
+          <summary className="flex cursor-pointer items-center justify-between gap-1.5 ">
+            <h2 className="text-lg font-medium text-gray-900 hover:text-blue-600">
               {faq.question}
             </h2>
             <span className="shrink-0 rounded-full bg-white p-1.5 text-gray-900 sm:p-3">

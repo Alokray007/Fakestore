@@ -16,13 +16,13 @@ const Footer: React.FC = () => {
             <a className="text-gray-400 hover:text-white" href="/">Home</a>
           </li>
           <li>
-            <a className="text-gray-400 hover:text-white">Catagory</a>
+            <a className="text-gray-400 hover:text-white">Products</a>
           </li>
           <li>
             <a className="text-gray-400 hover:text-white">Collections</a>
           </li>
           <li>
-            <a className="text-gray-400 hover:text-white">Contact Us</a>
+            <a className="text-gray-400 hover:text-white" href="/contactus">Contact Us</a>
           </li>
         </nav>
       </div>

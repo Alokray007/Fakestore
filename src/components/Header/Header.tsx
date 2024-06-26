@@ -8,8 +8,8 @@ const navigations = [
     path : '/'
   },
   {
-    name: 'Category',
-    path : '/'
+    name: 'Products',
+    path : '/products'
   },
   {
     name: 'Collections',
@@ -23,8 +23,8 @@ const navigations = [
 
 const Header: React.FC = () => {
   return (
-    <header className="flex flex-wrap place-items-center overflow-hidden ">
-      <section className="relative mx-auto">
+    <header className="flex flex-wrap place-items-center overflow-hidden fixed w-full z-50 top-0">
+      <section className="relative mx-auto ">
         <nav className="flex justify-between bg-gray-900 text-white w-screen">
           <div className="px-5 xl:px-12 py-6 flex w-full items-center">
             <Link to={`/`} className="flex text-3xl font-bold font-heading">
