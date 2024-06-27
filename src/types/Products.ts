@@ -8,12 +8,14 @@ interface Pdct {
   rating: {
     rate: number;
     count: number;
-  }
+  };
+
 }
 
 // Define the props interface for the ProductList component
 interface ProductListProps {
   products: Pdct[];
+  search: string | number |null;
 }
 
 interface RatingStarsProps {

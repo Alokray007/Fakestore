@@ -9,6 +9,7 @@ const Products: React.FC = () => {
   const [products, setProducts] = useState<Pdct[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Pdct[]>([]);
   const [isError, setISError] = useState<string | null>(null);
+  const [search, SetSearch] = useState<string | number>("");
 
   useEffect(() => {
     const getAllProducts = async () => {
@@ -54,6 +55,13 @@ const Products: React.FC = () => {
           <p className="mx-auto mt-4 max-w-xl sm:text-xl/relaxed text-center">
             Explore Top-Quality Products Curated Just for You
           </p>
+          <p className="text-right mt-2">
+              Get Yourself the Best from Our Top{" "}
+              <span className="font-bold">
+                {filteredProducts.length} Products
+              </span>
+              .
+            </p>
         </header>
 
         <div className="mt-8 block lg:hidden">
@@ -80,17 +88,14 @@ const Products: React.FC = () => {
         <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
           <div className="hidden space-y-4 lg:block">
             <div>
-              <label
-                htmlFor="Search"
-                className="block text-xs font-medium text-gray-700"
-              >
-                Search
-              </label>
-              <input
-                type="text"
-                className="mt-1 rounded border-gray-300 text-sm"
-                placeholder="Search Products"
-              />
+              <form onSubmit={(e) => e.preventDefault()}>
+                <input
+                  type="text"
+                  className="mt-1 rounded border-gray-300 text-l"
+                  placeholder="Search Products"
+                  onChange={(e) => SetSearch(e.target.value)}
+                />
+              </form>
             </div>
             <div>
               <h2 className="block text-xs font-medium text-gray-700">
@@ -416,14 +421,7 @@ const Products: React.FC = () => {
           </div>
 
           <div className="lg:col-span-3 flex-grow">
-            <p className=" text-right mb-2">
-              Get Yourself the Best from Our Top{" "}
-              <span className="font-bold">
-                {filteredProducts.length} Products
-              </span>
-              .
-            </p>
-            <Product products={filteredProducts} />
+            <Product products={filteredProducts} search={search} />
           </div>
         </div>
       </div>
