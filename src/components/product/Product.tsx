@@ -1,11 +1,11 @@
 import React from "react";
-import { ProductListProps } from "../../types/Products";
+import { ProductSearchListProps } from "../../types/Products";
 import StarSvg from "../../assets/svg/star-7207.svg";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Spinner from "../UI/Spinner";
 
-const Product: React.FC<ProductListProps> = ({ products, search }) => {
+const Product: React.FC<ProductSearchListProps> = ({ products, search, sortedProducts }) => {
   let find:string;
   if (typeof(search) === 'string') {
     find = search.toLowerCase()
@@ -15,7 +15,7 @@ const Product: React.FC<ProductListProps> = ({ products, search }) => {
 
   return (
     <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {products.filter((item) => {return find === '' ? item : item.title.toLowerCase().includes(find)}).map((product) => (
+      {sortedProducts.filter((item) => {return find === '' ? item : (item.title.toLowerCase().includes(find) || item.description.toLowerCase().includes(find))}).map((product) => (
         <li key={product.id} className="flex h-full">
           <Link
             to={`/products/${product.id}`}

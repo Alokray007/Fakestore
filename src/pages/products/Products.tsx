@@ -4,12 +4,51 @@ import { Pdct } from "../../types/Products";
 import Product from "../../components/product/Product";
 import StarSvg from "../../assets/svg/star-7207.svg";
 import Category from "../../components/categories/Categories";
+import Search from "../../components/searchInput/Search";
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Pdct[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Pdct[]>([]);
   const [isError, setISError] = useState<string | null>(null);
-  const [search, SetSearch] = useState<string | number>("");
+  const [search, setSearch] = useState<string | number>("");
+  const [sortedProducts, setSortedProducts] = useState(products);
+  const [sortOption, setSortOption] = useState('Sort By');
+
+  useEffect(() => {
+    handleSort();
+  }, [sortOption, products]);
+
+  const handleSort = () => {
+    const sortedArray = [...filteredProducts]; // Change from products to filteredProducts
+    switch (sortOption) {
+      case 'Title, DESC':
+        sortedArray.sort((a, b) => b.title.localeCompare(a.title));
+        break;
+      case 'Title, ASC':
+        sortedArray.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case 'Price, HL':
+        sortedArray.sort((a, b) => b.price - a.price);
+        break;
+      case 'Price, LH':
+        sortedArray.sort((a, b) => a.price - b.price);
+        break;
+      case 'Rating, HL':
+        sortedArray.sort((a, b) => b.rating.rate - a.rating.rate);
+        break;
+      case 'Rating, LH':
+        sortedArray.sort((a, b) => a.rating.rate - b.rating.rate);
+        break;
+      default:
+        break;
+    }
+    setSortedProducts(sortedArray);
+  };
+
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortOption(e.target.value);
+  };
+
 
   useEffect(() => {
     const getAllProducts = async () => {
@@ -87,16 +126,11 @@ const Products: React.FC = () => {
 
         <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
           <div className="hidden space-y-4 lg:block">
+
             <div>
-              <form onSubmit={(e) => e.preventDefault()}>
-                <input
-                  type="text"
-                  className="mt-1 rounded border-gray-300 text-l"
-                  placeholder="Search Products"
-                  onChange={(e) => SetSearch(e.target.value)}
-                />
-              </form>
+              <Search setSearch={setSearch} />
             </div>
+
             <div>
               <h2 className="block text-xs font-medium text-gray-700">
                 Category
@@ -105,6 +139,7 @@ const Products: React.FC = () => {
                 <Category onCategoryClick={handleCategoryClick} />
               </ul>
             </div>
+
             <div>
               <label
                 htmlFor="SortBy"
@@ -117,12 +152,15 @@ const Products: React.FC = () => {
               <select
                 id="SortBy"
                 className="mt-1 rounded border-gray-300 text-sm"
+                onChange={handleSortChange}
               >
                 <option>Sort By</option>
                 <option value="Title, DESC">Title, DESC</option>
                 <option value="Title, ASC">Title, ASC</option>
-                <option value="Price, LH">Price: Low to High</option>
                 <option value="Price, HL">Price: High to Low</option>
+                <option value="Price, LH">Price: Low to High</option>
+                <option value="Rating, HL">Rating: High to Low</option>
+                <option value="Rating, LH">Rating: Low to High</option>
               </select>
             </div>
 
@@ -421,7 +459,10 @@ const Products: React.FC = () => {
           </div>
 
           <div className="lg:col-span-3 flex-grow">
-            <Product products={filteredProducts} search={search} />
+          {/* {sortedProducts.map((product) => (
+                <Product key={product.id} product={product}  />
+              ))} */}
+            <Product products={filteredProducts} search={search} sortedProducts={sortedProducts} />
           </div>
         </div>
       </div>

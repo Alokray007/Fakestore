@@ -15,7 +15,17 @@ interface Pdct {
 // Define the props interface for the ProductList component
 interface ProductListProps {
   products: Pdct[];
-  search: string | number |null;
+}
+
+interface ProductSearchListProps {
+  products: Pdct[];
+  search: string | number ;
+  setSearch: string | number;
+  sortedProducts : Pdct[];
+}
+
+interface setSearchProps {
+  setSearch: (value: string | number | null) => void;
 }
 
 interface RatingStarsProps {
@@ -30,5 +40,4 @@ interface CategoriesFilterProps {
   onCategoryChange: (category: string) => void;
 }
 
-
-export type { Pdct, ProductListProps, RatingStarsProps, CategoryFilterProps, CategoriesFilterProps };
+export type { Pdct, ProductListProps, ProductSearchListProps, setSearchProps, RatingStarsProps, CategoryFilterProps, CategoriesFilterProps };
