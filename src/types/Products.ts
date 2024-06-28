@@ -20,8 +20,6 @@ interface ProductListProps {
 interface ProductSearchListProps {
   products: Pdct[];
   search: string | number ;
-  setSearch: string | number;
-  sortedProducts : Pdct[];
 }
 
 interface setSearchProps {
