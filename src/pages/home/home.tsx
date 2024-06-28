@@ -5,7 +5,6 @@ import ProductList from '../../components/ProductList';
 import axios from "../../services/axios";
 import {Pdct} from '../../types/Products';
 import Testimonial from '../../components/testimonial/Testimonial';
-import Categories from '../../components/categories/Categories'
 import Hero from '../../components/hero/Hero';
 
 const Home = () => {
