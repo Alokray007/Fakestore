@@ -1,6 +1,6 @@
 ### Project setup
 
-## Project Initialization using React,Typescript and Tailwind
+## 1-Project Initialization using React,Typescript and Tailwind
 First install react with typescript using vite
 ```
 npm create vite@latest <project_name> react-ts
@@ -22,13 +22,26 @@ npm run dev
 - Used React Lazy Load Image Component for better performance and optimization.
 - Used axios for faster data fetching because it escapes an extra step of json parsing.
 
-## Fetch product data from the provided API endpoint.
+## 2-Fetch product data from the provided API endpoint.
 Used axios package to get products details from API - "https://fakestoreapi.com/products"
 
-## Grid to display products
+## 3-Grid to display products
 By using Tailwind CSS Grid to display products destails on home page.
 
-## Product filtering by category
+## 4-Product filtering by category
 Used Dropdown to filter products
 
-## pagination to Access product list.
+## 5-pagination to Access product list.
+click on different pages upon product availability
+
+## 6-Product details page
+Created a product details page that displays more information about a selected product.
+
+## 8-Search Functionality
+Implement a search functionality to allow users to search for products by name or description.
+
+## 9-version control
+Use version control (e.g., Git) throughout the development process, ensuring atomic commits.
+
+## 11-advanced filtering options
+Add advanced filtering options (e.g., price range, rating) and sorting options (e.g., price, popularity).
