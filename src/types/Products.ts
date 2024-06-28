@@ -39,7 +39,7 @@ interface CategoriesFilterProps {
 }
 
 interface PriceFilterProps {
-  sortedProducts: Pdct[];
+  FinalFilter: Pdct[];
   handleResetPrice: () => void;
   handleMinPriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleMaxPriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -47,8 +47,19 @@ interface PriceFilterProps {
   maxPrice: string | number;
 }
 
+interface RateFilterProps {
+  selectedRatings: {
+    fourStar: boolean;
+    threeStar: boolean;
+    twoStar: boolean;
+    oneStar: boolean;
+  };
+  handleResetRating: () => void;
+  handleRatingChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
 interface SortProps {
   handleSortChange : (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export type { Pdct, ProductListProps, ProductSearchListProps, handleSearchProps, RatingStarsProps, CategoryFilterProps, CategoriesFilterProps, PriceFilterProps, SortProps };
+export type { Pdct, ProductListProps, ProductSearchListProps, handleSearchProps, RatingStarsProps, CategoryFilterProps, CategoriesFilterProps, PriceFilterProps, SortProps, RateFilterProps };
