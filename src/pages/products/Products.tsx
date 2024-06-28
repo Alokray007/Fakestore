@@ -5,6 +5,8 @@ import Product from "../../components/product/Product";
 import StarSvg from "../../assets/svg/star-7207.svg";
 import Category from "../../components/categories/Categories";
 import Search from "../../components/searchInput/Search";
+import PriceFilter from "../../components/Filter&Sort/PriceFilter";
+import Sort from "../../components/Filter&Sort/Sort"
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Pdct[]>([]);
@@ -12,7 +14,7 @@ const Products: React.FC = () => {
   const [isError, setISError] = useState<string | null>(null);
   const [search, setSearch] = useState<string | number>("");
   const [sortedProducts, setSortedProducts] = useState(products);
-  const [sortOption, setSortOption] = useState('Sort By');
+  const [sortOption, setSortOption] = useState("Sort By");
   const [minPrice, setMinPrice] = useState<number | string>("");
   const [maxPrice, setMaxPrice] = useState<number | string>("");
 
@@ -34,6 +36,11 @@ const Products: React.FC = () => {
     getAllProducts();
   }, []);
 
+  // Products Search
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value)
+  }
+
   // handle Category Change from all Products as filteredProducts
   const handleCategoryClick = (category: string) => {
     if (category === "" || category === "All") {
@@ -51,45 +58,50 @@ const Products: React.FC = () => {
   const handleSort = useCallback(() => {
     const sortedArray = [...filteredProducts]; // Change from products to filteredProducts
     switch (sortOption) {
-      case 'Title, DESC':
+      case "":
+        sortedArray
+        break;
+      case "Title, DESC":
         sortedArray.sort((a, b) => b.title.localeCompare(a.title));
         break;
-      case 'Title, ASC':
+      case "Title, ASC":
         sortedArray.sort((a, b) => a.title.localeCompare(b.title));
         break;
-        case 'Popularity':
-          sortedArray.sort((a, b) => b.rating.count - a.rating.count || b.rating.rate - a.rating.rate);
-          break;
-      case 'Price, HL':
+      case "Popularity":
+        sortedArray.sort(
+          (a, b) =>
+            b.rating.count - a.rating.count || b.rating.rate - a.rating.rate
+        );
+        break;
+      case "Price, HL":
         sortedArray.sort((a, b) => b.price - a.price);
         break;
-      case 'Price, LH':
+      case "Price, LH":
         sortedArray.sort((a, b) => a.price - b.price);
         break;
-      case 'Rating, HL':
+      case "Rating, HL":
         sortedArray.sort((a, b) => b.rating.rate - a.rating.rate);
         break;
-      case 'Rating, LH':
+      case "Rating, LH":
         sortedArray.sort((a, b) => a.rating.rate - b.rating.rate);
         break;
       default:
         break;
     }
     setSortedProducts(sortedArray);
-  },[sortOption, filteredProducts]);
+  }, [sortOption, filteredProducts]);
 
-    // calling handle sort only when change in sortOption, products
+  // calling handle sort only when change in sortOption, products
   useEffect(() => {
     handleSort();
   }, [sortOption, products, handleSort]);
 
-    // Handle sort option change
+  // Handle sort option change
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortOption(e.target.value);
   };
 
   ////////////////////////////////////////////////////////////////
-
 
   // Handle price range change
   const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,7 +115,7 @@ const Products: React.FC = () => {
   const handleResetPrice = () => {
     setMinPrice("");
     setMaxPrice("");
-  }
+  };
 
   const filteredByPrice = sortedProducts.filter((product) => {
     const price = product.price;
@@ -112,10 +124,11 @@ const Products: React.FC = () => {
     return price >= min && price <= max;
   });
 
-
   if (isError) {
     return (
-      <h1 className="text-center text-2xl font-semibold text-red-700">{isError}</h1>
+      <h1 className="text-center text-2xl font-semibold text-red-700">
+        {isError}
+      </h1>
     );
   }
 
@@ -131,12 +144,12 @@ const Products: React.FC = () => {
             Explore Top-Quality Products Curated Just for You
           </p>
           <p className="text-right mt-2">
-              Get Yourself the Best from Our Top{" "}
-              <span className="font-bold">
-                {filteredProducts.length} Products
-              </span>
-              .
-            </p>
+            Get Yourself the Best from Our Top{" "}
+            <span className="font-bold">
+              {filteredProducts.length} Products
+            </span>
+            .
+          </p>
         </header>
 
         <div className="mt-8 block lg:hidden">
@@ -162,124 +175,22 @@ const Products: React.FC = () => {
 
         <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
           <div className="hidden space-y-4 lg:block">
-
-            <div>
-              <Search setSearch={setSearch} />
-            </div>
-
-            <div>
-              <h2 className="block text-xs font-medium text-gray-700">
-                Category
-              </h2>
-              <ul className="mt-1 rounded border-gray-300 text-sm">
-                <Category onCategoryClick={handleCategoryClick} />
-              </ul>
-            </div>
-
-            <div>
-              <label
-                htmlFor="SortBy"
-                className="block text-xs font-medium text-gray-700"
-              >
-                {" "}
-                Sort By{" "}
-              </label>
-
-              <select
-                id="SortBy"
-                className="mt-1 rounded border-gray-300 text-sm"
-                onChange={handleSortChange}
-              >
-                <option>Sort By</option>
-                <option value="Title, DESC">Title, DESC</option>
-                <option value="Title, ASC">Title, ASC</option>
-                <option value="Popularity">Popularity</option>
-                <option value="Price, HL">Price: High to Low</option>
-                <option value="Price, LH">Price: Low to High</option>
-                <option value="Rating, HL">Rating: High to Low</option>
-                <option value="Rating, LH">Rating: Low to High</option>
-              </select>
-            </div>
+            <Search handleSearch={handleSearch} />
+            <Category onCategoryClick={handleCategoryClick} />
+            <Sort handleSortChange={handleSortChange}/>
 
             <div>
               <p className="block text-xs font-medium text-gray-700">Filters</p>
 
               <div className="mt-1 space-y-2">
-                <details className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
-                  <summary className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
-                    <span className="text-sm font-medium"> Price </span>
-
-                    <span className="transition group-open:-rotate-180">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="h-4 w-4"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                        />
-                      </svg>
-                    </span>
-                  </summary>
-
-                  <div className="border-t border-gray-200 bg-white">
-                    <header className="flex items-center justify-between p-4">
-                      <span className="text-sm text-gray-700">
-                        {" "}
-                        The highest price is ${Math.max(...sortedProducts.map(product => product.price))}{" "}
-                      </span>
-
-                      <button
-                        type="button"
-                        className="text-sm text-gray-900 underline underline-offset-4 hover:text-blue-500"
-                        onClick={handleResetPrice}
-                      >
-                        Reset
-                      </button>
-                    </header>
-
-                    <div className="border-t border-gray-200 p-4">
-                      <div className="flex justify-between gap-4">
-                        <label
-                          htmlFor="FilterPriceFrom"
-                          className="flex items-center gap-2"
-                        >
-                          <span className="text-sm text-gray-600">$</span>
-
-                          <input
-                            type="number"
-                            id="FilterPriceFrom"
-                            placeholder="From"
-                            className="w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                            value={minPrice}
-                            onChange={handleMinPriceChange}
-                          />
-                        </label>
-
-                        <label
-                          htmlFor="FilterPriceTo"
-                          className="flex items-center gap-2"
-                        >
-                          <span className="text-sm text-gray-600">$</span>
-
-                          <input
-                            type="number"
-                            id="FilterPriceTo"
-                            placeholder="To"
-                            className="w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                            value={maxPrice}
-                            onChange={handleMaxPriceChange}
-                          />
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </details>
+                <PriceFilter
+                  sortedProducts={sortedProducts}
+                  handleResetPrice={handleResetPrice}
+                  handleMinPriceChange={handleMinPriceChange}
+                  handleMaxPriceChange={handleMaxPriceChange}
+                  minPrice={minPrice}
+                  maxPrice={maxPrice}
+                />
 
                 <details className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
                   <summary className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
@@ -406,7 +317,7 @@ const Products: React.FC = () => {
           </div>
 
           <div className="lg:col-span-3 flex-grow">
-            <Product  search={search} products={filteredByPrice} />
+            <Product search={search} products={filteredByPrice} />
           </div>
         </div>
       </div>

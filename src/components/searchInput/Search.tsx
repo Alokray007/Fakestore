@@ -1,14 +1,14 @@
 import React from "react";
-import {setSearchProps} from "../../types/Products"
+import {handleSearchProps} from "../../types/Products"
 
-const Search:React.FC<setSearchProps> = ({setSearch}) => {
+const Search:React.FC<handleSearchProps> = ({handleSearch}) => {
   return (
     <form onSubmit={(e) => e.preventDefault()}>
       <input
         type="text"
         className="mt-1 rounded border-gray-300 text-l"
         placeholder="Search Products"
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => handleSearch(e)}
       />
     </form>
   );

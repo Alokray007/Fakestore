@@ -22,8 +22,8 @@ interface ProductSearchListProps {
   search: string | number ;
 }
 
-interface setSearchProps {
-  setSearch: (value: string | number | null) => void;
+interface handleSearchProps {
+  handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface RatingStarsProps {
@@ -38,4 +38,17 @@ interface CategoriesFilterProps {
   onCategoryChange: (category: string) => void;
 }
 
-export type { Pdct, ProductListProps, ProductSearchListProps, setSearchProps, RatingStarsProps, CategoryFilterProps, CategoriesFilterProps };
+interface PriceFilterProps {
+  sortedProducts: Pdct[];
+  handleResetPrice: () => void;
+  handleMinPriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleMaxPriceChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  minPrice: string | number;
+  maxPrice: string | number;
+}
+
+interface SortProps {
+  handleSortChange : (e: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+
+export type { Pdct, ProductListProps, ProductSearchListProps, handleSearchProps, RatingStarsProps, CategoryFilterProps, CategoriesFilterProps, PriceFilterProps, SortProps };
