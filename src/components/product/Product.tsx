@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Spinner from "../UI/Spinner";
 
-const Product: React.FC<ProductSearchListProps> = ({ search, products }) => {
+const Product: React.FC<ProductSearchListProps> = ({ search = '', products = [] }) => {
   let find:string;
   if (typeof(search) === 'string') {
     find = search.toLowerCase()
@@ -13,9 +13,13 @@ const Product: React.FC<ProductSearchListProps> = ({ search, products }) => {
 
   if (products.length === 0) return <Spinner />;
 
+  const filteredProducts = products.filter((product) =>
+    find === '' ? product : (product.title.toLowerCase().includes(find) || product.description.toLowerCase().includes(find))
+  );
+
   return (
     <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {products.filter((item) => {return find === '' ? item : (item.title.toLowerCase().includes(find) || item.description.toLowerCase().includes(find))}).map((product) => (
+      {filteredProducts.map((product) => (
         <li key={product.id} className="flex h-full">
           <Link
             to={`/products/${product.id}`}

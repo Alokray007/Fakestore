@@ -2,7 +2,7 @@ import Home from './pages/home/Home';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import ProductDetails from './pages/productDetails/ProductDetails';
-import {Routes, Route } from 'react-router-dom'
+import {Routes, Route } from 'react-router-dom';
 import ContactUs  from './pages/contact/ContactUs';
 import Products from './pages/products/Products';
 import ErrorPage from './pages/error/ErrorPage';
@@ -17,7 +17,6 @@ const App = () => {
       <Route path="/products" element={<Products />} />
       <Route path="/products/:id" element={<ProductDetails />} />
       <Route path="/contactus" element={<ContactUs />} />
-      
       <Route path='*' element={<ErrorPage />}/>
     </Routes>
     <Footer />
