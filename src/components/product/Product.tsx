@@ -16,6 +16,7 @@ const Product: React.FC<ProductSearchListProps> = ({ search = '', products = [] 
   }
 
   const handleCart = (product: Pdct) => {
+    console.log(product.id);
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     const isProductExist = cart.find((item:CartPdct) => item.id === product.id);
     if (isProductExist) {
@@ -71,7 +72,7 @@ const Product: React.FC<ProductSearchListProps> = ({ search = '', products = [] 
                 </div>
               </div>
               <form className="mt-4">
-                <button className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105" onClick={() => handleCart(filteredProducts)}>
+                <button className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105" onClick={() => handleCart(product)}>
                   Add to Cart
                 </button>
               </form>
