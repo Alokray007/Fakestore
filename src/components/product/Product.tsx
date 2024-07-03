@@ -4,12 +4,32 @@ import StarSvg from "../../assets/svg/star-7207.svg";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Spinner from "../UI/Spinner";
+import { Pdct } from "../../types/Products";
+
+// Extend the Pdct type to include quantity within this function scope
+type CartPdct = Pdct & { quantity: number };
 
 const Product: React.FC<ProductSearchListProps> = ({ search = '', products = [] }) => {
   let find:string;
   if (typeof(search) === 'string') {
     find = search.toLowerCase()
   }
+
+  const handleCart = (product: Pdct) => {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const isProductExist = cart.find((item:CartPdct) => item.id === product.id);
+    if (isProductExist) {
+      const updatedCart = cart.map((item: CartPdct) => {
+        if (item.id === product.id) {
+          return { ...item, quantity: (item.quantity || 0) + 1 }; // Increment the quantity
+        }
+        return item;
+      });
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+    } else {
+      localStorage.setItem('cart', JSON.stringify([...cart, {...product, quantity: 1}]))
+    }
+  };
 
   if (products.length === 0) return <Spinner />;
 
@@ -51,7 +71,7 @@ const Product: React.FC<ProductSearchListProps> = ({ search = '', products = [] 
                 </div>
               </div>
               <form className="mt-4">
-                <button className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105">
+                <button className="block w-full rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105" onClick={() => handleCart(filteredProducts)}>
                   Add to Cart
                 </button>
               </form>
