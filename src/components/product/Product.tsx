@@ -5,11 +5,9 @@ import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Spinner from "../UI/Spinner";
 import { Pdct } from "../../types/Products";
+import { CartPdct } from "../../types/Products";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-// Extend the Pdct type to include quantity within this function scope
-type CartPdct = Pdct & { quantity: number };
 
 const Product: React.FC<ProductSearchListProps> = ({ search = '', products = [] }) => {
   let find:string;

@@ -9,8 +9,9 @@ interface Pdct {
     rate: number;
     count: number;
   };
-
 }
+
+type CartPdct = Pdct & { quantity: number };
 
 // Define the props interface for the ProductList component
 interface ProductListProps {
@@ -62,4 +63,4 @@ interface SortProps {
   handleSortChange : (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export type { Pdct, ProductListProps, ProductSearchListProps, handleSearchProps, RatingStarsProps, CategoryFilterProps, CategoriesFilterProps, PriceFilterProps, SortProps, RateFilterProps };
+export type { Pdct,CartPdct, ProductListProps, ProductSearchListProps, handleSearchProps, RatingStarsProps, CategoryFilterProps, CategoriesFilterProps, PriceFilterProps, SortProps, RateFilterProps };
