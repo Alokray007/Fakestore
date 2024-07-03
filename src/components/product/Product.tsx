@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Spinner from "../UI/Spinner";
 import { Pdct } from "../../types/Products";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Extend the Pdct type to include quantity within this function scope
 type CartPdct = Pdct & { quantity: number };
@@ -30,6 +32,7 @@ const Product: React.FC<ProductSearchListProps> = ({ search = '', products = [] 
     } else {
       localStorage.setItem('cart', JSON.stringify([...cart, {...product, quantity: 1}]))
     }
+    toast.success("Product Added to cart")
   };
 
   if (products.length === 0) return <Spinner />;
