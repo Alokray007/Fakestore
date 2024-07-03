@@ -1,9 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { CartPdct } from '../../types/Products';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const MAX_QUANTITY = 5; // Adjust this value to set the maximum quantity of each item in the cart
 
 const Cart: React.FC = () => {
   const [cart, setCart] = useState<CartPdct[]>([]);
+
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -24,13 +29,31 @@ const Cart: React.FC = () => {
   const increaseQty = (productId: number) => {
     const updatedCart = cart.map(item => {
       if (item.id === productId) {
-        return { ...item, quantity: item.quantity + 1 };
+        if (item.quantity < MAX_QUANTITY) {
+          return { ...item, quantity: item.quantity + 1 };
+        } else {
+          toast.warn(`You can only add up to ${MAX_QUANTITY} of this item.`, {
+            position: "top-center",
+            theme: "colored",
+          });
+        }
       }
       return item;
     });
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
+
+  const handleRemoveItem = (productId: number) => {
+    const updatedCart = cart.filter(item => item.id!== productId)
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart))
+    toast.info("You removed an item from Cart!", {
+      position: "top-center",
+      theme: "colored",
+      });
+  }
+
   return (
     <section className="bg-white py-32 antialiased md:py-32">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -43,7 +66,7 @@ const Cart: React.FC = () => {
           <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
             <div className="space-y-6">
               {cart.map((item:CartPdct) => (
-              <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+              <div key={item.id} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
                 <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                   <a href="#" className="shrink-0 md:order-1">
                     <img className="h-20 w-20" src={item.image} alt={item.title} />
@@ -80,7 +103,7 @@ const Cart: React.FC = () => {
                         Add to Favorites
                       </button>
 
-                      <button type="button" className="inline-flex items-center text-sm font-medium text-red-600 hover:underline">
+                      <button type="button" className="inline-flex items-center text-sm font-medium text-red-600 hover:underline" onClick={() => handleRemoveItem(item.id)}>
                         <svg className="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                           <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 17.94 6M18 18 6.06 6" />
                         </svg>
