@@ -1,10 +1,36 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { CartPdct } from '../../types/Products';
 
 const Cart: React.FC = () => {
-  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  const [cart, setCart] = useState<CartPdct[]>([]);
 
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    setCart(storedCart);
+  }, []);
+
+  const decreaseQty = (productId: number) => {
+    const updatedCart = cart.map(item => {
+      if (item.id === productId) {
+        return { ...item, quantity: Math.max(item.quantity - 1, 1) }; // Ensure quantity doesn't go below 1
+      }
+      return item;
+    });
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  };
+
+  const increaseQty = (productId: number) => {
+    const updatedCart = cart.map(item => {
+      if (item.id === productId) {
+        return { ...item, quantity: item.quantity + 1 };
+      }
+      return item;
+    });
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  };
   return (
     <section className="bg-white py-32 antialiased md:py-32">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -26,20 +52,20 @@ const Cart: React.FC = () => {
                   <label htmlFor="counter-input" className="sr-only">Choose quantity:</label>
                   <div className="flex items-center justify-between md:order-3 md:justify-end">
                     <div className="flex items-center">
-                      <button type="button" id="decrement-button" data-input-counter-decrement="counter-input" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100">
+                      <button type="button" id="decrement-button" data-input-counter-decrement="counter-input" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100" onClick={() => decreaseQty(item.id)}>
                         <svg className="h-2.5 w-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
                           <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h16" />
                         </svg>
                       </button>
                       <input type="text" id="counter-input" data-input-counter className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0" placeholder="" value={item.quantity} required />
-                      <button type="button" id="increment-button" data-input-counter-increment="counter-input" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100">
+                      <button type="button" id="increment-button" data-input-counter-increment="counter-input" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100" onClick={() => increaseQty(item.id)}>
                         <svg className="h-2.5 w-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                           <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 1v16M1 9h16" />
                         </svg>
                       </button>
                     </div>
                     <div className="text-end md:order-4 md:w-32">
-                      <p className="text-base font-bold text-gray-900">${item.price}</p>
+                      <p className="text-base font-bold text-gray-900">${item.price * item.quantity}</p>
                     </div>
                   </div>
 
