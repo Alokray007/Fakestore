@@ -85,8 +85,11 @@ const Cart: React.FC = () => {
     const finalCost = Math.floor(totalCost - discountedCost);
     setFinalPrice(finalCost);
     setDiscountedPrice(discountedCost);
-    toast.success(`Discount applied! Final cost: ${finalCost}`);
+    if (discountedCost !== 0 || !isNaN(discountedCost)) {
+      toast.success(`Discount applied! Final cost: ${finalCost}`);
+    }
   }
+
 
   return (
     <section className="bg-white py-32 antialiased md:py-32">
