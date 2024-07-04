@@ -1,37 +1,44 @@
+import React, { useState } from 'react';
 import Logo from "../../assets/images/favicon.png";
 import styles from "./Header.module.css";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const navigations = [
   {
     name: 'Home',
-    path : '/'
+    path: '/'
   },
   {
     name: 'Products',
-    path : '/products'
+    path: '/products'
   },
   {
     name: 'Collections',
-    path : '/'
+    path: '/'
   },
   {
-    name: 'Contact US',
-    path : '/contactus'
+    name: 'Contact Us',
+    path: '/contactus'
   }
-]
+];
 
 const Header: React.FC = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <header className="flex flex-wrap place-items-center overflow-hidden fixed w-full z-50 top-0">
-      <section className="relative mx-auto ">
+      <section className="relative mx-auto">
         <nav className="flex justify-between bg-gray-900 text-white w-screen">
           <div className="px-5 xl:px-12 py-6 flex w-full items-center">
             <Link to={`/`} className="flex text-3xl font-bold font-heading">
               <img src={Logo} alt="Logo" className="w-8 h-8" />
               <span className="ml-3 text-xl">FakeStore</span>
             </Link>
-            <ul className="hidden md:flex justify-center px-4 mx-auto font-heading space-x-12 cursor-pointer ">
+            <ul className="hidden md:flex justify-center px-4 mx-auto font-heading space-x-12 cursor-pointer">
               {navigations.map(navigation => (
                 <li key={navigation.name}>
                   <Link to={navigation.path} className={`hover:text-white ${styles.header1} ${styles.header2} ${styles.header3} ${styles.header4}`}>
@@ -40,7 +47,7 @@ const Header: React.FC = () => {
                 </li>
               ))}
             </ul>
-            <div className="hidden xl:flex items-center space-x-5">
+            <div className="hidden md:flex items-center space-x-5">
               <a className="hover:text-gray-200" href="#">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +64,7 @@ const Header: React.FC = () => {
                   />
                 </svg>
               </a>
-              <Link to="/cart" className="flex items-center hover:text-gray-200" >
+              <Link to="/cart" className="flex items-center hover:text-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -95,44 +102,63 @@ const Header: React.FC = () => {
               </a>
             </div>
           </div>
-          <a className="xl:hidden flex mr-6 items-center" href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 hover:text-gray-200"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-              />
-            </svg>
-            <span className="flex absolute -mt-5 ml-4">
-              <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-pink-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
-            </span>
-          </a>
-          <a className="navbar-burger self-center mr-12 xl:hidden" href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 hover:text-gray-200"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </a>
+          <div className="md:hidden flex items-center">
+            <Link to="/cart" className="xl:hidden flex mr-6 items-center" href="#">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 hover:text-gray-200"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                />
+              </svg>
+              <span className="flex absolute -mt-5 ml-4">
+                <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-pink-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
+              </span>
+            </Link>
+            <button onClick={toggleMobileMenu} className="mr-6 focus:outline-none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 hover:text-gray-200"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
         </nav>
       </section>
+      {isMobileMenuOpen && (
+        <div className="w-full bg-gray-900 text-white px-6 py-4 md:hidden">
+          <ul className="space-y-4 text-center">
+            {navigations.map(navigation => (
+              <li key={navigation.name} >
+                <Link
+                  to={navigation.path}
+                  className={"hover:text-white hover:font-semibold "}
+                  onClick={toggleMobileMenu}
+                >
+                  {navigation.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </header>
   );
 };
