@@ -9,11 +9,28 @@ const MAX_QUANTITY = 5; // Adjust this value to set the maximum quantity of each
 const Cart: React.FC = () => {
   const [cart, setCart] = useState<CartPdct[]>([]);
 
-
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
     setCart(storedCart);
   }, []);
+
+  const handleValueChange = (productId: number, newQuantity: number) => {
+    if (isNaN(newQuantity) || newQuantity < 1 || newQuantity > 5) {
+      toast.error('Quantity must be a number between 1 and 5!', {
+        position: "top-center",
+        theme: "colored",
+      });
+      return;
+    }
+    const updatedCart = cart.map(item => {
+      if (item.id === productId) {
+        return {...item, quantity: newQuantity};
+      }
+      return item;
+    });
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  }
 
   const decreaseQty = (productId: number) => {
     const updatedCart = cart.map(item => {
@@ -32,7 +49,7 @@ const Cart: React.FC = () => {
         if (item.quantity < MAX_QUANTITY) {
           return { ...item, quantity: item.quantity + 1 };
         } else {
-          toast.warn(`You can only add up to ${MAX_QUANTITY} of this item.`, {
+          toast.error(`You can only add up to ${MAX_QUANTITY} of this item.`, {
             position: "top-center",
             theme: "colored",
           });
@@ -48,7 +65,7 @@ const Cart: React.FC = () => {
     const updatedCart = cart.filter(item => item.id!== productId)
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart))
-    toast.info("You removed an item from Cart!", {
+    toast.success("Item removed from Cart!", {
       position: "top-center",
       theme: "colored",
       });
@@ -61,7 +78,7 @@ const Cart: React.FC = () => {
         <p className="text-x font-medium text-gray-900 sm:text-xl">Total: <span>{cart?.length}</span>{" "}Items</p>
         <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
         {cart.length === 0 ? (
-          <div>Cart is Empty</div>
+          <div className="mx-auto w-full h-96 flex justify-center items-center lg:max-w-2xl xl:max-w-4xl">Cart is Empty</div>
         ) : (
           <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
             <div className="space-y-6">
@@ -80,7 +97,7 @@ const Cart: React.FC = () => {
                           <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h16" />
                         </svg>
                       </button>
-                      <input type="text" id="counter-input" data-input-counter className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0" placeholder="" value={item.quantity} required />
+                      <input type="text" id="counter-input" data-input-counter className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0" placeholder="" value={item.quantity ?? ''} onChange={(e) => handleValueChange(item.id, parseInt(e.target.value))} />
                       <button type="button" id="increment-button" data-input-counter-increment="counter-input" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100" onClick={() => increaseQty(item.id)}>
                         <svg className="h-2.5 w-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                           <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 1v16M1 9h16" />
