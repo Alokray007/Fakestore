@@ -5,6 +5,7 @@ interface BtnShopProps {
     handleCart: (product: Pdct, redirect: boolean) => void;
     product: Pdct;
     redirect?: boolean;
+    bool: boolean;
   }
 
 export default BtnShopProps;

@@ -53,7 +53,6 @@ const Hero: React.FC = () => {
   }
 
   const handleCart = (product: Pdct, redirect:boolean) => {
-    console.log(product.id);
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     const isProductExist = cart.find((item:CartPdct) => item.id === product.id);
     if (isProductExist) {
@@ -83,8 +82,8 @@ const Hero: React.FC = () => {
           </h1>
           <p className="mb-8 text-xl leading-relaxed">{product.title}</p>
           <div className="flex justify-center gap-4">
-            <BtnShopLeft data="Buy Now" handleCart={handleCart} product={product}/>
-            <BtnShopRight data="Add To Cart" handleCart={handleCart} product={product}/>
+            <BtnShopLeft data="Buy Now" handleCart={handleCart} product={product} bool={true} />
+            <BtnShopRight data="Add To Cart" handleCart={handleCart} product={product} bool={false}/>
           </div>
         </div>
         <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">

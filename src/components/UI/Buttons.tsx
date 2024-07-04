@@ -1,9 +1,9 @@
 import React from "react";
 import BtnShopProps from "../../types/Buttons";
 
-const BtnShop: React.FC<BtnShopProps> = ({ data }) => {
+const BtnShop: React.FC<BtnShopProps> = ({  data,handleCart,product, bool }) => {
   return (
-    <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+    <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" onClick={() => handleCart(product, bool)}>
       {data}
     </button>
   );
@@ -17,11 +17,11 @@ const BtnHero: React.FC<BtnShopProps> = ({ data }) => {
   );
 };
 
-const BtnShopLeft: React.FC<BtnShopProps> = ({ data,handleCart,product}) => {
+const BtnShopLeft: React.FC<BtnShopProps> = ({ data,handleCart,product, bool}) => {
   return (
     <a
       className="group relative inline-block overflow-hidden border border-indigo-600 px-8 py-3 focus:outline-none focus:ring cursor-pointer"
-      onClick={() => handleCart(product, true)}
+      onClick={() => handleCart(product, bool)}
     >
       <span className="absolute inset-y-0 left-0 w-[2px] bg-indigo-600 transition-all group-hover:w-full group-active:bg-indigo-500"></span>
 
@@ -32,11 +32,11 @@ const BtnShopLeft: React.FC<BtnShopProps> = ({ data,handleCart,product}) => {
   );
 };
 
-const BtnShopRight: React.FC<BtnShopProps> = ({ data,handleCart,product}) => {
+const BtnShopRight: React.FC<BtnShopProps> = ({ data,handleCart,product, bool}) => {
   return (
     <a
       className="group relative inline-block overflow-hidden border border-indigo-600 px-8 py-3 focus:outline-none focus:ring cursor-pointer"
-      onClick={() => handleCart(product, false)}
+      onClick={() => handleCart(product, bool)}
     >
       <span className="absolute inset-y-0 right-0 w-[2px] bg-indigo-600 transition-all group-hover:w-full group-active:bg-indigo-500"></span>
 
