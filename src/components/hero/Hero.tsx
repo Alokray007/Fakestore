@@ -4,12 +4,17 @@ import { Pdct } from '../../types/Products';
 import { BtnShopLeft, BtnShopRight} from '../UI/Buttons';
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import CustomSpinner from "../../components/UI/Spinner";
+import { CartPdct } from "../../types/Products";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 const Hero: React.FC = () => {
-  const [products, setProducts] = useState<Pdct[]>([]);
   const [product, setProduct] = useState<Pdct | null>(null);
   const [isError, setISError] = useState<string | null>(null);
   const productsRef = useRef<Pdct[]>([]);
+
+  const navigate = useNavigate();
 
   const getRandomProduct = (products: Pdct[]) => {
     if (products.length === 0) return null;
@@ -22,7 +27,6 @@ const Hero: React.FC = () => {
       try {
         const res = await axios.get('/products?limit=15');
         const products = res.data;
-        setProducts(products);
         productsRef.current = products; // Update the ref
         setProduct(getRandomProduct(products)); // Set the initial product immediately
       } catch (error) {
@@ -48,6 +52,28 @@ const Hero: React.FC = () => {
     return <h1 className='text-center text-2xl font-semibold text-red-700'>{isError}</h1>;
   }
 
+  const handleCart = (product: Pdct, redirect:boolean) => {
+    console.log(product.id);
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const isProductExist = cart.find((item:CartPdct) => item.id === product.id);
+    if (isProductExist) {
+      const updatedCart = cart.map((item: CartPdct) => {
+        if (item.id === product.id) {
+          return { ...item, quantity: (item.quantity || 0) + 1 }; // Increment the quantity
+        }
+        return item;
+      });
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+    } else {
+      localStorage.setItem('cart', JSON.stringify([...cart, {...product, quantity: 1}]))
+    }
+    toast.success("Product Added to cart")
+    if (redirect) {
+      navigate('/cart')
+    }
+
+  };
+
   return (
     <section className="text-gray-600 body-font m-8">
       <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
@@ -57,8 +83,8 @@ const Hero: React.FC = () => {
           </h1>
           <p className="mb-8 text-xl leading-relaxed">{product.title}</p>
           <div className="flex justify-center gap-4">
-            <BtnShopLeft data="Buy Now" />
-            <BtnShopRight data="Add To Cart" />
+            <BtnShopLeft data="Buy Now" handleCart={handleCart} product={product}/>
+            <BtnShopRight data="Add To Cart" handleCart={handleCart} product={product}/>
           </div>
         </div>
         <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">

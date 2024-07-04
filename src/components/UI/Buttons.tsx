@@ -17,11 +17,11 @@ const BtnHero: React.FC<BtnShopProps> = ({ data }) => {
   );
 };
 
-const BtnShopLeft: React.FC<BtnShopProps> = ({ data }) => {
+const BtnShopLeft: React.FC<BtnShopProps> = ({ data,handleCart,product}) => {
   return (
     <a
-      className="group relative inline-block overflow-hidden border border-indigo-600 px-8 py-3 focus:outline-none focus:ring"
-      href="#"
+      className="group relative inline-block overflow-hidden border border-indigo-600 px-8 py-3 focus:outline-none focus:ring cursor-pointer"
+      onClick={() => handleCart(product, true)}
     >
       <span className="absolute inset-y-0 left-0 w-[2px] bg-indigo-600 transition-all group-hover:w-full group-active:bg-indigo-500"></span>
 
@@ -32,11 +32,11 @@ const BtnShopLeft: React.FC<BtnShopProps> = ({ data }) => {
   );
 };
 
-const BtnShopRight: React.FC<BtnShopProps> = ({ data }) => {
+const BtnShopRight: React.FC<BtnShopProps> = ({ data,handleCart,product}) => {
   return (
     <a
-      className="group relative inline-block overflow-hidden border border-indigo-600 px-8 py-3 focus:outline-none focus:ring"
-      href="#"
+      className="group relative inline-block overflow-hidden border border-indigo-600 px-8 py-3 focus:outline-none focus:ring cursor-pointer"
+      onClick={() => handleCart(product, false)}
     >
       <span className="absolute inset-y-0 right-0 w-[2px] bg-indigo-600 transition-all group-hover:w-full group-active:bg-indigo-500"></span>
 
