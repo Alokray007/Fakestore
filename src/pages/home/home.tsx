@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import CategoryFilter from '../../components/CategoryFilter';
-// import HeroHome from '../../components/hero/HeroHome';
 import ProductList from '../../components/ProductList';
 import axios from "../../services/axios";
 import {Pdct} from '../../types/Products';
