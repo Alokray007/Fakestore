@@ -71,6 +71,10 @@ const Cart: React.FC = () => {
       });
   }
 
+  const totalCost = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const discountedCost = Math.round((20 * totalCost /100)*100)/100;
+  const finalCost = Math.floor(totalCost - discountedCost);
+
   return (
     <section className="bg-white py-32 antialiased md:py-32">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -142,18 +146,18 @@ const Cart: React.FC = () => {
                 <div className="space-y-2">
                   <dl className="flex items-center justify-between gap-4">
                     <dt className="text-base font-normal text-gray-500">Original price</dt>
-                    <dd className="text-base font-medium text-gray-900">$7,592.00</dd>
+                    <dd className="text-base font-medium text-gray-900">${totalCost}</dd>
                   </dl>
 
                   <dl className="flex items-center justify-between gap-4">
                     <dt className="text-base font-normal text-gray-500">Savings</dt>
-                    <dd className="text-base font-medium text-green-600">-$299.00</dd>
+                    <dd className="text-base font-medium text-green-600">-${discountedCost}</dd>
                   </dl>
                 </div>
 
                 <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2">
                   <dt className="text-base font-bold text-gray-900">Total</dt>
-                  <dd className="text-base font-bold text-gray-900">$8,191.00</dd>
+                  <dd className="text-base font-bold text-gray-900">${finalCost}</dd>
                 </dl>
               </div>
               <a href="#" className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">Proceed to Checkout</a>
