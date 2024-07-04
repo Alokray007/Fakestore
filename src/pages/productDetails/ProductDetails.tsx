@@ -7,11 +7,16 @@ import CustomSpinner from "../../components/UI/Spinner";
 import {BtnShop} from "../../components/UI/Buttons";
 import RatingStars from "../../components/UI/RatingStar";
 import SocialSvg from "../../components/UI/SocialSvg";
+import {CartPdct} from "../../types/Products";
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<Pdct>();
   const [isError, setISError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -32,6 +37,26 @@ const ProductDetails: React.FC = () => {
   if (!product) return <CustomSpinner/>;
 
   if(isError) {return <h1 className='text-center text-2xl font-semibold text-red-700'>{isError}</h1>}
+
+  const handleCart = (product: Pdct, redirect:boolean) => {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const isProductExist = cart.find((item:CartPdct) => item.id === product.id);
+    if (isProductExist) {
+      const updatedCart = cart.map((item: CartPdct) => {
+        if (item.id === product.id) {
+          return { ...item, quantity: (item.quantity || 0) + 1 }; // Increment the quantity
+        }
+        return item;
+      });
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+    } else {
+      localStorage.setItem('cart', JSON.stringify([...cart, {...product, quantity: 1}]))
+    }
+    toast.success("Product Added to cart")
+    if (redirect) {
+      navigate('/cart')
+    }
+  };
 
   return (
     <div key={product.id} className="text-gray-600 body-font overflow-hidden">
@@ -67,8 +92,8 @@ const ProductDetails: React.FC = () => {
                 ${product.price}
               </span>
               <div className="flex gap-4">
-                <BtnShop data={"Buy Now"}/>
-                <BtnShop data={"Add to Cart"} />
+                <BtnShop data={"Buy Now"} handleCart={handleCart} product={product} bool={true}/>
+                <BtnShop data={"Add to Cart"} handleCart={handleCart} product={product} bool={false}/>
               </div>
               <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                 <svg
