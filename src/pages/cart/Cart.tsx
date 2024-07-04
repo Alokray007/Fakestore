@@ -8,6 +8,9 @@ const MAX_QUANTITY = 5; // Adjust this value to set the maximum quantity of each
 
 const Cart: React.FC = () => {
   const [cart, setCart] = useState<CartPdct[]>([]);
+  const [discount, setDiscount] = useState<number>(0)
+  const [discountedPrice,setDiscountedPrice] = useState<number>(0)
+  const [finalPrice, setFinalPrice] = useState<number>()
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -15,11 +18,8 @@ const Cart: React.FC = () => {
   }, []);
 
   const handleValueChange = (productId: number, newQuantity: number) => {
-    if (isNaN(newQuantity) || newQuantity < 1 || newQuantity > 5) {
-      toast.error('Quantity must be a number between 1 and 5!', {
-        position: "top-center",
-        theme: "colored",
-      });
+    if (isNaN(newQuantity) || newQuantity > 5) {
+      toast.error('Quantity must be a number between 1 and 5!');
       return;
     }
     const updatedCart = cart.map(item => {
@@ -35,7 +35,11 @@ const Cart: React.FC = () => {
   const decreaseQty = (productId: number) => {
     const updatedCart = cart.map(item => {
       if (item.id === productId) {
-        return { ...item, quantity: Math.max(item.quantity - 1, 1) }; // Ensure quantity doesn't go below 1
+        if (item.quantity > 1) {
+          return { ...item, quantity: Math.max(item.quantity - 1, 1) }; // Ensure quantity doesn't go below 1
+        }  else  {
+          toast.info('Remove item instead of decreasing!')
+        }
       }
       return item;
     });
@@ -49,10 +53,7 @@ const Cart: React.FC = () => {
         if (item.quantity < MAX_QUANTITY) {
           return { ...item, quantity: item.quantity + 1 };
         } else {
-          toast.error(`You can only add up to ${MAX_QUANTITY} of this item.`, {
-            position: "top-center",
-            theme: "colored",
-          });
+          toast.error(`You can only add up to ${MAX_QUANTITY} of this item.`);
         }
       }
       return item;
@@ -65,15 +66,27 @@ const Cart: React.FC = () => {
     const updatedCart = cart.filter(item => item.id!== productId)
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart))
-    toast.success("Item removed from Cart!", {
-      position: "top-center",
-      theme: "colored",
-      });
+    toast.success("Item removed from Cart!");
   }
 
   const totalCost = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const discountedCost = Math.round((20 * totalCost /100)*100)/100;
-  const finalCost = Math.floor(totalCost - discountedCost);
+  const discountedCost = Math.round((discount * totalCost /100)*100)/100;
+
+
+  const handleVoucherValue = (value:number) => {
+    if (isNaN(value) || value < 0 || value > 30) {
+      toast.error('Discount value must be a number between 0 and 30!');
+      return;
+    }
+    setDiscount(value);
+  }
+
+  const handleVoucher = (totalCost:number, discountedCost:number) => {
+    const finalCost = Math.floor(totalCost - discountedCost);
+    setFinalPrice(finalCost);
+    setDiscountedPrice(discountedCost);
+    toast.success(`Discount applied! Final cost: ${finalCost}`);
+  }
 
   return (
     <section className="bg-white py-32 antialiased md:py-32">
@@ -151,13 +164,13 @@ const Cart: React.FC = () => {
 
                   <dl className="flex items-center justify-between gap-4">
                     <dt className="text-base font-normal text-gray-500">Savings</dt>
-                    <dd className="text-base font-medium text-green-600">-${discountedCost}</dd>
+                    <dd className="text-base font-medium text-green-600">-${discountedPrice}</dd>
                   </dl>
                 </div>
 
                 <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2">
                   <dt className="text-base font-bold text-gray-900">Total</dt>
-                  <dd className="text-base font-bold text-gray-900">${finalCost}</dd>
+                  <dd className="text-base font-bold text-gray-900">${finalPrice? finalPrice: totalCost}</dd>
                 </dl>
               </div>
               <a href="#" className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">Proceed to Checkout</a>
@@ -172,12 +185,13 @@ const Cart: React.FC = () => {
               </div>
             </div>
             <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
-              <form className="space-y-4">
+              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
                 <div>
                   <label htmlFor="voucher" className="mb-2 block text-sm font-medium text-gray-900"> Do you have a voucher or gift card? </label>
-                  <input type="text" id="voucher" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="" required />
+                  <input type="text" id="voucher" className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="" required onChange={(e) => handleVoucherValue(parseInt(e.target.value))}/>
                 </div>
-                <button type="submit" className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">Apply Code</button>
+                <button type="submit" className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300" onClick={() => handleVoucher(totalCost, discountedCost)}>Apply Code</button>
+                <p className='text-xs text-right'>*Discount available upto 30%</p>
               </form>
             </div>
           </div>
