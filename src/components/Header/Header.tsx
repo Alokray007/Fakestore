@@ -103,7 +103,7 @@ const Header: React.FC = () => {
             </div>
           </div>
           <div className="md:hidden flex items-center">
-            <Link to="/cart" className="xl:hidden flex mr-6 items-center" href="#">
+            <Link to="/cart" className="xl:hidden flex mr-6 items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6 hover:text-gray-200"

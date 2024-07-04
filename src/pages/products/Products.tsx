@@ -23,6 +23,11 @@ const Products: React.FC = () => {
     twoStar: false,
     oneStar: false,
   });
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   // Fetch all of the products
   useEffect(() => {
@@ -193,7 +198,7 @@ const Products: React.FC = () => {
         </header>
 
         <div className="mt-8 block lg:hidden">
-          <button className="flex cursor-pointer items-center gap-2 border-b border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600">
+          <button onClick={toggleMobileMenu} className="flex cursor-pointer items-center gap-2 border-b border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600">
             <span className="text-sm font-medium"> Filters & Sorting </span>
 
             <svg
@@ -212,16 +217,43 @@ const Products: React.FC = () => {
             </svg>
           </button>
         </div>
+        {isMobileMenuOpen && (
+          <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
+            <div className="block lg:hidden">
+              <Search handleSearch={handleSearch} />
+              <Category onCategoryClick={handleCategoryClick} />
+              <Sort handleSortChange={handleSortChange} />
+
+              <div>
+                <p className="block text-xs font-medium text-gray-700">Filters</p>
+
+                <div className="mt-1 space-y-2">
+                  <PriceFilter
+                    FinalFilter={FinalFilter}
+                    handleResetPrice={handleResetPrice}
+                    handleMinPriceChange={handleMinPriceChange}
+                    handleMaxPriceChange={handleMaxPriceChange}
+                    minPrice={minPrice}
+                    maxPrice={maxPrice}
+                  />
+                  <RateFilter
+                    selectedRatings={selectedRatings}
+                    handleResetRating={handleResetRating}
+                    handleRatingChange={handleRatingChange}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
           <div className="hidden space-y-4 lg:block sticky top-20">
             <Search handleSearch={handleSearch} />
             <Category onCategoryClick={handleCategoryClick} />
             <Sort handleSortChange={handleSortChange} />
-
             <div>
               <p className="block text-xs font-medium text-gray-700">Filters</p>
-
               <div className="mt-1 space-y-2">
                 <PriceFilter
                   FinalFilter={FinalFilter}
@@ -240,7 +272,7 @@ const Products: React.FC = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-3 flex-grow">
+          <div className="lg:col-span-3 ">
             <Product search={search} products={FinalFilter} />
           </div>
         </div>
