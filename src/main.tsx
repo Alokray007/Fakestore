@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
       <BrowserRouter>
       <App />
-      <ToastContainer />
+      <ToastContainer position="top-center" theme="colored"/>
       </BrowserRouter>
     </React.StrictMode>
 ,
