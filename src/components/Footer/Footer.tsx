@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
             <a className="text-gray-400 hover:text-white" href="/products">Products</a>
           </li>
           <li>
-            <a className="text-gray-400 hover:text-white">Collections</a>
+            <a className="text-gray-400 hover:text-white" href="/">Collections</a>
           </li>
           <li>
             <a className="text-gray-400 hover:text-white" href="/contactus">Contact Us</a>
@@ -34,13 +34,13 @@ const Footer: React.FC = () => {
             <a className="text-gray-400 hover:text-white" href="/products/">Electronics</a>
           </li>
           <li>
-            <a className="text-gray-400 hover:text-white">Jewelery</a>
+            <a className="text-gray-400 hover:text-white" href="/products/">Jewelery</a>
           </li>
           <li>
-            <a className="text-gray-400 hover:text-white">Men's Clothing</a>
+            <a className="text-gray-400 hover:text-white" href="/products/">Men's Clothing</a>
           </li>
           <li>
-            <a className="text-gray-400 hover:text-white">Women's Clothing</a>
+            <a className="text-gray-400 hover:text-white" href="/products/">Women's Clothing</a>
           </li>
         </nav>
       </div>
