@@ -30,10 +30,7 @@ const Product: React.FC<ProductSearchListProps> = ({ search = '', products = [] 
     } else {
       localStorage.setItem('cart', JSON.stringify([...cart, {...product, quantity: 1}]))
     }
-    toast.success("Product Added to cart", {
-      position: "top-center",
-      theme: "colored",
-    })
+    toast.success("Product Added to cart")
   };
 
   if (products.length === 0) return <Spinner />;
