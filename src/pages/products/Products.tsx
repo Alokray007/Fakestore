@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo, Suspense,lazy } from "react";
 import axios from "../../services/axios";
 import { Pdct } from "../../types/Products";
 import Product from "../../components/product/Product";
-import Category from "../../components/categories/Categories";
+const Category = lazy(()=> import("../../components/categories/Categories")) ;
 import Search from "../../components/searchInput/Search";
 import PriceFilter from "../../components/Filter&Sort/PriceFilter";
 import Sort from "../../components/Filter&Sort/Sort";
@@ -250,7 +250,9 @@ const Products: React.FC = () => {
         <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
           <div className="hidden space-y-4 lg:block sticky top-20">
             <Search handleSearch={handleSearch} />
-            <Category onCategoryClick={handleCategoryClick} />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Category onCategoryClick={handleCategoryClick} />
+            </Suspense>
             <Sort handleSortChange={handleSortChange} />
             <div>
               <p className="block text-xs font-medium text-gray-700">Filters</p>
