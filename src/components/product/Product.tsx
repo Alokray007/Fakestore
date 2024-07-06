@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import { ProductSearchListProps } from "../../types/Products";
 import StarSvg from "../../assets/svg/star-7207.svg";
 import { Link } from "react-router-dom";
@@ -10,10 +10,14 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Product: React.FC<ProductSearchListProps> = ({ search = '', products = [] }) => {
-  let find:string;
-  if (typeof(search) === 'string') {
-    find = search.toLowerCase()
-  }
+
+  const find = typeof search === 'string' ? search.toLowerCase() : '';
+
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) =>
+      find === '' ? product : (product.title.toLowerCase().includes(find) || product.description.toLowerCase().includes(find))
+    );
+  }, [products, find]);
 
   const handleCart = (product: Pdct) => {
     console.log(product.id);
@@ -35,9 +39,7 @@ const Product: React.FC<ProductSearchListProps> = ({ search = '', products = [] 
 
   if (products.length === 0) return <Spinner />;
 
-  const filteredProducts = products.filter((product) =>
-    find === '' ? product : (product.title.toLowerCase().includes(find) || product.description.toLowerCase().includes(find))
-  );
+
 
   return (
     <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
