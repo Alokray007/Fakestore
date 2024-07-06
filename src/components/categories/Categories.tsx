@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import axios from "../../services/axios";
 import { CategoryFilterProps } from "../../types/Products";
 
@@ -6,8 +6,8 @@ const Category: React.FC<CategoryFilterProps> = ({ onCategoryClick }) => {
   const [categories, setCategories] = useState([]);
   const [isError, setISError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const getCategories = async () => {
+
+    const getCategories = useCallback(async () => {
       try {
         const res = await axios.get("/products/categories");
         setCategories(res.data);
@@ -18,9 +18,25 @@ const Category: React.FC<CategoryFilterProps> = ({ onCategoryClick }) => {
           setISError("An unexpected error occurred");
         }
       }
-    };
+    },[]);
+
+  useEffect(() => {
     getCategories();
-  }, []);
+  },[getCategories]);
+
+  const categoryList = useMemo(() => (
+    categories.map((category) => (
+      <li
+        key={category}
+        role="button"
+        tabIndex={0}
+        className="cursor-pointer mt-2 hover:underline hover:text-blue-500 focus:text-blue-500"
+        onClick={() => onCategoryClick(category)}
+      >
+        {category}
+      </li>
+    ))
+  ), [categories, onCategoryClick])
 
   if (isError) {
     return (
@@ -44,20 +60,14 @@ const Category: React.FC<CategoryFilterProps> = ({ onCategoryClick }) => {
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1">
           <div>
             <li
+              role="button"
+              tabIndex={0}
               className="cursor-pointer mt-2 hover:underline hover:text-blue-500 focus:text-blue-500"
               onClick={() => onCategoryClick("All")}
             >
               All
             </li>
-            {categories.map((category) => (
-              <li
-                key={category}
-                className="cursor-pointer mt-2 hover:underline hover:text-blue-500 focus:text-blue-500"
-                onClick={() => onCategoryClick(category)}
-              >
-                {category}
-              </li>
-            ))}
+            {categoryList}
           </div>
         </div>
       </ul>
