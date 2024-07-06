@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import axios from "../../services/axios";
 import { Pdct } from '../../types/Products';
 import { BtnShopLeft, BtnShopRight} from '../UI/Buttons';
@@ -16,11 +16,11 @@ const Hero: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const getRandomProduct = (products: Pdct[]) => {
+  const getRandomProduct = useCallback((products: Pdct[]) => {
     if (products.length === 0) return null;
     const randomIndex = Math.floor(Math.random() * products.length);
     return products[randomIndex];
-  };
+  },[]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -44,7 +44,7 @@ const Hero: React.FC = () => {
     }, 10000); // Refresh every 10 Seconds
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [getRandomProduct]);
 
   if (!product) return <CustomSpinner />;
 
@@ -87,7 +87,7 @@ const Hero: React.FC = () => {
           </div>
         </div>
         <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
-          <LazyLoadImage className="object-contain object-center rounded h-96" alt={product.title} src={product.image} />
+          <LazyLoadImage className="object-contain object-center rounded h-96" alt={product.title} src={product.image} role="img" aria-label={`Image of ${product.title}`} />
         </div>
       </div>
     </section>
