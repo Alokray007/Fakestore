@@ -53,7 +53,7 @@ const Products: React.FC = () => {
   };
 
   // handle Category Change from all Products as filteredProducts
-  const handleCategoryClick = (category: string) => {
+  const handleCategoryClick = useCallback((category: string) => {
     if (category === "" || category === "All") {
       setFilteredProducts(products);
     } else {
@@ -61,7 +61,7 @@ const Products: React.FC = () => {
         products.filter((product) => product.category === category)
       );
     }
-  };
+  },[products]);
 
   ////////////////////////////////////////////////////////////////
 
