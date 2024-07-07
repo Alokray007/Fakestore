@@ -1,6 +1,11 @@
-### Project setup
+# Documentation
+* Fake Store
+    - A single-page application (SPA) built with React, Tailwind CSS, and TypeScript to display a list of products from Fake Store API.
 
-## 1-Project Initialization using React,Typescript and Tailwind
+## Project setup
+
+* Project Initialized using React,Typescript and Tailwind
+
 First install react with typescript using vite
 ```
 npm create vite@latest <project_name> react-ts
@@ -13,35 +18,83 @@ npx tailwindcss init -p
 ```
 - Add other Tailwind configuration
 
--Project Initialization
+-Run Project
 ```
 npm run dev
 ```
 
-## More Packages
-- Used React Lazy Load Image Component for better performance and optimization.
-- Used axios for faster data fetching because it escapes an extra step of json parsing.
+## Dependencies
+    * Used "React Lazy Load Image Component" for better performance and optimization.
+    * Used "axios" for faster data fetching because it escapes an extra step of json parsing.
+    * Used "react-toastify" for comprehensive error handling and user feedback.
+    * Used "react-router-dom" for navigation.
 
-## 2-Fetch product data from the provided API endpoint.
-Used axios package to get products details from API - "https://fakestoreapi.com/products"
+### Features
 
-## 3-Grid to display products
-By using Tailwind CSS Grid to display products destails on home page.
+- Display products in a grid or list format
+- Filter products by category
+- Pagination or infinite scrolling
+- Product details page
+- Shopping cart functionality
+- Search functionality
+- Advanced filtering and sorting options
+- Persist shopping cart state using local storage
+- Unit testing
+- CI/CD pipeline with GitHub Actions
+- Performance optimizations
+- Accessibility improvements
 
-## 4-Product filtering by category
-Used Dropdown to filter products
+## Run the application locally.
 
-## 5-pagination to Access product list.
-click on different pages upon product availability
+### Prerequisites
 
-## 6-Product details page
-Created a product details page that displays more information about a selected product.
+- Node.js and npm installed
 
-## 8-Search Functionality
-Implement a search functionality to allow users to search for products by name or description.
+### Installation
 
-## 9-version control
-Use version control (e.g., Git) throughout the development process, ensuring atomic commits.
+1. Clone the repository:
 
-## 11-advanced filtering options
-Add advanced filtering options (e.g., price range, rating) and sorting options (e.g., price, popularity)
+```bash
+   git clone https://github.com/Alokray007/Fakestore.git
+   cd Fakestore
+```
+
+2. Install dependencies:
+
+```bash
+    npm install
+```
+
+3. Start the development server:
+
+```bash
+npm run dev
+```
+
+4. Running Tests
+Unit tests:
+
+```bash
+npm run test
+```
+
+5. Deployment
+The application is automatically deployed to Netlify via the CI/CD pipeline. Make sure to set up the necessary secrets in your GitHub repository.
+
+6. CI/CD Pipeline
+The CI/CD pipeline is configured using GitHub Actions. It runs on every push request to the main branch and new release is published, executing tests, building the project, and deploying to Netlify.
+
+7. Project Structure
+* src/components: Reusable UI components
+* src/context: Context API.
+* src/data: Data in JSON format.
+* src/pages: Page components
+* src/services: API services
+* src/types: TypeScript types
+* src/App.tsx: Main application component
+* src/Main.tsx: Entry point
+
+8. Author
+[Alok Suman](https://portfolio-alok1.netlify.app/)
+[GitHub](https://github.com/Alokray007)
+[LinkedIn](https://www.linkedin.com/in/aloksuman010)
