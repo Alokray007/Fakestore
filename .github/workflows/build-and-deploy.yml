@@ -36,7 +36,7 @@ jobs:
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v4
         with:
-          name: production-files
+          name: production-files-${{ github.run_id }}
           path: ./dist
 
   deploy:
