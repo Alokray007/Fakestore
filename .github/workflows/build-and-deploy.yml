@@ -36,7 +36,7 @@ jobs:
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v4
         with:
-          name: production-files-${{ github.run_id }}
+          name: production-files-${{ github.run_id }}-${{ github.job }}
           path: ./dist
 
   deploy:
@@ -51,7 +51,7 @@ jobs:
       - name: Download production-ready build files
         uses: actions/download-artifact@v4
         with:
-          name: production-files
+          name: production-files-${{ github.run_id }}-build
           path: ./dist
 
       - name: Deploy to Netlify
