@@ -1,6 +1,35 @@
 # Documentation
-* Fake Store
-    - A single-page application (SPA) built with React, Tailwind CSS, and TypeScript to display a list of products from Fake Store API.
+
+## Fake Store
+* A single-page application (SPA) built with React, Tailwind CSS, and TypeScript to display a list of products from Fake Store API.
+
+## Table of contents
+-[Overview](#Overview)
+  - [Features](#Features)
+  - [Project setup](#Project-setup)
+  - [Dependencies](#Dependencies)
+  - [Links](#Links)
+  - [Run the application locally](#Run-the-application-locally)
+    - [Prerequisites](#Prerequisites)
+    - [Installation](#Installation)
+  - [Author](#Author)
+
+## Overview
+
+### Features
+
+- Display products in a grid or list format
+- Filter products by category
+- Pagination or infinite scrolling
+- Product details page
+- Shopping cart functionality
+- Search functionality
+- Advanced filtering and sorting options
+- Persist shopping cart state using local storage
+- Unit testing
+- CI/CD pipeline with GitHub Actions
+- Performance optimizations
+- Accessibility improvements
 
 ## Project setup
 
@@ -31,22 +60,12 @@ npm run dev
 * Used "react-toastify" for comprehensive error handling and user feedback.
 * Used "react-router-dom" for navigation.
 
-### Features
+### Links
 
-- Display products in a grid or list format
-- Filter products by category
-- Pagination or infinite scrolling
-- Product details page
-- Shopping cart functionality
-- Search functionality
-- Advanced filtering and sorting options
-- Persist shopping cart state using local storage
-- Unit testing
-- CI/CD pipeline with GitHub Actions
-- Performance optimizations
-- Accessibility improvements
+- Solution URL: [Github](https://github.com/Alokray007/Fakestore)
+- Live Site URL: [Netlify- Live Site](https://fakestorenew.netlify.app/)
 
-## Run the application locally.
+## Run the application locally
 
 ### Prerequisites
 
@@ -70,14 +89,14 @@ npm run dev
 3. Start the development server:
 
 ```bash
-npm run dev
+    npm run dev
 ```
 
 4. Running Tests
 Unit tests:
 
 ```bash
-npm run test
+    npm run test
 ```
 
 5. Deployment
@@ -96,7 +115,7 @@ The CI/CD pipeline is configured using GitHub Actions. It runs on every push req
 * src/App.tsx: Main application component
 * src/Main.tsx: Entry point
 
-8. Author
+## Author
 [Alok Suman](https://portfolio-alok1.netlify.app/)
 [GitHub](https://github.com/Alokray007)
 [LinkedIn](https://www.linkedin.com/in/aloksuman010)
