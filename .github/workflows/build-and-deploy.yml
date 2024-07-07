@@ -46,5 +46,5 @@ jobs:
     steps:
       - uses: jsmrcaga/action-netlify-deploy@v2.0.0
         with:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.nfp_4y9eiyvCYq8yGfjYqX8bg4BMW5v4HJXk1829 }}
+          NETLIFY_AUTH_TOKEN: "nfp_4y9eiyvCYq8yGfjYqX8bg4BMW5v4HJXk1829"
           NETLIFY_DEPLOY_TO_PROD: true
