@@ -1,10 +1,11 @@
-import Home from './pages/home/Home.tsx';
-import Header from './components/header/Header.tsx';
-import Footer from './components/footer/Footer.tsx';
+import { lazy } from 'react';
+const Home = lazy(() => import('./pages/home/home'));
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import ProductDetails from './pages/productDetails/ProductDetails';
 import {Routes, Route } from 'react-router-dom';
-import ContactUs  from './pages/contact/ContactUs';
-import Products from './pages/products/Products';
+const ContactUs = lazy(() => import('./pages/contact/ContactUs'));
+const Products = lazy(() => import('./pages/products/Products'));
 import ErrorPage from './pages/error/ErrorPage';
 import Cart from './pages/cart/Cart';
 
