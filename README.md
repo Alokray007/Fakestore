@@ -44,4 +44,4 @@ Implement a search functionality to allow users to search for products by name o
 Use version control (e.g., Git) throughout the development process, ensuring atomic commits.
 
 ## 11-advanced filtering options
-Add advanced filtering options (e.g., price range, rating) and sorting options (e.g., price, popularity).
+Add advanced filtering options (e.g., price range, rating) and sorting options (e.g., price, popularity)
