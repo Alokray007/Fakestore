@@ -57,7 +57,7 @@ jobs:
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         with:
-          args: deploy --dir=./build --prod
+          args: deploy --dir=./dist --prod
         env:
           NETLIFY_AUTH_TOKEN: "nfp_4y9eiyvCYq8yGfjYqX8bg4BMW5v4HJXk1829"
           NETLIFY_SITE_ID: "84c6b2bb-d8f8-43a0-aa34-be572b887965"
