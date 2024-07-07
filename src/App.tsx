@@ -1,5 +1,5 @@
-import { lazy } from 'react';
-const Home = lazy(() => import('./pages/home/home'));
+import { lazy, Suspense } from 'react';
+const Home = lazy(() => import('./pages/Home/Home'));
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import ProductDetails from './pages/productDetails/ProductDetails';
@@ -12,6 +12,7 @@ import Cart from './pages/cart/Cart';
 const App = () => {
   return (
   <div className="App">
+    <Suspense fallback={<div>Loading...</div>}>
     <Header />
     <Routes>
       <Route path="/" element={<Home />} />
@@ -22,6 +23,7 @@ const App = () => {
       <Route path='*' element={<ErrorPage />}/>
     </Routes>
     <Footer />
+    </Suspense>
   </div>
   );
 };
