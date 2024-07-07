@@ -1,6 +1,6 @@
 # Configuration Details
 
-Workflow File: .github/workflows/ci-cd.yml
+## Workflow File: .github/workflows/ci-cd.yml
     * Triggers: Defines when the workflow should run (on push to main branch and new releases).
     * Jobs:
         * Build Job: Executes tasks to build the React application with different Node.js versions.
