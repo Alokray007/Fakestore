@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-const Home = lazy(() => import('./pages/Home/Home'));
+const Home = lazy(() => import('./pages/home/home'));
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import ProductDetails from './pages/productDetails/ProductDetails';
