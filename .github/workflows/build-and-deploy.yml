@@ -55,7 +55,7 @@ jobs:
           path: ./build
 
       - name: Deploy to Netlify
-        uses: netlify/actions/cli@v3.0.0
+        uses: nwtgck/actions-netlify@v3.0
         with:
           args: deploy --dir=./build --prod
         env:
