@@ -16,18 +16,20 @@ Then install Tailwind
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 ```
-- Add other Tailwind configuration
+And add other required Tailwind configuration files.
 
--Run Project
+Run Project using
 ```
 npm run dev
 ```
 
+* Used Axios to fetch data from API - "https://fakestoreapi.com/"
+
 ## Dependencies
-    * Used "React Lazy Load Image Component" for better performance and optimization.
-    * Used "axios" for faster data fetching because it escapes an extra step of json parsing.
-    * Used "react-toastify" for comprehensive error handling and user feedback.
-    * Used "react-router-dom" for navigation.
+* Used "React Lazy Load Image Component" for better performance and optimization.
+* Used "axios" for faster data fetching because it escapes an extra step of json parsing.
+* Used "react-toastify" for comprehensive error handling and user feedback.
+* Used "react-router-dom" for navigation.
 
 ### Features
 
