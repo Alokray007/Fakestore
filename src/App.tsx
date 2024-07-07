@@ -10,7 +10,6 @@ import ErrorPage from './pages/error/ErrorPage';
 import Cart from './pages/cart/Cart';
 
 const App = () => {
-
   return (
   <div className="App">
     <Header />
