@@ -52,7 +52,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: production-files
-          path: ./build
+          path: ./dist
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
