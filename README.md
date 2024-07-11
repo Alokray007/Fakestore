@@ -12,6 +12,7 @@
   - [Run the application locally](#Run-the-application-locally)
     - [Prerequisites](#Prerequisites)
     - [Installation](#Installation)
+  - [Resources](#Resources)
   - [Author](#Author)
 
 ## Overview
@@ -114,6 +115,11 @@ The CI/CD pipeline is configured using GitHub Actions. It runs on every push req
 * src/types: TypeScript types
 * src/App.tsx: Main application component
 * src/Main.tsx: Entry point
+
+## Resources
+* www.google.com
+* www.stackoverflow.com
+* [Jest with Vite](https://dev.to/teyim/effortless-testing-setup-for-react-with-vite-typescript-jest-and-react-testing-library-1c48)
 
 ## Author
 [Alok Suman](https://portfolio-alok1.netlify.app/)
