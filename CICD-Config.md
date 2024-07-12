@@ -1,15 +1,17 @@
 # Configuration Details
 
-## Workflow File: .github/workflows/ci-cd.yml
+## Workflow File: .github/workflows/build-test-deploy.yml
 * Triggers: Defines when the workflow should run (on push to main branch and new releases).
 * Jobs:
   * Build Job: Executes tasks to build the React application with different Node.js versions.
     * Checks out code, sets up Node.js environment, installs dependencies, builds project, and uploads artifacts.
-  * Deploy Job: Depends on the successful completion of the build job and deploys production-ready build files to Netlify.
+  * Test Job: Depends on the successful completion of the build job and Run tests on different React Components.
+    * Checks out code, sets up Node.js environment, installs dependencies, Downloads artifacts and run tests.
+  * Deploy Job: Depends on the successful completion of the test job and deploys production-ready build files to Netlify.
     * Downloads artifacts, deploys to Netlify using credentials stored in GitHub Secrets.
 
 ## GitHub Actions
-* Actions: Used for specific tasks like checking out code, setting up Node.js, installing dependencies, building project, uploading/downloading artifacts, and deploying to Netlify.
+* Actions: Used for specific tasks like checking out code, setting up Node.js, installing dependencies, building project, uploading/downloading artifacts,testing and deploying to Netlify.
 * Matrix Strategy: Runs jobs with multiple configurations (different Node.js versions) to ensure compatibility and performance testing.
 
 ## Environment Variables
