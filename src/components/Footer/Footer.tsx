@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Logo from "../../assets/images/favicon.png";
 import SocialSvg from "../UI/SocialSvg";
 
@@ -13,16 +14,16 @@ const Footer: React.FC = () => {
         <h2 className="title-font font-medium text-white tracking-widest text-sm mb-3">PAGES</h2>
         <nav className="list-none mb-10 cursor-pointer">
           <li>
-            <a className="text-gray-400 hover:text-white" href="/">Home</a>
+            <Link to="/" className="text-gray-400 hover:text-white">Home</Link>
           </li>
           <li>
-            <a className="text-gray-400 hover:text-white" href="/products">Products</a>
+            <Link to="/products" className="text-gray-400 hover:text-white">Products</Link>
           </li>
           <li>
-            <a className="text-gray-400 hover:text-white" href="/">Collections</a>
+            <Link to="/" className="text-gray-400 hover:text-white">Collections</Link>
           </li>
           <li>
-            <a className="text-gray-400 hover:text-white" href="/contactus">Contact Us</a>
+            <Link to="/contactus" className="text-gray-400 hover:text-white">Contact Us</Link>
           </li>
         </nav>
       </div>
@@ -31,16 +32,16 @@ const Footer: React.FC = () => {
         <h2 className="title-font font-medium text-white tracking-widest text-sm mb-3">CATEGORIES</h2>
         <nav className="list-none mb-10 cursor-pointer">
           <li>
-            <a className="text-gray-400 hover:text-white" href="/products/">Electronics</a>
+            <Link to="/products" className="text-gray-400 hover:text-white" >Electronics</Link>
           </li>
           <li>
-            <a className="text-gray-400 hover:text-white" href="/products/">Jewelery</a>
+            <Link to="/products" className="text-gray-400 hover:text-white" >Jewelery</Link>
           </li>
           <li>
-            <a className="text-gray-400 hover:text-white" href="/products/">Men's Clothing</a>
+            <Link to="/products" className="text-gray-400 hover:text-white" >Men's Clothing</Link>
           </li>
           <li>
-            <a className="text-gray-400 hover:text-white" href="/products/">Women's Clothing</a>
+            <Link to="/products" className="text-gray-400 hover:text-white" >Women's Clothing</Link>
           </li>
         </nav>
       </div>
