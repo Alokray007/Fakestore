@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { BtnShop, BtnHero, BtnShopLeft} from "./Buttons";
+import { BtnShop, BtnHero, BtnShopLeft, BtnShopRight} from "./Buttons";
 import { Pdct } from "../../types/Products";
 import userEvent from "@testing-library/user-event";
 
@@ -32,7 +32,7 @@ describe("Button Component", () => {
 
         const user = userEvent.setup();
         await user.click(btn);
-        expect(mockHandleCart).toHaveBeenCalled();
+        expect(mockHandleCart).toHaveBeenCalledWith(mockProduct, mockBool);
     })
 
     test('BtnHero renders with correct text', () => {
@@ -47,7 +47,17 @@ describe("Button Component", () => {
 
         const user = userEvent.setup();
         await user.click(btnShopLeft);
-        expect(mockHandleCart).toHaveBeenCalled();
+        expect(mockHandleCart).toHaveBeenCalledWith(mockProduct, mockBool);
+    });
+
+    test('BtnShopRight renders with correct text and calls handleCart on click', async() => {
+        render(<BtnShopRight handleCart={mockHandleCart} product={mockProduct} data={mockData} bool={mockBool}/>)
+        const btnShopRight = screen.getByText(mockData);
+        expect(btnShopRight).toBeInTheDocument();
+
+        const user = userEvent.setup();
+        await user.click(btnShopRight);
+        expect(mockHandleCart).toHaveBeenCalledWith(mockProduct, mockBool);
     });
 
 });
