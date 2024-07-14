@@ -21,4 +21,14 @@ describe('SocialSvg Component', () => {
         expect(linkedinLink).toHaveAttribute('href', 'https://www.linkedin.com/in/');
     });
 
+    test('renders SVG icons for each social media link', () => {
+        render(<SocialSvg />)
+
+        const allSocialLinks = document.querySelectorAll("svg");
+        expect(allSocialLinks).toHaveLength(4);
+        allSocialLinks.forEach((svg) => {
+            expect(svg).toBeInTheDocument();
+            expect(svg).toHaveAttribute('viewBox', '0 0 24 24');
+        })
+    })
 })
