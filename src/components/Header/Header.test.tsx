@@ -35,11 +35,23 @@ describe('Header Component', () => {
         const menuButton = screen.getByRole('button');
         await userEvent.click(menuButton);
 
-        const mobileMenuLinks = screen.getByTestId('mobile-menu');
-        expect(mobileMenuLinks).toBeVisible();
+        const mobileMenu = screen.getByTestId('mobile-menu');
+        expect(mobileMenu).toBeVisible();
 
         await userEvent.click(menuButton);
-        expect(mobileMenuLinks).not.toBeVisible();
+        expect(mobileMenu).not.toBeVisible();
+    })
+
+    test('close the mobilemenu when a navigation link is clicked', async() => {
+        userEvent.setup();
+        const menuButton = screen.getByRole('button');
+        await userEvent.click(menuButton);
+
+        const navLink = screen.getByTestId('mobile-link-home');
+        await userEvent.click(navLink);
+
+        const mobileMenu = screen.queryByTestId('mobile-menu');
+        expect(mobileMenu).not.toBeInTheDocument();
     })
 
 })
