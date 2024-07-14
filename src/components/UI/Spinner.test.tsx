@@ -6,4 +6,9 @@ describe('CustomSpinner Component', () => {
         render(<CustomSpinner />);
         expect(screen.getByRole('status')).toBeInTheDocument();
     });
+
+    test('has the appropriate accessibility attributes', () => {
+        render(<CustomSpinner />);
+        expect(screen.getByRole('status')).toHaveTextContent('Loading...');
+    })
 });
