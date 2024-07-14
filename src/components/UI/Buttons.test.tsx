@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { BtnShop} from "./Buttons";
 import { Pdct } from "../../types/Products";
+import userEvent from "@testing-library/user-event";
 
 
 const mockHandleCart = jest.fn();
@@ -24,10 +25,14 @@ describe("Button Component", () => {
         jest.clearAllMocks();
     })
 
-    test('BtnShop renders with correct text and calls handleCart on click', () => {
+    test('BtnShop renders with correct text and calls handleCart on click', async() => {
         render(<BtnShop handleCart={mockHandleCart} product={mockProduct} data={mockData} bool={mockBool}/>)
-        expect(screen.getByText(mockData)).toBeInTheDocument();
+        const btn = screen.getByText(mockData);
+        expect(btn).toBeInTheDocument();
 
+        userEvent.setup();
+        await userEvent.click(btn);
+        expect(mockHandleCart).toHaveBeenCalled();
     })
 
 });
