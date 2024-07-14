@@ -17,5 +17,11 @@ describe('Header Component', () => {
         expect(screen.getByAltText('Logo')).toHaveAttribute('src', Logo);
     })
 
-    
+    test('renders navigation links', () => {
+        const navLinks = ['Home', 'Products', 'Collections', 'Contact Us'];
+        navLinks.forEach(link => {
+            expect(screen.getByText(link)).toBeInTheDocument();
+        })
+    })
+
 })
