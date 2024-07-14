@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Footer from "./Footer";
 import { BrowserRouter } from "react-router-dom";
-
+import userEvent from "@testing-library/user-event"
 
 describe('Footer Component', () => {
     test('renders the footer with all sections', () => {
@@ -31,7 +31,20 @@ describe('Footer Component', () => {
 
         expect(screen.getByLabelText(/To Newsletter/i)).toBeInTheDocument();
         expect(screen.getByRole("button", {name: /Subscribe/i})).toBeInTheDocument();
-
-        
     })
+
+    test('handles Subscription input', async() => {
+        userEvent.setup();
+        render(
+          <BrowserRouter>
+            <Footer />
+          </BrowserRouter>
+        );
+
+        const input = screen.getByRole("textbox");
+        await userEvent.type(input, 'Hello, World!');
+        expect(input).toHaveValue('Hello, World!')
+    })
+
+
 });
