@@ -32,4 +32,11 @@ describe("Testimonial Component", () => {
     });
   });
 
+  test('renders testimonial images', () => {
+    const images = screen.getAllByAltText('testimonial')
+    expect(images).toHaveLength(3);
+    images.forEach(img => {
+      expect(img).toBeInTheDocument();
+    })
+  })
 });
