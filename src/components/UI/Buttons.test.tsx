@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { BtnShop} from "./Buttons";
+import { BtnShop, BtnHero} from "./Buttons";
 import { Pdct } from "../../types/Products";
 import userEvent from "@testing-library/user-event";
 
@@ -33,6 +33,11 @@ describe("Button Component", () => {
         userEvent.setup();
         await userEvent.click(btn);
         expect(mockHandleCart).toHaveBeenCalled();
+    })
+
+    test('BtnHero renders with correct text', () => {
+        render(<BtnHero handleCart={mockHandleCart} product={mockProduct} data={mockData} bool={mockBool}/>)
+        expect(screen.getByText(mockData)).toBeInTheDocument();
     })
 
 });
