@@ -30,5 +30,16 @@ describe('Header Component', () => {
         expect(cartIcon.length).toBeGreaterThan(0);
     })
 
+    test('opens and closes the mobilemenu', async() => {
+        userEvent.setup();
+        const menuButton = screen.getByRole('button');
+        await userEvent.click(menuButton);
+
+        const mobileMenuLinks = screen.getByTestId('mobile-menu');
+        expect(mobileMenuLinks).toBeVisible();
+
+        await userEvent.click(menuButton);
+        expect(mobileMenuLinks).not.toBeVisible();
+    })
 
 })
