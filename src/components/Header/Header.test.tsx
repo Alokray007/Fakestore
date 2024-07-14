@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react"
 import Header from "./Header"
 import { BrowserRouter as Router } from "react-router-dom";
 import Logo from "../../assets/images/favicon.png";
+import userEvent from "@testing-library/user-event";
 
 describe('Header Component', () => {
     beforeEach(() => {
@@ -23,5 +24,11 @@ describe('Header Component', () => {
             expect(screen.getByText(link)).toBeInTheDocument();
         })
     })
+
+    test('renders cart icon', () => {
+        const cartIcon = screen.getAllByLabelText(/cart/i);
+        expect(cartIcon.length).toBeGreaterThan(0);
+    })
+
 
 })
