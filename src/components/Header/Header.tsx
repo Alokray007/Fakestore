@@ -64,7 +64,7 @@ const Header: React.FC = () => {
                   />
                 </svg>
               </a>
-              <Link to="/cart" className="flex items-center hover:text-gray-200">
+              <Link to="/cart" aria-label="cart" className="flex items-center hover:text-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -103,7 +103,7 @@ const Header: React.FC = () => {
             </div>
           </div>
           <div className="md:hidden flex items-center">
-            <Link to="/cart" className="xl:hidden flex mr-6 items-center">
+            <Link to="/cart" aria-label="cart" className="xl:hidden flex mr-6 items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6 hover:text-gray-200"
@@ -143,7 +143,7 @@ const Header: React.FC = () => {
         </nav>
       </section>
       {isMobileMenuOpen && (
-        <div className="w-full bg-gray-900 text-white px-6 py-4 md:hidden">
+        <div className="w-full bg-gray-900 text-white px-6 py-4 md:hidden" data-testid="mobile-menu">
           <ul className="space-y-4 text-center">
             {navigations.map(navigation => (
               <li key={navigation.name} >
@@ -151,6 +151,7 @@ const Header: React.FC = () => {
                   to={navigation.path}
                   className={"hover:text-white hover:font-semibold "}
                   onClick={toggleMobileMenu}
+                  data-testid={`mobile-link-${navigation.name.toLowerCase().replace(' ', '-')}`}
                 >
                   {navigation.name}
                 </Link>
