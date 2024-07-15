@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import RateFilter from "./RateFilter";
 import {RateFilterProps} from "../../types/Products"
+import userEvent from "@testing-library/user-event";
 
 const mockHandleResetRating = jest.fn();
 const mockHandleRatingChange = jest.fn();
@@ -26,5 +27,14 @@ describe('RateFilter Component', () => {
             expect(rating).toBeInTheDocument();
         })
     });
+
+    test('calls handleResetRating when reset button is clicked', async() => {
+        const resetButton = screen.getByRole("button", {name: /Reset/i});
+
+        const user = userEvent.setup();
+        await user.click(resetButton);
+
+        expect(mockHandleResetRating).toHaveBeenCalled();
+    })
 
 });
