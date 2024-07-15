@@ -88,4 +88,14 @@ describe('PriceFilter Component', () => {
 
         expect(mockHandleMinPrice).toHaveBeenCalled();
     });
+
+    test('calls mockHandleMaxPrice when To input box value changes', async() => {
+        renderComponent();
+        const toInput = screen.getByPlaceholderText(/To/i);
+
+        const user = userEvent.setup();
+        await user.type(toInput, '200');
+
+        expect(mockHandleMaxPrice).toHaveBeenCalled();
+    });
 });
