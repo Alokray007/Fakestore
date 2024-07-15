@@ -82,4 +82,14 @@ describe("RateFilter Component", () => {
     expect(screen.getByRole("checkbox", {name : /4 star & above/i})).toBeChecked
   })
 
+  test('calls handleRatingChange when checkboxes are changed', async() => {
+    renderComponent();
+    const fourStarCheckbox = screen.getByRole("checkbox", { name : /4 star & above/i });
+
+    const user = userEvent.setup()
+    await user.click(fourStarCheckbox)
+
+    expect(mockHandleRatingChange).toHaveBeenCalled()
+  })
+
 });
