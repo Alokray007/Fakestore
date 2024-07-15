@@ -62,5 +62,21 @@ describe('Categories Component', () => {
         expect(mockOnCategoryClick).toHaveBeenCalledWith(mockCategories[0]);
     });
 
-    
+    test('calls onCategoryClick with "All" when "All" is clicked', async() => {
+        mockAxios.onGet('/products/categories').reply(200, mockCategories)
+
+        renderComponent();
+
+        const user = userEvent.setup();
+
+        await waitFor(() => {
+            mockCategories.forEach(category => {
+                expect(screen.getByText(category)).toBeInTheDocument();
+            });
+        });
+
+        const allCaterogyItem = screen.getByText('All');
+        await user.click(allCaterogyItem);
+        expect(mockOnCategoryClick).toHaveBeenCalledWith('All');
+    })
 });
