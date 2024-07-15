@@ -39,4 +39,22 @@ describe('RatingStar component', () => {
         });
     });
 
+    describe('handles edge cases for rating', () => {
+        test('case when rating is 0', () =>{
+            renderComponent(0);
+            const starsZero = document.querySelectorAll('svg');
+            starsZero.forEach(star => {
+            expect(star).toHaveAttribute('fill', 'none')
+            });
+        });
+
+        test('case when rating is 5', () =>{
+            renderComponent(5);
+            const starsFive = document.querySelectorAll('svg');
+            starsFive.forEach(star => {
+                expect(star).toHaveAttribute('fill', 'currentColor')
+            });
+        });
+    });
+
 })
