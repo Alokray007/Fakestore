@@ -32,4 +32,14 @@ describe('Categories Component', () => {
             });
         });
     });
+
+    test('handles errors properly', async() => {
+        mockAxios.onGet('/products/categories').reply(500);
+
+        renderComponent();
+
+        await waitFor(() => {
+            expect(screen.getByText('Request failed with status code 500')).toBeInTheDocument();
+        });
+    });
 });
