@@ -69,7 +69,7 @@ describe('PriceFilter Component', () => {
         expect(screen.getByText(`The highest price is $${highestPrice}`)).toBeInTheDocument();
     });
 
-    test("calls handleResetPrice when reset button is clicked", async() => {
+    test('calls handleResetPrice when reset button is clicked', async() => {
         renderComponent();
         const resetButton = screen.getByRole('button', { name: /Reset/i });
 
@@ -77,5 +77,15 @@ describe('PriceFilter Component', () => {
         await user.click(resetButton);
 
         expect(mockHandleResetPrice).toHaveBeenCalled();
+    });
+
+    test('calls mockHandleMinPrice when From input box value changes', async() => {
+        renderComponent();
+        const fromInput = screen.getByPlaceholderText(/From/i);
+
+        const user = userEvent.setup();
+        await user.type(fromInput, '100');
+
+        expect(mockHandleMinPrice).toHaveBeenCalled();
     });
 });
