@@ -3,6 +3,7 @@ import axios from '../../services/axios';
 import MockAdapter from 'axios-mock-adapter';
 import Category from './Categories';
 import { CategoryFilterProps } from '../../types/Products';
+import userEvent from '@testing-library/user-event';
 
 const mockAxios = new MockAdapter(axios)
 const mockCategories = ['Electronics', 'Jewelery', 'Men\'s clothing', 'Women\'s clothing'];
@@ -42,4 +43,24 @@ describe('Categories Component', () => {
             expect(screen.getByText('Request failed with status code 500')).toBeInTheDocument();
         });
     });
+
+    test('calls onCategoryClick with the correct category', async() => {
+        mockAxios.onGet('/products/categories').reply(200, mockCategories)
+
+        renderComponent();
+
+        const user = userEvent.setup();
+
+        await waitFor(() => {
+            mockCategories.forEach(category => {
+                expect(screen.getByText(category)).toBeInTheDocument();
+            });
+        });
+
+        const caterogyItem = screen.getByText(mockCategories[0]);
+        await user.click(caterogyItem);
+        expect(mockOnCategoryClick).toHaveBeenCalledWith(mockCategories[0]);
+    });
+
+    
 });
