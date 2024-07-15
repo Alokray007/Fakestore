@@ -49,7 +49,7 @@ describe("RateFilter Component", () => {
     expect(mockHandleResetRating).toHaveBeenCalled();
   });
 
-  test("displays the correct number of selected ratings", async () => {
+  test("displays the correct number of selected ratings", () => {
     const props = {
         ...defaultProps,
         selectedRatings: {
@@ -63,5 +63,23 @@ describe("RateFilter Component", () => {
 
     expect(screen.getByText(/Selected/i)).toHaveTextContent("2 Selected");
   });
-  
+
+  test('checkboxes reflect selectedRatings state', () => {
+    const props = {
+        ...defaultProps,
+        selectedRatings: {
+            fourStar: true,
+            threeStar: false,
+            twoStar: false,
+            oneStar: true,
+        }
+    }
+    renderComponent(props);
+
+    expect(screen.getByRole("checkbox", {name : /4 star & above/i})).toBeChecked
+    expect(screen.getByRole("checkbox", {name : /4 star & above/i})).not.toBeChecked
+    expect(screen.getByRole("checkbox", {name : /4 star & above/i})).not.toBeChecked
+    expect(screen.getByRole("checkbox", {name : /4 star & above/i})).toBeChecked
+  })
+
 });
