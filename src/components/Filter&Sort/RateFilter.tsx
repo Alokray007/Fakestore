@@ -36,7 +36,7 @@ const RateFilter:React.FC<RateFilterProps> = ({
             {" "}
             {
               Object.values(selectedRatings).filter(Boolean).length
-            } Selected{" "}
+            }{" "} Selected {" "}
           </span>
 
           <button
