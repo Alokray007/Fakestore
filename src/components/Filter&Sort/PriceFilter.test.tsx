@@ -1,9 +1,3 @@
-// check renders all component
-// check if it displays max price
-// check if it calls handleminprice when min price is set
-// ckecl if it calls handlemaxprice when max price is set
-//check when reset is presses it calls handlereset
-
 import { render, screen } from "@testing-library/react";
 import { PriceFilterProps } from "../../types/Products";
 import { Pdct } from "../../types/Products";
@@ -67,4 +61,10 @@ describe('PriceFilter Component', () => {
             expect(input).toBeInTheDocument();
         });
     });
+
+    test('displays the correct highest price', () => {
+        renderComponent();
+        const highestPrice = Math.max(...mockFinalFilter.map((product) => product.price))
+        expect(screen.getByText(`The highest price is $${highestPrice}`)).toBeInTheDocument();
+    })
 });
