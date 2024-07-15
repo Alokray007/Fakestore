@@ -92,4 +92,31 @@ describe("RateFilter Component", () => {
     expect(mockHandleRatingChange).toHaveBeenCalled()
   })
 
+  test('updates selected ratings count when a checkbox is clicked', async() => {
+    const user = userEvent.setup();
+
+    const props = {
+        ...defaultProps,
+        selectedRatings: {
+            fourStar: false,
+            threeStar: false,
+            twoStar: false,
+            oneStar: false,
+        },
+
+        handleRatingChange : (e: React.ChangeEvent<HTMLInputElement>) => {
+            props.selectedRatings[e.target.id as keyof typeof props.selectedRatings] = e.target.checked;
+            renderComponent(props);
+        },
+    };
+
+    renderComponent(props);
+
+    const fourStarCheckbox = screen.getByRole("checkbox", { name : /4 star & above/i });
+    await user.click(fourStarCheckbox);
+    expect(props.selectedRatings.fourStar).toBe(true);
+
+    expect(screen.getByText('1 Selected')).toBeInTheDocument();
+  })
+
 });
