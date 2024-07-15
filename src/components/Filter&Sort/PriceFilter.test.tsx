@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { PriceFilterProps } from "../../types/Products";
 import { Pdct } from "../../types/Products";
 import PriceFilter from "./PriceFilter";
+import userEvent from "@testing-library/user-event";
 
 const mockFinalFilter:Pdct[] = [
     {
@@ -66,5 +67,15 @@ describe('PriceFilter Component', () => {
         renderComponent();
         const highestPrice = Math.max(...mockFinalFilter.map((product) => product.price))
         expect(screen.getByText(`The highest price is $${highestPrice}`)).toBeInTheDocument();
-    })
+    });
+
+    test("calls handleResetPrice when reset button is clicked", async() => {
+        renderComponent();
+        const resetButton = screen.getByRole('button', { name: /Reset/i });
+
+        const user = userEvent.setup();
+        await user.click(resetButton);
+
+        expect(mockHandleResetPrice).toHaveBeenCalled();
+    });
 });
