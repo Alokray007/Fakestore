@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import Product from "./Product";
 import { Pdct } from "@/types/Products";
-import {toast} from 'react-toastify'
+// import {toast} from 'react-toastify'
 
 // Mock toast
 jest.mock("react-toastify", () => ({
@@ -53,6 +53,16 @@ describe('Product Component', () => {
         );
 
         expect(screen.getByText('Loading...')).toBeInTheDocument();
+    });
+
+    test('filters products based on search input', () => {
+        render(
+            <Router>
+                <Product search="Product 1" products={mockProducts} />
+            </Router>
+        );
+        expect(screen.getByText('Product 1')).toBeInTheDocument();
+        expect(screen.queryByText('Product 2')).toBeNull();
     });
 
 
