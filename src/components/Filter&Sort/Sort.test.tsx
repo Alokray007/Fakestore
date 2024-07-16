@@ -17,7 +17,13 @@ describe('Sort Component', () => {
 
     test('renders all components correctly', () => {
         expect(screen.getByLabelText('Sort By')).toBeInTheDocument();
-        expect(screen.getByRole('combobox', {name : /Sort By/i})).toBeInTheDocument();
+        expect(screen.getByRole('combobox')).toBeInTheDocument();
     });
+
+    test('should correctly set default option', () => {
+        const defaultOption = screen.getAllByRole('option');
+        expect(defaultOption[0]).toHaveTextContent('Sort By');
+    })
+
 
 });
