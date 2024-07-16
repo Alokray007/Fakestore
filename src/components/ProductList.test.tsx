@@ -1,7 +1,8 @@
 import { ProductListProps } from "../types/Products";
 import { BrowserRouter as Router } from "react-router-dom";
 import ProductList from "./ProductList";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 // import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const mockProducts: ProductListProps['products'] = [
@@ -63,5 +64,27 @@ describe('ProductList Component', () => {
         });
     });
 
+    test('redirects to product detail page on product click', async() => {
+        const { container } = render(
+        <Router>
+            <ProductList products={mockProducts} />
+        </Router>
+        );
+
+        const productLink = container.querySelector('a[href="/products/1"]');
+        const user = userEvent.setup();
+        if (productLink) {
+            user.click(productLink);
+            await waitFor(() => {
+            expect(window.location.pathname).toBe(`/products/1`);
+            });
+        } else {
+            throw new Error('Product link not found');
+        }
+
+        waitFor(() => {
+        expect(window.location.pathname).toBe(`/products/1`);
+        });
+    });
 
 });
