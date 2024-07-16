@@ -42,13 +42,15 @@ describe("Hero Component", () => {
   test('renders the spinner while fetching data', () => {
     mockAxios.onGet('/products?limit=15').reply(200,[]);
     expect(screen.getByText('Loading...')).toBeInTheDocument();
-  })
+  });
 
   test('displays error message on fetch failure', async() => {
     mockAxios.onGet('/products?limit=15').reply(500);
     await waitFor(() => {
         expect(screen.getByText(/Request failed with status code/i)).toBeInTheDocument();
     });
-  })
+  });
+
+  
 
 });
