@@ -1,8 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import Product from "./Product";
 import { Pdct } from "@/types/Products";
-// import {toast} from 'react-toastify'
+import userEvent from "@testing-library/user-event";
+import {toast} from 'react-toastify'
 
 // Mock toast
 jest.mock("react-toastify", () => ({
@@ -10,6 +11,8 @@ jest.mock("react-toastify", () => ({
       success: jest.fn(),
     },
 }));
+
+const mockHandleCart = jest.fn();
 
 const mockProducts: Pdct[] = [
     {
@@ -63,6 +66,18 @@ describe('Product Component', () => {
         );
         expect(screen.getByText('Product 1')).toBeInTheDocument();
         expect(screen.queryByText('Product 2')).toBeNull();
+    });
+
+    test('display all products when search is empty', () => {
+        render(
+            <Router>
+                <Product search="" products={mockProducts} />
+            </Router>
+        );
+        const products = screen.getAllByText(/product/i)
+        products.forEach(product => {
+            expect(product).toBeInTheDocument();
+        });
     });
 
 
