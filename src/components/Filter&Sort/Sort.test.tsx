@@ -30,7 +30,7 @@ describe('Sort Component', () => {
         expect(options).toHaveLength(8);
     });
 
-    test ('should allow user to change Sort filter', async() => {
+    test ('calls handleSortChange when user Selects a new option', async() => {
         const user = userEvent.setup();
         const dropdown = screen.getByRole('combobox', { name: /sort by/i });
 
@@ -38,8 +38,8 @@ describe('Sort Component', () => {
 
         await user.selectOptions(dropdown, 'Price: High to Low');
 
+        expect(mockHandleSortChange).toHaveBeenCalled();
+        
         expect((screen.getByRole('option', { name: 'Price: High to Low' }) as HTMLOptionElement).selected).toBe(true);
     });
-
-
 });
