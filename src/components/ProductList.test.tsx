@@ -3,7 +3,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import ProductList from "./ProductList";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-// import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const mockProducts: ProductListProps['products'] = [
     {
