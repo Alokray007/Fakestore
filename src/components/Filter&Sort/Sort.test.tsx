@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Sort from "./Sort";
 import { SortProps } from "../../types/Products";
+import userEvent from "@testing-library/user-event";
 
 const mockHandleSortChange = jest.fn();
 
@@ -25,5 +26,9 @@ describe('Sort Component', () => {
         expect(defaultOption[0]).toHaveTextContent('Sort By');
     })
 
+    test('should display the correct number of options', () => {
+        const options = screen.getAllByRole('option');
+        expect(options).toHaveLength(8);
+    });
 
 });
