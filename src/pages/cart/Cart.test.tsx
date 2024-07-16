@@ -30,7 +30,7 @@ const mockCart: CartPdct[] = [
     {
       id: 2,
       title: 'Product 2',
-      price: 200,
+      price: 300,
       category: 'Category 2',
       quantity: 1,
       description: 'Description 2',
@@ -47,20 +47,34 @@ describe('Cart Page', () => {
         localStorage.setItem('cart', JSON.stringify(mockCart));
       });
 
-      afterEach(() => {
+    afterEach(() => {
         jest.clearAllMocks();
         localStorage.clear();
-      });
+    });
+    describe('Rendering the Cart' ,() => {
+        test('renders empty cart message when no items are in the cart', () => {
+            localStorage.setItem('cart', '[]');
 
-      test('renders empty cart message when no items are in the cart', () => {
-        localStorage.setItem('cart', '[]');
+            render(
+                <MemoryRouter>
+                    <Cart />
+                </MemoryRouter>
+            );
 
-        render(
-            <MemoryRouter>
-                <Cart />
-            </MemoryRouter>
-        );
+            expect(screen.getByText('Cart is Empty')).toBeInTheDocument();
+        });
 
-        expect(screen.getByText('Cart is Empty')).toBeInTheDocument();
-      });
+        test('renders cart items correctly', () => {
+            render(
+                <MemoryRouter>
+                    <Cart />
+                </MemoryRouter>
+            );
+            mockCart.forEach(item => {
+                expect(screen.getByText(item.title)).toBeInTheDocument();
+                expect(screen.getByAltText(item.title)).toHaveAttribute('src', item.image);
+            })
+        });
+    });
+
 });
