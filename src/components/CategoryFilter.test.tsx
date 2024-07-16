@@ -53,7 +53,4 @@ describe('CategoryFilter Component', () => {
         await user.selectOptions( caterogyItem, "Electronics");
         expect(onCategoryChange).toHaveBeenCalledWith(mockCategories[0]);
     });
-
-    
-
 });
