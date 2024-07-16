@@ -2,6 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import axios from '../services/axios';
 import MockAdapter from 'axios-mock-adapter';
 import CategoryFilter from './CategoryFilter';
+import userEvent from '@testing-library/user-event';
 
 // Mock axios
 const mockAxios = new MockAdapter(axios);
@@ -25,6 +26,17 @@ describe('CategoryFilter Component', () => {
         });
     });
 
-    ;
+    test('displays error message on fetch failure', async () => {
+        mockAxios.onGet('/products/categories').reply(500);
+        render(<CategoryFilter onCategoryChange={jest.fn()}/>);
+
+        await waitFor(() => {
+          expect(screen.getByText(/Request failed with status code/i)).toBeInTheDocument();
+        });
+    });
+
+    
+
+
 
 });
