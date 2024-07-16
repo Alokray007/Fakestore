@@ -5,13 +5,20 @@ import axios from "../../services/axios";
 import MockAdapter from "axios-mock-adapter";
 import { BrowserRouter as Router } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 // Mock toast
 jest.mock("react-toastify", () => ({
   toast: {
     success: jest.fn(),
   },
+}));
+
+// Mock useNavigate
+const mockNavigate = jest.fn();
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate,
 }));
 
 const mockAxios = new MockAdapter(axios);
@@ -68,26 +75,49 @@ describe("Hero Component", () => {
     });
   });
 
-  test('adds product to cart and shows success toast', async() => {
+  test("adds product to cart and shows success toast", async () => {
+    mockAxios.onGet("/products?limit=15").reply(200, [mockProducts]);
+    render(
+      <Router>
+        <Hero />
+      </Router>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText(mockProducts.title)).toBeInTheDocument();
+    });
+
+    const user = userEvent.setup();
+    user.click(screen.getByText("Add To Cart"));
+
+    await waitFor(() => {
+      expect(localStorage.getItem("cart")).toContain(JSON.stringify({ ...mockProducts, quantity: 1 }));
+      expect(toast.success).toHaveBeenCalledWith("Product Added to cart");
+    });
+    localStorage.clear();
+  });
+
+  test('navigates to cart on "Buy Now" click', async() => {
     mockAxios.onGet("/products?limit=15").reply(200, [mockProducts]);
     render(
         <Router>
           <Hero />
         </Router>
-      );
+    );
 
     await waitFor(() => {
         expect(screen.getByText(mockProducts.title)).toBeInTheDocument();
     });
 
     const user = userEvent.setup();
-    user.click(screen.getByText('Add To Cart'));
+    user.click(screen.getByText("Buy Now"));
 
-    await waitFor(() => {
-        expect(localStorage.getItem('cart')).toContain(JSON.stringify({ ...mockProducts, quantity: 1 }));
-        expect(toast.success).toHaveBeenCalledWith('Product Added to cart');
+    await waitFor(() =>{
+        expect(localStorage.getItem('cart')).toContain(JSON.stringify({...mockProducts, quantity: 1}));
+        expect(toast.success).toHaveBeenCalledWith("Product Added to cart");
+        expect(mockNavigate).toHaveBeenCalledWith('/cart');
     });
+    localStorage.clear();
   });
-
 
 });
