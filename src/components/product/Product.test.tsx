@@ -111,7 +111,17 @@ describe('Product Component', () => {
             expect(cart[0].quantity).toBe(2);
             expect(toast.success).toHaveBeenCalledWith("Product Added to cart");
         });
-    })
+    });
 
+    test('product links navigate to the product detail page of that product', () => {
+        render(
+          <Router>
+            <Product search="" products={mockProducts} />
+          </Router>
+        );
+
+        const productLink = screen.getByText('Product 1').closest('a');
+        expect(productLink).toHaveAttribute('href', '/products/1');
+    });
 
 });
