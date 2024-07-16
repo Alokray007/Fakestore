@@ -4,6 +4,8 @@ import { Pdct } from "@/types/Products";
 import axios from "../../services/axios";
 import MockAdapter from "axios-mock-adapter";
 import { BrowserRouter as Router } from "react-router-dom";
+import userEvent from "@testing-library/user-event";
+import { toast } from 'react-toastify';
 
 // Mock toast
 jest.mock("react-toastify", () => ({
@@ -65,4 +67,27 @@ describe("Hero Component", () => {
       expect(screen.getByText(mockProducts.title)).toBeInTheDocument();
     });
   });
+
+  test('adds product to cart and shows success toast', async() => {
+    mockAxios.onGet("/products?limit=15").reply(200, [mockProducts]);
+    render(
+        <Router>
+          <Hero />
+        </Router>
+      );
+
+    await waitFor(() => {
+        expect(screen.getByText(mockProducts.title)).toBeInTheDocument();
+    });
+
+    const user = userEvent.setup();
+    user.click(screen.getByText('Add To Cart'));
+
+    await waitFor(() => {
+        expect(localStorage.getItem('cart')).toContain(JSON.stringify({ ...mockProducts, quantity: 1 }));
+        expect(toast.success).toHaveBeenCalledWith('Product Added to cart');
+    });
+  });
+
+
 });
