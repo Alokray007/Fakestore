@@ -12,8 +12,6 @@ jest.mock("react-toastify", () => ({
     },
 }));
 
-const mockHandleCart = jest.fn();
-
 const mockProducts: Pdct[] = [
     {
       id: 1,
@@ -95,6 +93,25 @@ describe('Product Component', () => {
             expect(toast.success).toHaveBeenCalledWith("Product Added to cart")
         });
     });
+
+    test('increments product quantity in cart if it already exists', async() => {
+        localStorage.setItem('cart', JSON.stringify([{...mockProducts[0], quantity : 1}]));
+        render(
+            <Router>
+                <Product search="" products={mockProducts} />
+            </Router>
+        );
+
+        const addButton = screen.getAllByRole("button", {name : /Add to Cart/i})[0];
+        const user = userEvent.setup();
+        await user.click(addButton);
+
+        await waitFor(() => {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            expect(cart[0].quantity).toBe(2);
+            expect(toast.success).toHaveBeenCalledWith("Product Added to cart");
+        });
+    })
 
 
 });
