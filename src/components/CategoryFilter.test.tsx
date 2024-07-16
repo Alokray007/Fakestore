@@ -35,8 +35,25 @@ describe('CategoryFilter Component', () => {
         });
     });
 
+    test('calls onCategoryClick with the correct category', async() => {
+        mockAxios.onGet('/products/categories').reply(200, mockCategories);
+        const onCategoryChange = jest.fn();
+
+        render(<CategoryFilter onCategoryChange={onCategoryChange}/>);
+
+        const user = userEvent.setup();
+
+        await waitFor(() => {
+            mockCategories.forEach(category => {
+                expect(screen.getByText(category)).toBeInTheDocument();
+            });
+        });
+
+        const caterogyItem = screen.getByRole('combobox');
+        await user.selectOptions( caterogyItem, "Electronics");
+        expect(onCategoryChange).toHaveBeenCalledWith(mockCategories[0]);
+    });
+
     
-
-
 
 });
