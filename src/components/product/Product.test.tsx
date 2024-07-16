@@ -80,5 +80,21 @@ describe('Product Component', () => {
         });
     });
 
+    test('adds product to cart and shows success toast', async() => {
+        render(
+            <Router>
+                <Product search="" products={mockProducts} />
+            </Router>
+        );
+        const addButton = screen.getAllByRole("button", {name : /Add to Cart/i})[0];
+        const user = userEvent.setup();
+        await user.click(addButton);
+
+        await waitFor(() => {
+            expect(localStorage.getItem('cart')).toContain(JSON.stringify({...mockProducts[0], quantity: 1}));
+            expect(toast.success).toHaveBeenCalledWith("Product Added to cart")
+        });
+    });
+
 
 });
