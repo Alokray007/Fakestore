@@ -87,4 +87,33 @@ describe('ProductList Component', () => {
         });
     });
 
+    test('handles pagination correctly', () => {
+        const moreMockProducts = Array.from({ length: 20 }, (_, index) => ({
+          id: index + 1,
+          title: `Product ${index + 1}`,
+          price: (index + 1) * 10,
+          category: 'Category',
+          description: 'Description',
+          image: `image${index + 1}.jpg`,
+          rating: {
+            rate: 4.0 + (index % 5) * 0.5,
+            count: 10 + index,
+          },
+        }));
+
+        render(
+          <Router>
+            <ProductList products={moreMockProducts} />
+          </Router>
+        );
+
+        const firstProductOnPage2 = moreMockProducts[9].title;
+        const user = userEvent.setup();
+        user.click(screen.getByText('2'));
+
+        waitFor(() => {
+          expect(screen.getByText(firstProductOnPage2)).toBeInTheDocument();
+        });
+      });
+
 });
