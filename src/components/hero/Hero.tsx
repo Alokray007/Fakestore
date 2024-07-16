@@ -46,11 +46,11 @@ const Hero: React.FC = () => {
     return () => clearInterval(intervalId);
   }, [getRandomProduct]);
 
-  if (!product) return <CustomSpinner />;
-
   if (isError) {
-    return <h1 className='text-center text-2xl font-semibold text-red-700'>{isError}</h1>;
+    return <h1 className='mt-32 text-center text-2xl font-semibold text-red-700'>{isError}</h1>;
   }
+
+  if (!product) return <CustomSpinner />;
 
   const handleCart = (product: Pdct, redirect:boolean) => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
