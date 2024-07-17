@@ -14,6 +14,7 @@
     - [Installation](#Installation)
   - [Resources](#Resources)
   - [Author](#Author)
+  - [License](#License)
 
 ## Overview
 
@@ -123,5 +124,10 @@ The CI/CD pipeline is configured using GitHub Actions. It runs on every push req
 
 ## Author
 [Alok Suman](https://portfolio-alok1.netlify.app/)
+
 [GitHub](https://github.com/Alokray007)
+
 [LinkedIn](https://www.linkedin.com/in/aloksuman010)
+
+## Licence
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/license/MIT).
