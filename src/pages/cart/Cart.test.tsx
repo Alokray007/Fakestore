@@ -3,7 +3,7 @@ import { CartPdct } from "@/types/Products";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 // Mock toast
 jest.mock('react-toastify', () => ({
@@ -111,6 +111,22 @@ describe('Cart Page', () => {
             });
             expect(localStorage.getItem('cart')).toContain(JSON.stringify({ ...mockCart[0], quantity: 1 }));
         });
+
+        test('does not decrease quantity below 1 and shows info toast', async() => {
+            render(
+                <MemoryRouter>
+                    <Cart />
+                </MemoryRouter>
+            );
+            const decrementButton = screen.getAllByLabelText('decrementBtn')[0];
+            const user = userEvent.setup();
+            await user.dblClick(decrementButton);
+
+            await waitFor(() => {
+                expect(toast.info).toHaveBeenCalledWith('Remove item instead of decreasing!');
+            });
+            expect(localStorage.getItem('cart') || '[]').toContain(JSON.stringify({ ...mockCart[0], quantity: 1 }));
+        })
 
     });
 });
