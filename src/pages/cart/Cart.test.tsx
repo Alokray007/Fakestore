@@ -170,7 +170,7 @@ describe('Cart Page', () => {
             );
             const input = screen.getAllByLabelText('cartitem');
             const user = userEvent.setup();
-            await user.type(input[0], '6');
+            await user.type(input[0], '4');
 
             await waitFor(() => {
                 expect(toast.error).toHaveBeenCalledWith('Quantity must be a number between 1 and 5!');
@@ -223,5 +223,18 @@ describe('Cart Page', () => {
             });
             expect(screen.getByText('$450')).toBeInTheDocument();
         });
-    })
+    });
+
+    describe('Order summary operation', () => {
+        test('renders all elements correctly', () => {
+            render(
+                <MemoryRouter>
+                    <Cart />
+                </MemoryRouter>
+            );
+            expect(screen.getByText('Order summary')).toBeInTheDocument();
+            expect(screen.getByText('Proceed to Checkout')).toBeInTheDocument();
+            expect(screen.getByText('Continue Shopping')).toBeInTheDocument();
+        });
+    });
 });
