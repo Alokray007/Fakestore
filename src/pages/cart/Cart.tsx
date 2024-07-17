@@ -112,13 +112,13 @@ const Cart: React.FC = () => {
                   <label htmlFor="counter-input" className="sr-only">Choose quantity:</label>
                   <div className="flex items-center justify-between md:order-3 md:justify-end">
                     <div className="flex items-center">
-                      <button type="button" id="decrement-button" data-input-counter-decrement="counter-input" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100" onClick={() => decreaseQty(item.id)}>
+                      <button type="button" aria-label='decrementBtn' id="decrement-button" data-input-counter-decrement="counter-input" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100" onClick={() => decreaseQty(item.id)}>
                         <svg className="h-2.5 w-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
                           <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h16" />
                         </svg>
                       </button>
-                      <input type="text" id="counter-input" data-input-counter className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0" placeholder="" value={item.quantity ?? ''} onChange={(e) => handleValueChange(item.id, parseInt(e.target.value))} />
-                      <button type="button" id="increment-button" data-input-counter-increment="counter-input" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100" onClick={() => increaseQty(item.id)}>
+                      <input type="text" aria-label='cartitem' id="counter-input" data-input-counter className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0" placeholder="" value={item.quantity ?? ''} onChange={(e) => handleValueChange(item.id, parseInt(e.target.value))} />
+                      <button type="button" aria-label='incrementBtn' id="increment-button" data-input-counter-increment="counter-input" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100" onClick={() => increaseQty(item.id)}>
                         <svg className="h-2.5 w-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                           <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 1v16M1 9h16" />
                         </svg>
@@ -140,7 +140,7 @@ const Cart: React.FC = () => {
                         Add to Favorites
                       </button>
 
-                      <button type="button" className="inline-flex items-center text-sm font-medium text-red-600 hover:underline" onClick={() => handleRemoveItem(item.id)}>
+                      <button type="button" aria-label='removeBtn' className="inline-flex items-center text-sm font-medium text-red-600 hover:underline" onClick={() => handleRemoveItem(item.id)}>
                         <svg className="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                           <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 17.94 6M18 18 6.06 6" />
                         </svg>
