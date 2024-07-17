@@ -161,6 +161,22 @@ describe('Cart Page', () => {
             expect(localStorage.getItem('cart')).not.toContain(JSON.stringify({ ...mockCart[0]}));
             expect(toast.success).toHaveBeenCalledWith('Item removed from Cart!');
         });
+
+        test('displays error toast when entered input not in range of 1-5', async() => {
+            render(
+                <MemoryRouter>
+                    <Cart />
+                </MemoryRouter>
+            );
+            const input = screen.getAllByLabelText('cartitem');
+            const user = userEvent.setup();
+            await user.type(input[0], '6');
+
+            await waitFor(() => {
+                expect(toast.error).toHaveBeenCalledWith('Quantity must be a number between 1 and 5!');
+            });
+            expect(localStorage.getItem('cart') || '[]').toContain(JSON.stringify({...mockCart[0], quantity: 2}));
+        });
     });
 
     describe('Discount Application', () => {
