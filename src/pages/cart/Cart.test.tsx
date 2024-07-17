@@ -247,5 +247,26 @@ describe('Cart Page', () => {
             expect(screen.getByLabelText('discountedPrice')).toHaveTextContent('$0');
             expect(screen.getByLabelText('finalPrice')).toHaveTextContent('$500');
         });
+
+        test('display all prices after applying discount', async() => {
+            render(
+                <MemoryRouter>
+                    <Cart />
+                </MemoryRouter>
+            );
+            const input = screen.getByLabelText(/Do you have a voucher or gift card/i);
+            const user = userEvent.setup();
+            await user.type(input, '10')
+
+            const applyBtn = screen.getByRole('button', {name :'Apply Code'});
+            await user.click(applyBtn);
+
+            await waitFor(() => {
+                expect(toast.success).toHaveBeenCalledWith('Discount applied! Final cost: 450')
+            });
+            expect(screen.getByLabelText('totalCost')).toHaveTextContent('$500');
+            expect(screen.getByLabelText('discountedPrice')).toHaveTextContent('$50');
+            expect(screen.getByLabelText('finalPrice')).toHaveTextContent('$450');
+        });
     });
 });
