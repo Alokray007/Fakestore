@@ -236,5 +236,16 @@ describe('Cart Page', () => {
             expect(screen.getByText('Proceed to Checkout')).toBeInTheDocument();
             expect(screen.getByText('Continue Shopping')).toBeInTheDocument();
         });
+
+        test('display all prices without applying discount', () => {
+            render(
+                <MemoryRouter>
+                    <Cart />
+                </MemoryRouter>
+            );
+            expect(screen.getByLabelText('totalCost')).toHaveTextContent('$500');
+            expect(screen.getByLabelText('discountedPrice')).toHaveTextContent('$0');
+            expect(screen.getByLabelText('finalPrice')).toHaveTextContent('$500');
+        });
     });
 });
