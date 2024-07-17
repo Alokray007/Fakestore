@@ -145,5 +145,22 @@ describe('Cart Page', () => {
             expect(localStorage.getItem('cart')).toContain(JSON.stringify({ ...mockCart[0], quantity: 5 }));
         })
 
+        test('removes cart item', async() => {
+            render(
+                <MemoryRouter>
+                    <Cart />
+                </MemoryRouter>
+            );
+            const removeButtons = screen.getAllByRole('button', { name: /Remove/i });
+            const user = userEvent.setup();
+            await user.click(removeButtons[0]);
+
+            await waitFor(() => {
+                expect(screen.queryByText(mockCart[0].title)).toBeNull();
+            });
+            expect(localStorage.getItem('cart')).not.toContain(JSON.stringify({ ...mockCart[0]}));
+            expect(toast.success).toHaveBeenCalledWith('Item removed from Cart!');
+        })
+
     });
 });
