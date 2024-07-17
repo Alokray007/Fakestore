@@ -162,18 +162,18 @@ const Cart: React.FC = () => {
                 <div className="space-y-2">
                   <dl className="flex items-center justify-between gap-4">
                     <dt className="text-base font-normal text-gray-500">Original price</dt>
-                    <dd className="text-base font-medium text-gray-900">${totalCost}</dd>
+                    <dd className="text-base font-medium text-gray-900" aria-label='totalCost'>${totalCost}</dd>
                   </dl>
 
                   <dl className="flex items-center justify-between gap-4">
                     <dt className="text-base font-normal text-gray-500">Savings</dt>
-                    <dd className="text-base font-medium text-green-600">-${discountedPrice}</dd>
+                    <dd className="text-base font-medium text-green-600" aria-label='discountedPrice'>-${discountedPrice}</dd>
                   </dl>
                 </div>
 
                 <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2">
                   <dt className="text-base font-bold text-gray-900">Total</dt>
-                  <dd className="text-base font-bold text-gray-900">${finalPrice? finalPrice: totalCost}</dd>
+                  <dd className="text-base font-bold text-gray-900" aria-label='finalPrice'>${finalPrice? finalPrice: totalCost}</dd>
                 </dl>
               </div>
               <a href="#" className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">Proceed to Checkout</a>
