@@ -268,5 +268,15 @@ describe('Cart Page', () => {
             expect(screen.getByLabelText('discountedPrice')).toHaveTextContent('$50');
             expect(screen.getByLabelText('finalPrice')).toHaveTextContent('$450');
         });
+
+        test('redirects to products page when Continue Shopping button clicked', () => {
+            render(
+                <MemoryRouter>
+                    <Cart />
+                </MemoryRouter>
+            );
+            const checkoutBtn = screen.getByText('Continue Shopping').closest('a');
+            expect(checkoutBtn).toHaveAttribute('href', '/products')
+        });
     });
 });
