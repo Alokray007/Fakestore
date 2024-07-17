@@ -128,5 +128,22 @@ describe('Cart Page', () => {
             expect(localStorage.getItem('cart') || '[]').toContain(JSON.stringify({ ...mockCart[0], quantity: 1 }));
         })
 
+        test('does not increase quantity above 5 and shows error toast', async() => {
+            render(
+                <MemoryRouter>
+                    <Cart />
+                </MemoryRouter>
+            );
+            const incrementButton = screen.getAllByLabelText('incrementBtn')[0];
+            const user = userEvent.setup();
+            await user.dblClick(incrementButton);
+            await user.dblClick(incrementButton);
+
+            await waitFor(() => {
+                expect(toast.error).toHaveBeenCalledWith('You can only add up to 5 of this item.');
+            });
+            expect(localStorage.getItem('cart')).toContain(JSON.stringify({ ...mockCart[0], quantity: 5 }));
+        })
+
     });
 });
