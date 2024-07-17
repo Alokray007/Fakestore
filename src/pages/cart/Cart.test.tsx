@@ -189,6 +189,23 @@ describe('Cart Page', () => {
             });
         })
 
-        
+        test('applied discount code sucessfully', async() => {
+            render(
+                <MemoryRouter>
+                    <Cart />
+                </MemoryRouter>
+            );
+            const input = screen.getByLabelText(/Do you have a voucher or gift card/i);
+            const user = userEvent.setup();
+            await user.type(input, '10')
+
+            const applyBtn = screen.getByRole('button', {name :'Apply Code'});
+            await user.click(applyBtn);
+
+            await waitFor(() => {
+                expect(toast.success).toHaveBeenCalledWith('Discount applied! Final cost: 450')
+            });
+            expect(screen.getByText('$450')).toBeInTheDocument();
+        });
     })
 });
