@@ -86,14 +86,30 @@ describe('Cart Page', () => {
                     <Cart />
                 </MemoryRouter>
             );
-            const increaseBtn = screen.getAllByRole('button')[1];
+            const incrementButton = screen.getAllByLabelText('incrementBtn')[0];
             const user = userEvent.setup();
-            await user.click(increaseBtn);
+            await user.click(incrementButton);
 
             await waitFor(() => {
-                expect(screen.getByDisplayValue('3')).toBeInTheDocument();
+                expect(screen.getAllByLabelText('cartitem')[0]).toBeInTheDocument();
             });
             expect(localStorage.getItem('cart')).toContain(JSON.stringify({ ...mockCart[0], quantity: 3 }));
+        });
+
+        test('decreases quantity of cart item', async() => {
+            render(
+                <MemoryRouter>
+                    <Cart />
+                </MemoryRouter>
+            );
+            const decrementButton = screen.getAllByLabelText('decrementBtn')[0];
+            const user = userEvent.setup();
+            await user.click(decrementButton);
+
+            await waitFor(() => {
+                expect(screen.getAllByLabelText('cartitem')[0]).toBeInTheDocument();
+            });
+            expect(localStorage.getItem('cart')).toContain(JSON.stringify({ ...mockCart[0], quantity: 1 }));
         });
 
     });
