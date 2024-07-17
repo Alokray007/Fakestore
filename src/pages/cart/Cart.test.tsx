@@ -1,6 +1,7 @@
 import Cart from "./Cart";
 import { CartPdct } from "@/types/Products";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 // import { toast } from 'react-toastify';
 
@@ -51,6 +52,7 @@ describe('Cart Page', () => {
         jest.clearAllMocks();
         localStorage.clear();
     });
+
     describe('Rendering the Cart' ,() => {
         test('renders empty cart message when no items are in the cart', () => {
             localStorage.setItem('cart', '[]');
@@ -77,4 +79,22 @@ describe('Cart Page', () => {
         });
     });
 
+    describe('Cart Operations', () => {
+        test('increases quantity of cart item', async() => {
+            render(
+                <MemoryRouter>
+                    <Cart />
+                </MemoryRouter>
+            );
+            const increaseBtn = screen.getAllByRole('button')[1];
+            const user = userEvent.setup();
+            await user.click(increaseBtn);
+
+            await waitFor(() => {
+                expect(screen.getByDisplayValue('3')).toBeInTheDocument();
+            });
+            expect(localStorage.getItem('cart')).toContain(JSON.stringify({ ...mockCart[0], quantity: 3 }));
+        });
+
+    });
 });
