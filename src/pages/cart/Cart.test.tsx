@@ -160,7 +160,7 @@ describe('Cart Page', () => {
             });
             expect(localStorage.getItem('cart')).not.toContain(JSON.stringify({ ...mockCart[0]}));
             expect(toast.success).toHaveBeenCalledWith('Item removed from Cart!');
-        })
+        });
     });
 
     describe('Discount Application', () => {
@@ -174,5 +174,21 @@ describe('Cart Page', () => {
             expect(screen.getByRole('button', {name :'Apply Code'})).toBeInTheDocument();
         });
 
+        test('displays error when entered discount not in range of 0-30', async() => {
+            render(
+                <MemoryRouter>
+                    <Cart />
+                </MemoryRouter>
+            );
+            const input = screen.getByLabelText(/Do you have a voucher or gift card/i);
+            const user = userEvent.setup();
+            await user.type(input, '31')
+
+            await waitFor(() => {
+                expect(toast.error).toHaveBeenCalledWith('Discount value must be a number between 0 and 30!')
+            });
+        })
+
+        
     })
 });
