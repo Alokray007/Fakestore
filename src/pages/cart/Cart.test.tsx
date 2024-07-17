@@ -161,6 +161,18 @@ describe('Cart Page', () => {
             expect(localStorage.getItem('cart')).not.toContain(JSON.stringify({ ...mockCart[0]}));
             expect(toast.success).toHaveBeenCalledWith('Item removed from Cart!');
         })
-
     });
+
+    describe('Discount Application', () => {
+        test('renders component correctly', () => {
+            render(
+                <MemoryRouter>
+                    <Cart />
+                </MemoryRouter>
+            );
+            expect(screen.getByLabelText(/Do you have a voucher or gift card/i)).toBeInTheDocument();
+            expect(screen.getByRole('button', {name :'Apply Code'})).toBeInTheDocument();
+        });
+
+    })
 });
