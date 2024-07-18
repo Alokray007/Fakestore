@@ -1,0 +1,473 @@
+<html><head><meta charset="utf-8"/><title>Test Report</title><style type="text/css">html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+body {
+  padding: 2rem 1rem;
+  font-size: 0.85rem;
+}
+.jesthtml-content {
+  margin: 0 auto;
+  max-width: 70rem;
+}
+header {
+  display: flex;
+  align-items: center;
+}
+#title {
+  margin: 0;
+  flex-grow: 1;
+}
+#logo {
+  height: 4rem;
+}
+#timestamp {
+  color: #777;
+  margin-top: 0.5rem;
+}
+
+/** SUMMARY */
+#summary {
+  color: #333;
+  margin: 2rem 0;
+  display: flex;
+  font-family: monospace;
+  font-size: 1rem;
+}
+#summary > div {
+  margin-right: 2rem;
+  background: #eee;
+  padding: 1rem;
+  min-width: 15rem;
+}
+#summary > div:last-child {
+  margin-right: 0;
+}
+@media only screen and (max-width: 720px) {
+  #summary {
+    flex-direction: column;
+  }
+  #summary > div {
+    margin-right: 0;
+    margin-top: 2rem;
+  }
+  #summary > div:first-child {
+    margin-top: 0;
+  }
+}
+
+.summary-total {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.summary-passed {
+  color: #4f8a10;
+  border-left: 0.4rem solid #4f8a10;
+  padding-left: 0.5rem;
+}
+.summary-failed,
+.summary-obsolete-snapshots {
+  color: #d8000c;
+  border-left: 0.4rem solid #d8000c;
+  padding-left: 0.5rem;
+}
+.summary-pending {
+  color: #9f6000;
+  border-left: 0.4rem solid #9f6000;
+  padding-left: 0.5rem;
+}
+.summary-empty {
+  color: #999;
+  border-left: 0.4rem solid #999;
+}
+
+.test-result {
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+}
+.test-result:last-child {
+  border: 0;
+}
+.test-result.passed {
+  background-color: #dff2bf;
+  color: #4f8a10;
+}
+.test-result.failed {
+  background-color: #ffbaba;
+  color: #d8000c;
+}
+.test-result.pending {
+  background-color: #ffdf61;
+  color: #9f6000;
+}
+
+.test-info {
+  display: flex;
+  justify-content: space-between;
+}
+.test-suitename {
+  width: 20%;
+  text-align: left;
+  font-weight: bold;
+  word-break: break-word;
+}
+.test-title {
+  width: 40%;
+  text-align: left;
+  font-style: italic;
+}
+.test-status {
+  width: 20%;
+  text-align: right;
+}
+.test-duration {
+  width: 10%;
+  text-align: right;
+  font-size: 0.75rem;
+}
+
+.failureMessages {
+  padding: 0 1rem;
+  margin-top: 1rem;
+  border-top: 1px dashed #d8000c;
+}
+.failureMessages.suiteFailure {
+  border-top: none;
+}
+.failureMsg {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+.suite-container {
+  margin-bottom: 2rem;
+}
+.suite-container > input[type="checkbox"] {
+  position: absolute;
+  left: -100vw;
+}
+.suite-container label {
+  display: block;
+}
+.suite-container .suite-tests {
+  overflow-y: hidden;
+  height: 0;
+}
+.suite-container > input[type="checkbox"]:checked ~ .suite-tests {
+  height: auto;
+  overflow: visible;
+}
+.suite-info {
+  padding: 1rem;
+  background-color: #eee;
+  color: #777;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+.suite-info:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+.suite-info .suite-path {
+  word-break: break-all;
+  flex-grow: 1;
+  font-family: monospace;
+  font-size: 1rem;
+}
+.suite-info .suite-time {
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.3rem;
+  font-size: 0.75rem;
+}
+.suite-info .suite-time.warn {
+  background-color: #d8000c;
+  color: #fff;
+}
+.suite-info:before {
+  content: "\2303";
+  display: inline-block;
+  margin-right: 0.5rem;
+  transform: rotate(0deg);
+}
+.suite-container > input[type="checkbox"]:checked ~ label .suite-info:before {
+  transform: rotate(180deg);
+}
+
+/* CONSOLE LOGS */
+.suite-consolelog {
+  margin-bottom: 0.25rem;
+  padding: 1rem;
+  background-color: #efefef;
+}
+.suite-consolelog-header {
+  font-weight: bold;
+}
+.suite-consolelog-item {
+  padding: 0.5rem;
+}
+.suite-consolelog-item pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.suite-consolelog-item-origin {
+  color: #777;
+  font-weight: bold;
+}
+.suite-consolelog-item-message {
+  color: #000;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+
+/* OBSOLETE SNAPSHOTS */
+.suite-obsolete-snapshots {
+  margin-bottom: 0.25rem;
+  padding: 1rem;
+  background-color: #ffbaba;
+  color: #d8000c;
+}
+.suite-obsolete-snapshots-header {
+  font-weight: bold;
+}
+.suite-obsolete-snapshots-item {
+  padding: 0.5rem;
+}
+.suite-obsolete-snapshots-item pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.suite-obsolete-snapshots-item-message {
+  color: #000;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+</style></head><body><div class="jesthtml-content"><header><h1 id="title">Test Report</h1></header><div id="metadata-container"><div id="timestamp">Started: 2024-07-19 03:16:19</div><div id="summary"><div id="suite-summary"><div class="summary-total">Suites (21)</div><div class="summary-passed ">21 passed</div><div class="summary-failed  summary-empty">0 failed</div><div class="summary-pending  summary-empty">0 pending</div></div><div id="test-summary"><div class="summary-total">Tests (91)</div><div class="summary-passed ">91 passed</div><div class="summary-failed  summary-empty">0 failed</div><div class="summary-pending  summary-empty">0 pending</div></div></div></div><div id="suite-1" class="suite-container"><input id="collapsible-0" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-0"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\UI\SocialSvg.test.tsx</div><div class="suite-time warn">11.302s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">SocialSvg Component</div><div class="test-title">renders all social media links with correct href attributes</div><div class="test-status">passed</div><div class="test-duration">0.119s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">SocialSvg Component</div><div class="test-title">renders SVG icons for each social media link</div><div class="test-status">passed</div><div class="test-duration">0.026s</div></div></div></div></div><div id="suite-2" class="suite-container"><input id="collapsible-1" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-1"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\pages\error\ErrorPage.test.tsx</div><div class="suite-time warn">11.347s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Error Page</div><div class="test-title">renders error page component</div><div class="test-status">passed</div><div class="test-duration">0.13s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Error Page</div><div class="test-title">redirects to Home page when Go Back Home button clicked</div><div class="test-status">passed</div><div class="test-duration">0.038s</div></div></div></div></div><div id="suite-3" class="suite-container"><input id="collapsible-2" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-2"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\ProductList.test.tsx</div><div class="suite-time warn">12.147s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">ProductList Component</div><div class="test-title">renders spinner when no products are available</div><div class="test-status">passed</div><div class="test-duration">0.071s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">ProductList Component</div><div class="test-title">display all products correctly</div><div class="test-status">passed</div><div class="test-duration">0.081s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">ProductList Component</div><div class="test-title">redirects to product detail page on product click</div><div class="test-status">passed</div><div class="test-duration">0.248s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">ProductList Component</div><div class="test-title">handles pagination correctly</div><div class="test-status">passed</div><div class="test-duration">0.101s</div></div></div></div></div><div id="suite-4" class="suite-container"><input id="collapsible-3" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-3"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\UI\Buttons.test.tsx</div><div class="suite-time warn">12.202s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Button Component</div><div class="test-title">BtnShop renders with correct text and calls handleCart on click</div><div class="test-status">passed</div><div class="test-duration">0.236s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Button Component</div><div class="test-title">BtnHero renders with correct text</div><div class="test-status">passed</div><div class="test-duration">0.018s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Button Component</div><div class="test-title">BtnShopLeft renders with correct text and calls handleCart on click</div><div class="test-status">passed</div><div class="test-duration">0.164s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Button Component</div><div class="test-title">BtnShopRight renders with correct text and calls handleCart on click</div><div class="test-status">passed</div><div class="test-duration">0.113s</div></div></div></div></div><div id="suite-5" class="suite-container"><input id="collapsible-4" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-4"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\CategoryFilter.test.tsx</div><div class="suite-time warn">12.419s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">CategoryFilter Component</div><div class="test-title">fetches and displays categories correctly</div><div class="test-status">passed</div><div class="test-duration">0.13s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">CategoryFilter Component</div><div class="test-title">displays error message on fetch failure</div><div class="test-status">passed</div><div class="test-duration">0.238s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">CategoryFilter Component</div><div class="test-title">calls onCategoryClick with the correct category</div><div class="test-status">passed</div><div class="test-duration">0.391s</div></div></div></div></div><div id="suite-6" class="suite-container"><input id="collapsible-5" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-5"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\product\Product.test.tsx</div><div class="suite-time warn">12.463s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Product Component</div><div class="test-title">renders spinner when no products are available</div><div class="test-status">passed</div><div class="test-duration">0.06s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Product Component</div><div class="test-title">filters products based on search input</div><div class="test-status">passed</div><div class="test-duration">0.059s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Product Component</div><div class="test-title">display all products when search is empty</div><div class="test-status">passed</div><div class="test-duration">0.039s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Product Component</div><div class="test-title">adds product to cart and shows success toast</div><div class="test-status">passed</div><div class="test-duration">0.476s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Product Component</div><div class="test-title">increments product quantity in cart if it already exists</div><div class="test-status">passed</div><div class="test-duration">0.168s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Product Component</div><div class="test-title">product links navigate to the product detail page of that product</div><div class="test-status">passed</div><div class="test-duration">0.021s</div></div></div></div><div class="suite-consolelog"><div class="suite-consolelog-header">Console Log</div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (D:\Full stack\Company projects\Fakestore\src\components\product\Product.tsx:23:13)
+    at handleCart (D:\Full stack\Company projects\Fakestore\src\components\product\Product.tsx:78:138)
+    at HTMLUnknownElement.callCallback (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:4164:14)
+    at HTMLUnknownElement.callTheUserObjectsOperation (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\generated\EventListener.js:26:30)
+    at innerInvokeEventListeners (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:350:25)
+    at invokeEventListeners (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:286:3)
+    at HTMLUnknownElementImpl._dispatch (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:233:9)
+    at HTMLUnknownElementImpl.dispatchEvent (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:104:17)
+    at HTMLUnknownElement.dispatchEvent (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\generated\EventTarget.js:241:34)
+    at Object.invokeGuardedCallbackDev (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:4213:16)
+    at invokeGuardedCallback (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:4277:31)
+    at invokeGuardedCallbackAndCatchFirstError (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:4291:25)
+    at executeDispatch (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:9041:3)
+    at processDispatchQueueItemsInOrder (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:9073:7)
+    at processDispatchQueue (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:9086:5)
+    at dispatchEventsForPlugins (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:9097:3)
+    at D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:9288:12
+    at batchedUpdates$1 (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:26179:12)
+    at batchedUpdates (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:3991:12)
+    at dispatchEventForPluginEventSystem (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:9287:3)
+    at dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:6465:5)
+    at dispatchEvent (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:6457:5)
+    at dispatchDiscreteEvent (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:6430:5)
+    at HTMLDivElement.callTheUserObjectsOperation (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\generated\EventListener.js:26:30)
+    at innerInvokeEventListeners (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:350:25)
+    at invokeEventListeners (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:286:3)
+    at HTMLButtonElementImpl._dispatch (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:233:9)
+    at HTMLButtonElementImpl.dispatchEvent (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:104:17)
+    at HTMLButtonElement.dispatchEvent (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\generated\EventTarget.js:241:34)
+    at D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\user-event\dist\cjs\event\dispatchEvent.js:45:43
+    at D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\react\dist\pure.js:108:16
+    at D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\react\dist\act-compat.js:48:24
+    at act (D:\Full stack\Company projects\Fakestore\node_modules\react\cjs\react.development.js:2512:16)
+    at D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\react\dist\act-compat.js:47:25
+    at Object.eventWrapper (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\react\dist\pure.js:107:28)
+    at Object.wrapEvent (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\user-event\dist\cjs\event\wrapEvent.js:6:28)
+    at Object.dispatchEvent (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\user-event\dist\cjs\event\dispatchEvent.js:45:22)
+    at Object.dispatchUIEvent (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\user-event\dist\cjs\event\dispatchEvent.js:22:26)
+    at Mouse.up (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\user-event\dist\cjs\system\pointer\mouse.js:100:30)
+    at PointerHost.release (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\user-event\dist\cjs\system\pointer\index.js:84:28)
+    at pointerAction (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\user-event\dist\cjs\pointer\index.js:59:47)
+    at Object.pointer (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\user-event\dist\cjs\pointer\index.js:32:9)
+    at Object.asyncWrapper (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\react\dist\pure.js:88:22)
+    at Object.&lt;anonymous&gt; (D:\Full stack\Company projects\Fakestore\src\components\product\Product.test.tsx:89:9)</pre><pre class="suite-consolelog-item-message">1</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (D:\Full stack\Company projects\Fakestore\src\components\product\Product.tsx:23:13)
+    at handleCart (D:\Full stack\Company projects\Fakestore\src\components\product\Product.tsx:78:138)
+    at HTMLUnknownElement.callCallback (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:4164:14)
+    at HTMLUnknownElement.callTheUserObjectsOperation (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\generated\EventListener.js:26:30)
+    at innerInvokeEventListeners (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:350:25)
+    at invokeEventListeners (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:286:3)
+    at HTMLUnknownElementImpl._dispatch (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:233:9)
+    at HTMLUnknownElementImpl.dispatchEvent (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:104:17)
+    at HTMLUnknownElement.dispatchEvent (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\generated\EventTarget.js:241:34)
+    at Object.invokeGuardedCallbackDev (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:4213:16)
+    at invokeGuardedCallback (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:4277:31)
+    at invokeGuardedCallbackAndCatchFirstError (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:4291:25)
+    at executeDispatch (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:9041:3)
+    at processDispatchQueueItemsInOrder (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:9073:7)
+    at processDispatchQueue (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:9086:5)
+    at dispatchEventsForPlugins (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:9097:3)
+    at D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:9288:12
+    at batchedUpdates$1 (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:26179:12)
+    at batchedUpdates (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:3991:12)
+    at dispatchEventForPluginEventSystem (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:9287:3)
+    at dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:6465:5)
+    at dispatchEvent (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:6457:5)
+    at dispatchDiscreteEvent (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:6430:5)
+    at HTMLDivElement.callTheUserObjectsOperation (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\generated\EventListener.js:26:30)
+    at innerInvokeEventListeners (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:350:25)
+    at invokeEventListeners (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:286:3)
+    at HTMLButtonElementImpl._dispatch (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:233:9)
+    at HTMLButtonElementImpl.dispatchEvent (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:104:17)
+    at HTMLButtonElement.dispatchEvent (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\living\generated\EventTarget.js:241:34)
+    at D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\user-event\dist\cjs\event\dispatchEvent.js:45:43
+    at D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\react\dist\pure.js:108:16
+    at D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\react\dist\act-compat.js:48:24
+    at act (D:\Full stack\Company projects\Fakestore\node_modules\react\cjs\react.development.js:2512:16)
+    at D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\react\dist\act-compat.js:47:25
+    at Object.eventWrapper (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\react\dist\pure.js:107:28)
+    at Object.wrapEvent (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\user-event\dist\cjs\event\wrapEvent.js:6:28)
+    at Object.dispatchEvent (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\user-event\dist\cjs\event\dispatchEvent.js:45:22)
+    at Object.dispatchUIEvent (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\user-event\dist\cjs\event\dispatchEvent.js:22:26)
+    at Mouse.up (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\user-event\dist\cjs\system\pointer\mouse.js:100:30)
+    at PointerHost.release (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\user-event\dist\cjs\system\pointer\index.js:84:28)
+    at pointerAction (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\user-event\dist\cjs\pointer\index.js:59:47)
+    at Object.pointer (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\user-event\dist\cjs\pointer\index.js:32:9)
+    at Object.asyncWrapper (D:\Full stack\Company projects\Fakestore\node_modules\@testing-library\react\dist\pure.js:88:22)
+    at Object.&lt;anonymous&gt; (D:\Full stack\Company projects\Fakestore\src\components\product\Product.test.tsx:107:9)</pre><pre class="suite-consolelog-item-message">1</pre></div></div></div><div id="suite-7" class="suite-container"><input id="collapsible-6" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-6"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\hero\Hero.test.tsx</div><div class="suite-time warn">12.527s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Hero Component</div><div class="test-title">renders the spinner while fetching data</div><div class="test-status">passed</div><div class="test-duration">0.354s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Hero Component</div><div class="test-title">displays error message on fetch failure</div><div class="test-status">passed</div><div class="test-duration">0.057s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Hero Component</div><div class="test-title">displays product information when fetched successfully</div><div class="test-status">passed</div><div class="test-duration">0.086s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Hero Component</div><div class="test-title">adds product to cart and shows success toast</div><div class="test-status">passed</div><div class="test-duration">0.222s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Hero Component</div><div class="test-title">navigates to cart on "Buy Now" click</div><div class="test-status">passed</div><div class="test-duration">0.162s</div></div></div></div><div class="suite-consolelog"><div class="suite-consolelog-header">Console Log</div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at printWarning (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:86:30)
+    at error (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:60:7)
+    at warnIfUpdatesNotWrappedWithActDEV (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:27628:9)
+    at scheduleUpdateOnFiber (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:25547:5)
+    at dispatchSetState (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:16708:7)
+    at setISError (D:\Full stack\Company projects\Fakestore\src\components\hero\Hero.tsx:34:11)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)</pre><pre class="suite-consolelog-item-message">Warning: An update to Hero inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() =&gt; {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act
+    at Hero (D:\Full stack\Company projects\Fakestore\src\components\hero\Hero.tsx:13:41)
+    at basenameProp (D:\Full stack\Company projects\Fakestore\node_modules\react-router\lib\components.tsx:413:13)
+    at basename (D:\Full stack\Company projects\Fakestore\node_modules\react-router-dom\index.tsx:768:3)</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at printWarning (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:86:30)
+    at error (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:60:7)
+    at warnIfUpdatesNotWrappedWithActDEV (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:27628:9)
+    at scheduleUpdateOnFiber (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:25547:5)
+    at dispatchSetState (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:16708:7)
+    at setISError (D:\Full stack\Company projects\Fakestore\src\components\hero\Hero.tsx:34:11)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)</pre><pre class="suite-consolelog-item-message">Warning: An update to Hero inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() =&gt; {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act
+    at Hero (D:\Full stack\Company projects\Fakestore\src\components\hero\Hero.tsx:13:41)
+    at basenameProp (D:\Full stack\Company projects\Fakestore\node_modules\react-router\lib\components.tsx:413:13)
+    at basename (D:\Full stack\Company projects\Fakestore\node_modules\react-router-dom\index.tsx:768:3)</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at printWarning (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:86:30)
+    at error (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:60:7)
+    at warnIfUpdatesNotWrappedWithActDEV (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:27628:9)
+    at scheduleUpdateOnFiber (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:25547:5)
+    at dispatchSetState (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:16708:7)
+    at setISError (D:\Full stack\Company projects\Fakestore\src\components\hero\Hero.tsx:34:11)</pre><pre class="suite-consolelog-item-message">Warning: An update to Hero inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() =&gt; {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act
+    at Hero (D:\Full stack\Company projects\Fakestore\src\components\hero\Hero.tsx:13:41)
+    at basenameProp (D:\Full stack\Company projects\Fakestore\node_modules\react-router\lib\components.tsx:413:13)
+    at basename (D:\Full stack\Company projects\Fakestore\node_modules\react-router-dom\index.tsx:768:3)</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at printWarning (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:86:30)
+    at error (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:60:7)
+    at warnIfUpdatesNotWrappedWithActDEV (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:27628:9)
+    at scheduleUpdateOnFiber (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:25547:5)
+    at dispatchSetState (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:16708:7)
+    at setISError (D:\Full stack\Company projects\Fakestore\src\components\hero\Hero.tsx:34:11)</pre><pre class="suite-consolelog-item-message">Warning: An update to Hero inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() =&gt; {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act
+    at Hero (D:\Full stack\Company projects\Fakestore\src\components\hero\Hero.tsx:13:41)
+    at basenameProp (D:\Full stack\Company projects\Fakestore\node_modules\react-router\lib\components.tsx:413:13)
+    at basename (D:\Full stack\Company projects\Fakestore\node_modules\react-router-dom\index.tsx:768:3)</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at printWarning (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:86:30)
+    at error (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:60:7)
+    at warnIfUpdatesNotWrappedWithActDEV (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:27628:9)
+    at scheduleUpdateOnFiber (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:25547:5)
+    at Object.enqueueSetState (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:17925:7)
+    at r.Object.&lt;anonymous&gt;.Component.setState (D:\Full stack\Company projects\Fakestore\node_modules\react\cjs\react.development.js:354:16)
+    at r.value (D:\Full stack\Company projects\Fakestore\node_modules\react-lazy-load-image-component\build\index.js:1:20125)
+    at r.value (D:\Full stack\Company projects\Fakestore\node_modules\react-lazy-load-image-component\build\index.js:1:9163)
+    at r.value (D:\Full stack\Company projects\Fakestore\node_modules\react-lazy-load-image-component\build\index.js:1:8126)
+    at commitLayoutEffectOnFiber (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:23349:28)
+    at commitLayoutMountEffects_complete (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:24727:9)
+    at commitLayoutEffects_begin (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:24713:7)
+    at commitLayoutEffects (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:24651:3)
+    at commitRootImpl (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:26862:5)
+    at commitRoot (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:26721:5)
+    at finishConcurrentRender (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:26020:9)
+    at performConcurrentWorkOnRoot (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:25848:7)
+    at workLoop (D:\Full stack\Company projects\Fakestore\node_modules\scheduler\cjs\scheduler.development.js:266:34)
+    at flushWork (D:\Full stack\Company projects\Fakestore\node_modules\scheduler\cjs\scheduler.development.js:239:14)
+    at performWorkUntilDeadline (D:\Full stack\Company projects\Fakestore\node_modules\scheduler\cjs\scheduler.development.js:533:21)
+    at Timeout.task [as _onTimeout] (D:\Full stack\Company projects\Fakestore\node_modules\jsdom\lib\jsdom\browser\Window.js:520:19)
+    at listOnTimeout (node:internal/timers:573:17)
+    at processTimers (node:internal/timers:514:7)</pre><pre class="suite-consolelog-item-message">Warning: An update to r inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() =&gt; {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act
+    at r (D:\Full stack\Company projects\Fakestore\node_modules\react-lazy-load-image-component\build\index.js:1:19400)
+    at r (D:\Full stack\Company projects\Fakestore\node_modules\react-lazy-load-image-component\build\index.js:1:23874)
+    at div
+    at div
+    at section
+    at Hero (D:\Full stack\Company projects\Fakestore\src\components\hero\Hero.tsx:13:41)
+    at basenameProp (D:\Full stack\Company projects\Fakestore\node_modules\react-router\lib\components.tsx:413:13)
+    at basename (D:\Full stack\Company projects\Fakestore\node_modules\react-router-dom\index.tsx:768:3)</pre></div></div></div><div id="suite-8" class="suite-container"><input id="collapsible-7" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-7"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\Filter&amp;Sort\PriceFilter.test.tsx</div><div class="suite-time warn">12.574s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">PriceFilter Component</div><div class="test-title">renders all components correctly</div><div class="test-status">passed</div><div class="test-duration">0.318s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">PriceFilter Component</div><div class="test-title">displays the correct highest price</div><div class="test-status">passed</div><div class="test-duration">0.018s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">PriceFilter Component</div><div class="test-title">calls handleResetPrice when reset button is clicked</div><div class="test-status">passed</div><div class="test-duration">0.143s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">PriceFilter Component</div><div class="test-title">calls mockHandleMinPrice when From input box value changes</div><div class="test-status">passed</div><div class="test-duration">0.293s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">PriceFilter Component</div><div class="test-title">calls mockHandleMaxPrice when To input box value changes</div><div class="test-status">passed</div><div class="test-duration">0.163s</div></div></div></div></div><div id="suite-9" class="suite-container"><input id="collapsible-8" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-8"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\Filter&amp;Sort\RateFilter.test.tsx</div><div class="suite-time warn">12.918s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">RateFilter Component</div><div class="test-title">renders all components correctly</div><div class="test-status">passed</div><div class="test-duration">0.334s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">RateFilter Component</div><div class="test-title">calls handleResetRating when reset button is clicked</div><div class="test-status">passed</div><div class="test-duration">0.127s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">RateFilter Component</div><div class="test-title">displays the correct number of selected ratings</div><div class="test-status">passed</div><div class="test-duration">0.027s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">RateFilter Component</div><div class="test-title">checkboxes reflect selectedRatings state</div><div class="test-status">passed</div><div class="test-duration">0.424s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">RateFilter Component</div><div class="test-title">calls handleRatingChange when checkboxes are changed</div><div class="test-status">passed</div><div class="test-duration">0.151s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">RateFilter Component</div><div class="test-title">updates selected ratings count when a checkbox is clicked</div><div class="test-status">passed</div><div class="test-duration">0.205s</div></div></div></div></div><div id="suite-10" class="suite-container"><input id="collapsible-9" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-9"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\pages\productDetails\ProductDetails.test.tsx</div><div class="suite-time warn">12.911s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">ProductDetails Page</div><div class="test-title">renders spinner when no products are available</div><div class="test-status">passed</div><div class="test-duration">0.335s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">ProductDetails Page</div><div class="test-title">fetches and displays product details correctly</div><div class="test-status">passed</div><div class="test-duration">0.184s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">ProductDetails Page</div><div class="test-title">handles error Properly</div><div class="test-status">passed</div><div class="test-duration">0.257s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">ProductDetails Page</div><div class="test-title">adds product to the cart</div><div class="test-status">passed</div><div class="test-duration">0.2s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">ProductDetails Page</div><div class="test-title">navigates to cart on "Buy Now" click</div><div class="test-status">passed</div><div class="test-duration">0.182s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">ProductDetails Page</div><div class="test-title">renders specific UI elements</div><div class="test-status">passed</div><div class="test-duration">0.102s</div></div></div></div><div class="suite-consolelog"><div class="suite-consolelog-header">Console Log</div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at printWarning (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:86:30)
+    at error (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:60:7)
+    at warnIfUpdatesNotWrappedWithActDEV (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:27628:9)
+    at scheduleUpdateOnFiber (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:25547:5)
+    at dispatchSetState (D:\Full stack\Company projects\Fakestore\node_modules\react-dom\cjs\react-dom.development.js:16708:7)
+    at setProduct (D:\Full stack\Company projects\Fakestore\src\pages\productDetails\ProductDetails.tsx:26:9)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)</pre><pre class="suite-consolelog-item-message">Warning: An update to ProductDetails inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() =&gt; {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act
+    at ProductDetails (D:\Full stack\Company projects\Fakestore\src\pages\productDetails\ProductDetails.tsx:17:41)
+    at basenameProp (D:\Full stack\Company projects\Fakestore\node_modules\react-router\lib\components.tsx:413:13)
+    at basename (D:\Full stack\Company projects\Fakestore\node_modules\react-router-dom\index.tsx:768:3)</pre></div></div></div><div id="suite-11" class="suite-container"><input id="collapsible-10" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-10"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\contact\Contact.test.tsx</div><div class="suite-time">0.762s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Contact Component</div><div class="test-title">renders the contact form and map</div><div class="test-status">passed</div><div class="test-duration">0.182s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Contact Component</div><div class="test-title">allows users to fill out the form</div><div class="test-status">passed</div><div class="test-duration">0.083s</div></div></div></div></div><div id="suite-12" class="suite-container"><input id="collapsible-11" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-11"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\searchInput\Search.test.tsx</div><div class="suite-time">0.925s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">SearchInput Component</div><div class="test-title">render search input and icon</div><div class="test-status">passed</div><div class="test-duration">0.071s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">SearchInput Component</div><div class="test-title">calls handleSearch on input change</div><div class="test-status">passed</div><div class="test-duration">0.222s</div></div></div></div></div><div id="suite-13" class="suite-container"><input id="collapsible-12" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-12"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\Header\Header.test.tsx</div><div class="suite-time">2.036s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Header Component</div><div class="test-title">renders the logo with correct alt text</div><div class="test-status">passed</div><div class="test-duration">0.031s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Header Component</div><div class="test-title">renders navigation links</div><div class="test-status">passed</div><div class="test-duration">0.042s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Header Component</div><div class="test-title">renders cart icon</div><div class="test-status">passed</div><div class="test-duration">0.026s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Header Component</div><div class="test-title">opens and closes the mobilemenu</div><div class="test-status">passed</div><div class="test-duration">0.507s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Header Component</div><div class="test-title">close the mobilemenu when a navigation link is clicked</div><div class="test-status">passed</div><div class="test-duration">0.249s</div></div></div></div></div><div id="suite-14" class="suite-container"><input id="collapsible-13" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-13"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\Filter&amp;Sort\Sort.test.tsx</div><div class="suite-time">1.209s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Sort Component</div><div class="test-title">renders all components correctly</div><div class="test-status">passed</div><div class="test-duration">0.166s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Sort Component</div><div class="test-title">should correctly set default option</div><div class="test-status">passed</div><div class="test-duration">0.067s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Sort Component</div><div class="test-title">should display the correct number of options</div><div class="test-status">passed</div><div class="test-duration">0.061s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Sort Component</div><div class="test-title">calls handleSortChange when user Selects a new option</div><div class="test-status">passed</div><div class="test-duration">0.172s</div></div></div></div></div><div id="suite-15" class="suite-container"><input id="collapsible-14" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-14"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\faq's\Faq.test.tsx</div><div class="suite-time">0.907s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Faq Component</div><div class="test-title">renders frequently asked questions</div><div class="test-status">passed</div><div class="test-duration">0.031s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Faq Component</div><div class="test-title">renders the FAQ component with the correct number of items</div><div class="test-status">passed</div><div class="test-duration">0.074s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Faq Component</div><div class="test-title">toggle Faq Answers correctly</div><div class="test-status">passed</div><div class="test-duration">0.062s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Faq Component</div><div class="test-title">only one FAQ answer is open at a time</div><div class="test-status">passed</div><div class="test-duration">0.047s</div></div></div></div></div><div id="suite-16" class="suite-container"><input id="collapsible-15" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-15"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\UI\Spinner.test.tsx</div><div class="suite-time">0.94s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">CustomSpinner Component</div><div class="test-title">renders the spinner</div><div class="test-status">passed</div><div class="test-duration">0.065s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">CustomSpinner Component</div><div class="test-title">has the appropriate accessibility attributes</div><div class="test-status">passed</div><div class="test-duration">0.027s</div></div></div></div></div><div id="suite-17" class="suite-container"><input id="collapsible-16" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-16"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\Footer\Footer.test.tsx</div><div class="suite-time">2.22s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Footer Component</div><div class="test-title">renders the footer with all sections</div><div class="test-status">passed</div><div class="test-duration">0.243s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Footer Component</div><div class="test-title">handles Subscription input</div><div class="test-status">passed</div><div class="test-duration">0.687s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Footer Component</div><div class="test-title">navigates to correct pages when links are clicked</div><div class="test-status">passed</div><div class="test-duration">0.042s</div></div></div></div></div><div id="suite-18" class="suite-container"><input id="collapsible-17" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-17"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\testimonial\Testimonial.test.tsx</div><div class="suite-time">0.69s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Testimonial Component</div><div class="test-title">renders all testimonial Element</div><div class="test-status">passed</div><div class="test-duration">0.029s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Testimonial Component</div><div class="test-title">renders testimonial images</div><div class="test-status">passed</div><div class="test-duration">0.016s</div></div></div></div></div><div id="suite-19" class="suite-container"><input id="collapsible-18" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-18"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\UI\RatingStar.test.tsx</div><div class="suite-time">0.738s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">RatingStar component</div><div class="test-title">renders the correct number of stars</div><div class="test-status">passed</div><div class="test-duration">0.009s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">RatingStar component</div><div class="test-title">fills the correct number of stars based on rating</div><div class="test-status">passed</div><div class="test-duration">0.005s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">RatingStar component</div><div class="test-title">rounds the rating to the nearest whole number</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">RatingStar component &gt; handles edge cases for rating</div><div class="test-title">case when rating is 0</div><div class="test-status">passed</div><div class="test-duration">0.009s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">RatingStar component &gt; handles edge cases for rating</div><div class="test-title">case when rating is 5</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div></div></div><div id="suite-20" class="suite-container"><input id="collapsible-19" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-19"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\components\categories\Categories.test.tsx</div><div class="suite-time">1.451s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Categories Component</div><div class="test-title">fetches and displays categories correctly</div><div class="test-status">passed</div><div class="test-duration">0.146s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Categories Component</div><div class="test-title">handles errors properly</div><div class="test-status">passed</div><div class="test-duration">0.181s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Categories Component</div><div class="test-title">calls onCategoryClick with the correct category</div><div class="test-status">passed</div><div class="test-duration">0.155s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Categories Component</div><div class="test-title">calls onCategoryClick with "All" when "All" is clicked</div><div class="test-status">passed</div><div class="test-duration">0.094s</div></div></div></div></div><div id="suite-21" class="suite-container"><input id="collapsible-20" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-20"><div class="suite-info"><div class="suite-path">D:\Full stack\Company projects\Fakestore\src\pages\cart\Cart.test.tsx</div><div class="suite-time warn">14.421s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cart Page &gt; Rendering the Cart</div><div class="test-title">renders empty cart message when no items are in the cart</div><div class="test-status">passed</div><div class="test-duration">0.202s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cart Page &gt; Rendering the Cart</div><div class="test-title">renders cart items correctly</div><div class="test-status">passed</div><div class="test-duration">0.095s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cart Page &gt; Cart Operations</div><div class="test-title">increases quantity of cart item</div><div class="test-status">passed</div><div class="test-duration">0.345s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cart Page &gt; Cart Operations</div><div class="test-title">decreases quantity of cart item</div><div class="test-status">passed</div><div class="test-duration">0.199s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cart Page &gt; Cart Operations</div><div class="test-title">does not decrease quantity below 1 and shows info toast</div><div class="test-status">passed</div><div class="test-duration">0.164s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cart Page &gt; Cart Operations</div><div class="test-title">does not increase quantity above 5 and shows error toast</div><div class="test-status">passed</div><div class="test-duration">0.387s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cart Page &gt; Cart Operations</div><div class="test-title">removes cart item</div><div class="test-status">passed</div><div class="test-duration">0.289s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cart Page &gt; Cart Operations</div><div class="test-title">displays error toast when entered input not in range of 1-5</div><div class="test-status">passed</div><div class="test-duration">0.189s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cart Page &gt; Discount Application</div><div class="test-title">renders component correctly</div><div class="test-status">passed</div><div class="test-duration">0.11s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cart Page &gt; Discount Application</div><div class="test-title">displays error when entered discount not in range of 0-30</div><div class="test-status">passed</div><div class="test-duration">0.164s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cart Page &gt; Discount Application</div><div class="test-title">applied discount code sucessfully</div><div class="test-status">passed</div><div class="test-duration">0.281s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cart Page &gt; Order summary operation</div><div class="test-title">renders all elements correctly</div><div class="test-status">passed</div><div class="test-duration">0.03s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cart Page &gt; Order summary operation</div><div class="test-title">display all prices without applying discount</div><div class="test-status">passed</div><div class="test-duration">0.02s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cart Page &gt; Order summary operation</div><div class="test-title">display all prices after applying discount</div><div class="test-status">passed</div><div class="test-duration">0.248s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Cart Page &gt; Order summary operation</div><div class="test-title">redirects to products page when Continue Shopping button clicked</div><div class="test-status">passed</div><div class="test-duration">0.038s</div></div></div></div></div></div></body></html>
