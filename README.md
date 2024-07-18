@@ -203,12 +203,12 @@ The CI/CD pipeline is configured using GitHub Actions. It runs on every push req
 
 ## Additional Documentation
 - CI/CD Pipeline:
-  - Config File:  [Config] (CICD-Config.md)
-  - Setup File:  [Setup] (CICD-Setup.md)
-- Test Setup File:  [Test] (Test-Setup.md)
+  - Config File:  [Config](CICD-Config.md)
+  - Setup File:  [Setup](CICD-Setup.md)
+- Test Setup File:  [Test](Test-Setup.md)
 - Test Reports
-  - Code Coverage Reports:  [coverage] (coverage/index.html)
-  - HTML test reports:  [test_report] (test-report.html)
+  - Code Coverage Reports:  `Private`
+  - HTML test reports:  `Private`
 
 
 ## Resources
