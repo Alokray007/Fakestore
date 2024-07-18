@@ -5,6 +5,7 @@ import axios from '../../services/axios';
 import MockAdapter from 'axios-mock-adapter';
 import ProductDetails from './ProductDetails';
 import { Pdct } from '../../types/Products';
+import userEvent from '@testing-library/user-event';
 
 jest.mock('react-toastify', () => ({
   toast: {
@@ -36,7 +37,7 @@ const renderComponent = () =>
     <Router>
       <ProductDetails />
     </Router>
-  );
+);
 
 describe('ProductDetails Page', () => {
   const mockAxios = new MockAdapter(axios);
@@ -80,5 +81,24 @@ describe('ProductDetails Page', () => {
     });
   });
 
+  test('adds product to the cart', async() => {
+    mockAxios.onGet('/products/1').reply(200, mockProduct);
+
+    renderComponent();
+
+    await waitFor(() => {
+      expect(screen.getByText(mockProduct.title)).toBeInTheDocument();
+    });
+
+    const user = userEvent.setup();
+    await user.click(screen.getByText('Add to Cart'));
+
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    expect(cart.length).toBe(1);
+    expect(cart[0].id).toBe(mockProduct.id);
+    expect(cart[0].quantity).toBe(1);
+
+    expect(toast.success).toHaveBeenCalledWith('Product Added to cart');
+  });
 
 });
