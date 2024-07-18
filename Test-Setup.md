@@ -145,17 +145,23 @@ To run the test suite, execute the following command:
 npm test
 ```
 
-This will run all tests and provide output in the terminal.
+This will run all tests and provide output in the terminal. This will generate Code Coverage Reports and Test Reports.
 
 ## Generating Code Coverage Reports
 
-You can generate code coverage reports to see how much of your code is covered by tests. Use the following command:
+You can generate code coverage reports to see how much of your code is covered by tests.
 
-```bash
-npm run coverage
+```json
+  collectCoverage: true,
+  coverageDirectory: '<rootDir>/coverage',
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    '!src/**/*.d.ts',
+  ],
+  coverageReporters: ['html', 'text-summary'],
 ```
 
-This will generate a code coverage report in the coverage directory. You can open the index.html file in this directory to view the report in your browser.
+Now, when you run your tests, automatically a code coverage report in the coverage directory. You can open the index.html file in this directory to view the report in your browser.
 
 ## Generating Test Reports
 
@@ -165,7 +171,7 @@ To generate HTML test reports, you can use jest-html-reporter. First, install th
 npm install jest-html-reporter --save-dev
 ```
 
-Then, add the following configuration to your package.json under the jest key:
+Then, add the following configuration to your jest.config.js:
 
 ```json
 "jest": {
@@ -181,7 +187,7 @@ Then, add the following configuration to your package.json under the jest key:
 }
 ```
 
-Now, when you run your tests using npm test, an HTML report will be generated at the specified outputPath (e.g., ./test-report.html). You can open this file in your browser to view the detailed test report.
+Now, when you run your tests, automatically an HTML report will be generated at the specified outputPath (e.g., ./test-report.html). You can open this file in your browser to view the detailed test report.
 
 ## Mocking HTTP Requests
 
