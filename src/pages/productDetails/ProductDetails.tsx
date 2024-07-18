@@ -10,11 +10,14 @@ import SocialSvg from "../../components/UI/SocialSvg";
 import { CartPdct } from "../../types/Products";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<Pdct>();
   const [isError, setISError] = useState<string | null>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -32,8 +35,7 @@ const ProductDetails: React.FC = () => {
     fetchProductDetails()
   }, [id]);
 
-  const handleCart = (product: Pdct) => {
-    console.log(product.id);
+  const handleCart = (product: Pdct, redirect:boolean)  => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     const isProductExist = cart.find((item:CartPdct) => item.id === product.id);
     if (isProductExist) {
@@ -47,12 +49,15 @@ const ProductDetails: React.FC = () => {
     } else {
       localStorage.setItem('cart', JSON.stringify([...cart, {...product, quantity: 1}]))
     }
-    toast.success("Product Added to cart")
+    toast.success("Product Added to cart");
+    if (redirect) {
+      navigate('/cart')
+    }
   };
 
-  if (!product) return <CustomSpinner/>;
+  if(isError) {return <h1 className='mt-96 h-96 align-top text-center text-2xl font-semibold text-red-700'>{isError}</h1>}
 
-  if(isError) {return <h1 className='text-center text-2xl font-semibold text-red-700'>{isError}</h1>}
+  if (!product) return <CustomSpinner/>;
 
   return (
     <div key={product.id} className="text-gray-600 body-font overflow-hidden">
