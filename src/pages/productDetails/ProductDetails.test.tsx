@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter as Router, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import axios from '../../services/axios';
 import MockAdapter from 'axios-mock-adapter';
 import ProductDetails from './ProductDetails';
@@ -53,5 +53,23 @@ describe('ProductDetails Page', () => {
     renderComponent();
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   })
+
+  test('fetches and displays product details correctly', async () => {
+    mockAxios.onGet('/products/1').reply(200, mockProduct);
+
+    renderComponent();
+
+    await waitFor(() => expect(screen.getByRole('status')).toBeInTheDocument());
+
+    await waitFor(() => {
+      expect(screen.getByText(mockProduct.title)).toBeInTheDocument();
+      expect(screen.getByText(mockProduct.category)).toBeInTheDocument();
+      expect(screen.getByText(mockProduct.description)).toBeInTheDocument();
+      expect(screen.getByText(`$${mockProduct.price}`)).toBeInTheDocument();
+      expect(screen.getByText(`${mockProduct.rating.rate}`)).toBeInTheDocument();
+      expect(screen.getByText(`(${mockProduct.rating.count} reviews)`)).toBeInTheDocument();
+    });
+  });
+
 
 });
