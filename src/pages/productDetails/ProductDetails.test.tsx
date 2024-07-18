@@ -128,4 +128,18 @@ describe('ProductDetails Page', () => {
     expect(cart[0].quantity).toBe(1);
   });
 
+  test('renders specific UI elements', async () => {
+    mockAxios.onGet('/products/1').reply(200, mockProduct);
+
+    renderComponent();
+
+    await waitFor(() => {
+      expect(screen.getByText(mockProduct.title)).toBeInTheDocument();
+    });
+
+    expect(screen.getByText('Buy Now')).toBeInTheDocument();
+    expect(screen.getByText('Add to Cart')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: mockProduct.title })).toBeInTheDocument();
+  });
+
 });
