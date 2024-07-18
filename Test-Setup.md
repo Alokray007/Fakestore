@@ -233,7 +233,6 @@ const server = setupServer(
     );
   })
 );
-```
 
 // Start the server before all tests
 beforeAll(() => server.listen());
@@ -243,6 +242,7 @@ afterEach(() => server.resetHandlers());
 
 // Stop the server after all tests
 afterAll(() => server.close());
+```
 
 ## Conclusion
 
