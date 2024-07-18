@@ -205,6 +205,10 @@ The CI/CD pipeline is configured using GitHub Actions. It runs on every push req
 
 - Solution URL: [Github](https://github.com/Alokray007/Fakestore)
 - Live Site URL: [Netlify- Live Site](https://fakestorenew.netlify.app/)
+- CI/CD Pipeline:
+  - Config File: [Config](https://github.com/Alokray007/Fakestore/blob/main/CICD-Config.md)
+  - Setup File: [Setup](https://github.com/Alokray007/Fakestore/blob/main/CICD-Setup.md)
+- Test Setup File: [Test](Test-Setup.md)
 
 
 ## Resources
