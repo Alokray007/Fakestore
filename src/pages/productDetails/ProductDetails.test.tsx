@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter as Router, useParams } from 'react-router-dom';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import axios from '../../services/axios';
 import MockAdapter from 'axios-mock-adapter';
 import ProductDetails from './ProductDetails';
@@ -68,6 +68,15 @@ describe('ProductDetails Page', () => {
       expect(screen.getByText(`$${mockProduct.price}`)).toBeInTheDocument();
       expect(screen.getByText(`${mockProduct.rating.rate}`)).toBeInTheDocument();
       expect(screen.getByText(`(${mockProduct.rating.count} reviews)`)).toBeInTheDocument();
+    });
+  });
+
+  test('handles error Properly', async() => {
+    mockAxios.onGet('/products/1').reply(500);
+    renderComponent();
+
+    await waitFor(() => {
+        expect(screen.getByText('Request failed with status code 500')).toBeInTheDocument()
     });
   });
 
