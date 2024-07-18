@@ -12,6 +12,7 @@
     -[Development Dependencies](#Development-Dependencies)
   - [Running the Application Locally](#Running-the-Application-Locally)
   - [Links](#Links)
+  - [Additional Documentation](#Additional-Documentation)
   - [Resources](#Resources)
   - [Additional Notes](#Additional-Notes)
   - [Author](#Author)
@@ -79,6 +80,7 @@ fakestore/
 │   ├── index.css      # Global styles
 │   └── vite-env.d.ts  # vite environment for Jest
 ├── public/            # Static assets
+├── coverage/          # SCode Coverage Reports
 ├── jest.config.js     # Jest configuration
 ├── tailwind.config.js # Tailwind CSS configuration
 ├── tsconfig.json      # TypeScript configuration
@@ -91,6 +93,7 @@ fakestore/
 ├── index.html         # Index file configuration
 ├── LICENSE            # MIT License details
 ├── postcss.config.js  # Postcss Configuration
+├── test.report.html   # HTML test reports
 └── tailwind.config.js # Tailwind CSS configuration
 
 ```
@@ -99,7 +102,6 @@ fakestore/
 * `npm run dev`: Starts the development server using Vite.
 * `npm run test`: Runs the test suite using Jest.
 * `npm run build`: Compiles the TypeScript code and builds the application using Vite.
-* `npm run coverage`: Generates code coverage reports.
 * `npm run lint`: Lints the codebase using ESLint.
 * `npm run preview`: Serves the production build for preview.
 
@@ -140,6 +142,7 @@ fakestore/
   * typescript: TypeScript language and compiler.
   * vite: Next-generation front-end tooling.
   * vite-tsconfig-paths: Vite plugin for TypeScript path mapping.
+  * jest-html-reporter: TO generate HTML reportes
 
 
 ## Running the Application Locally
@@ -160,15 +163,7 @@ npm run test
 
 This will execute the test suite using Jest. setup details is available in the Test-Setup.md file.
 
-3. Generating Coverage Report:
-
-```bash
-npm run coverage
-```
-
-This will run the tests with coverage and generate a coverage report.
-
-4. Linting the Codebase:
+3. Linting the Codebase:
 
 ```bash
 npm run lint
@@ -176,7 +171,7 @@ npm run lint
 
 This will lint the codebase using ESLint according to the specified rules in the configuration.
 
-5. Building the Application:
+4. Building the Application:
 
 ```bash
 npm run build
@@ -184,7 +179,7 @@ npm run build
 
 This will compile the TypeScript code and build the application for production using Vite.
 
-6. Previewing the Production Build:
+5. Previewing the Production Build:
 
 ```bash
 npm run preview
@@ -192,11 +187,11 @@ npm run preview
 
 This will serve the production build of the application for preview.
 
-7. Deployment:
+6. Deployment:
 
 The application is automatically deployed to Netlify via the CI/CD pipeline. Make sure to set up the necessary secrets in your GitHub repository.
 
-8. CI/CD Pipeline:
+7. CI/CD Pipeline:
 
 The CI/CD pipeline is configured using GitHub Actions. It runs on every push request to the main branch, Pull Request to main branch and new release is published, executing tests, building the project, and deploying to Netlify.
 * Addition details are Provided in CICD-Config.md and CICD-Setup.md files for CI-CD Pipeline.
@@ -205,10 +200,15 @@ The CI/CD pipeline is configured using GitHub Actions. It runs on every push req
 
 - Solution URL: [Github](https://github.com/Alokray007/Fakestore)
 - Live Site URL: [Netlify- Live Site](https://fakestorenew.netlify.app/)
+
+## Additional Documentation
 - CI/CD Pipeline:
-  - Config File: [Config](https://github.com/Alokray007/Fakestore/blob/main/CICD-Config.md)
-  - Setup File: [Setup](https://github.com/Alokray007/Fakestore/blob/main/CICD-Setup.md)
-- Test Setup File: [Test](Test-Setup.md)
+  - Config File:  [Config] (CICD-Config.md)
+  - Setup File:  [Setup] (CICD-Setup.md)
+- Test Setup File:  [Test] (Test-Setup.md)
+- Test Reports
+  - Code Coverage Reports:  [coverage] (coverage/index.html)
+  - HTML test reports:  [test_report] (test-report.html)
 
 
 ## Resources
