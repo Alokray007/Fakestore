@@ -13,10 +13,15 @@ jest.mock('react-toastify', () => ({
   },
 }));
 
+// Mock useNavigate
+const mockNavigate = jest.fn();
+const mockAxios = new MockAdapter(axios);
+
 // Mock useParams to return the id
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useParams: jest.fn(),
+  useNavigate: () => mockNavigate,
 }));
 
 const mockProduct: Pdct = {
@@ -40,7 +45,7 @@ const renderComponent = () =>
 );
 
 describe('ProductDetails Page', () => {
-  const mockAxios = new MockAdapter(axios);
+
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -99,6 +104,28 @@ describe('ProductDetails Page', () => {
     expect(cart[0].quantity).toBe(1);
 
     expect(toast.success).toHaveBeenCalledWith('Product Added to cart');
+  });
+
+  test('navigates to cart on "Buy Now" click', async() => {
+    mockAxios.onGet('/products/1').reply(200, mockProduct);
+
+    renderComponent();
+
+    await waitFor(() => {
+      expect(screen.getByText(mockProduct.title)).toBeInTheDocument();
+    });
+
+    const user = userEvent.setup();
+    await user.click(screen.getByText('Buy Now'));
+
+    await waitFor(() =>{
+        expect(toast.success).toHaveBeenCalledWith("Product Added to cart");
+        expect(mockNavigate).toHaveBeenCalledWith('/cart');
+    });
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    expect(cart.length).toBe(1);
+    expect(cart[0].id).toBe(mockProduct.id);
+    expect(cart[0].quantity).toBe(1);
   });
 
 });
