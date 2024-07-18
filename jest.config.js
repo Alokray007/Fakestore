@@ -12,4 +12,25 @@ export default {
   },
 
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+
+  // jest-html-reporter - Report generator configuration
+  reporters: [
+    'default',
+    ['jest-html-reporter', {
+      pageTitle: 'Test Report',
+      outputPath: './test-report.html',
+      includeFailureMsg: true,
+      includeConsoleLog: true,
+    }],
+  ],
+
+  // Coverage reporter configuration
+  collectCoverage: true,
+  coverageDirectory: '<rootDir>/coverage',
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    '!src/**/*.d.ts',
+  ],
+  coverageReporters: ['html', 'text-summary'],
+
 };
