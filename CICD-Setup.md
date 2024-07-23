@@ -105,7 +105,7 @@ test:
 ### Test Job
 * Test Job: Runs on an Ubuntu environment (ubuntu-latest), employs a matrix strategy to test with different Node.js versions (20.x) and and depends on the successful completion of the build job (needs: build).
   * Checkout code: Checks out the repository code into the runner.
-  * Use Node.js: Sets up the specified Node.js version for the build.
+  * Use Node.js: Sets up the specified Node.js version for the test.
   * Install dependencies: Installs project dependencies using npm install.
   * Download production-ready build files: Uses actions/download-artifact to retrieve the previously uploaded production build artifacts (production-files) from the build job.
   * Test production-ready build files: Runs unit test on react components and checks for all pass test cases.
